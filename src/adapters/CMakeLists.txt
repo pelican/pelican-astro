@@ -1,22 +1,18 @@
-include_directories(
-    ${QT_INCLUDE_DIR}
-    ${QT_QTCORE_INCLUDE_DIR}
-    ${QT_QTXML_INCLUDE_DIR}
-)
-
-SUBPACKAGE(adapters utility data)
-
-set(adapters_src
-    src/AdapterLofarStationVisibilities.cpp
+set(adapters_SRC
     src/AdapterAntennaList.cpp
-    src/AdapterRealData.cpp
+    src/AdapterLofarStationVisibilities.cpp
 )
 
-SUBPACKAGE_LIBRARY(adapters ${adapters_src})
+include_directories(
+    ${QT_QTCORE_INCLUDE_DIR}
+)
 
-SUBPACKAGE_ADD_LIBRARIES(
+add_library(adapters ${adapters_SRC})
+
+target_link_libraries(adapters
     ${QT_QTCORE_LIBRARY}
 )
 
 # Recurse into test directory
 add_subdirectory(test)
+

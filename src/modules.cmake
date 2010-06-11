@@ -1,0 +1,5 @@
+add_subdirectory(adapters)
+add_subdirectory(chunkers)
+add_subdirectory(data)
+add_subdirectory(modules)
+add_subdirectory(pipelines)
