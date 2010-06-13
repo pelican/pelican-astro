@@ -40,9 +40,11 @@ include(dependencies)
 # === Set compiler options.
 include(compilerDefaults)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 # === Recurse into sub-diretories.
 include(modules.cmake)
 
 # === Build the pelican-astro library.
-## TODO
+
 

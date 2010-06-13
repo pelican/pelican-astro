@@ -13,6 +13,6 @@ target_link_libraries(adapters
     ${QT_QTCORE_LIBRARY}
 )
 
-# Recurse into test directory
-add_subdirectory(test)
+# Recurse into test directory.
+#add_subdirectory(test)
 

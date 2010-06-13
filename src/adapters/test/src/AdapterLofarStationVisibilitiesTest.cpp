@@ -1,7 +1,9 @@
-#include "AdapterLofarStationVisibilitiesTest.h"
-#include "pelican/adapters/test/VisGen.h"
-#include "pelican/adapters/AdapterLofarStationVisibilities.h"
-#include "pelican/data/VisibilityData.h"
+#include "adapters/test/AdapterLofarStationVisibilitiesTest.h"
+#include "adapters/test/VisGen.h"
+#include "adapters/AdapterLofarStationVisibilities.h"
+#include "data/VisibilityData.h"
+
+
 #include "pelican/utility/ConfigNode.h"
 #include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"

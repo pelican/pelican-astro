@@ -1,4 +1,4 @@
-#include "pelican/adapters/test/VisGen.h"
+#include "adapters/test/VisGen.h"
 #include <iomanip>
 #include <QString>
 

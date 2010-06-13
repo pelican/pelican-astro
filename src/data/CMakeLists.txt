@@ -1,28 +1,24 @@
-INCLUDE_DIRECTORIES(
+set(data_src
+    src/AntennaPositions.cpp
+    src/CorrectedVisibilityData.cpp
+    src/FlagTable.cpp
+    src/ImageData.cpp
+    src/ModelVisibilityData.cpp
+    src/VisibilityData.cpp
+    src/VisibilityPositions.cpp
+)
+
+include_directories(
     ${QT_INCLUDE_DIR}
     ${QT_QTCORE_INCLUDE_DIR}
     ${QT_QTXML_INCLUDE_DIR}
 )
 
-SUBPACKAGE(data utility)
+add_library(data ${data_src})
 
-set(data_src
-    src/AntennaPositions.cpp
-    src/CorrectedVisibilityData.cpp
-    src/DataBlob.cpp
-    src/DataRequirements.cpp
-    src/FlagTable.cpp
-    src/ImageData.cpp
-    src/ModelVisibilityData.cpp
-    src/RealData.cpp
-    src/VisibilityData.cpp
-    src/VisibilityPositions.cpp
-)
-
-SUBPACKAGE_LIBRARY(data ${data_src} )
-
-SUBPACKAGE_ADD_LIBRARIES(
+target_link_libraries(data
     ${QT_QTCORE_LIBRARY}
 )
 
-add_subdirectory(test)
+# Recurse into test directory.
+#add_subdirectory(test)

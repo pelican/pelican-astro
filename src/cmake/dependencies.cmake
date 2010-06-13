@@ -43,16 +43,11 @@ else (MKL_FOUND)
     set(pelican_math_libs ${LAPACK_LIBRARIES} ${CBLAS_LIBRARIES})
 endif (MKL_FOUND)
 
-# needed?
-include_directories(${CFITSIO_INCLUDE_DIR})
 
-# === List of all libraries for single library install.
-set(PROJECT_LIBRARIES
-    pelican
-    ${QT_QTCORE_LIBRARY}
-    ${QT_QTXML_LIBRARY}
-    ${QT_QTNETWORK_LIBRARY}
-    ${Boost_PROGRAM_OPTIONS_LIBRARY}
-    ${pelican_math_libs}
-    ${CFITSIO_LIBRARIES}
+message(STATUS "${QT_INCLUDE_DIR}")
+include_directories(
+    ${CFITSIO_INCLUDE_DIR}
+    ${QT_INCLUDES}
 )
+
+

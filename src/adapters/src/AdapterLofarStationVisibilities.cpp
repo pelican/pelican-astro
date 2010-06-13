@@ -1,5 +1,6 @@
-#include "pelican/adapters/AdapterLofarStationVisibilities.h"
-#include "pelican/data/VisibilityData.h"
+#include "adapters/AdapterLofarStationVisibilities.h"
+#include "data/VisibilityData.h"
+
 #include <QByteArray>
 #include <QIODevice>
 #include <iostream>
@@ -9,6 +10,7 @@
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_ADAPTER(AdapterLofarStationVisibilities)
 
@@ -159,4 +161,5 @@ void AdapterLofarStationVisibilities::_updateDimensions()
 }
 
 
+} // namespace astro
 } // namespace pelican

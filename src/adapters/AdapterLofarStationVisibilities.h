@@ -3,7 +3,7 @@
 
 #include "pelican/adapters/AbstractStreamAdapter.h"
 #include "pelican/utility/constants.h"
-#include <QDataStream>
+#include <QtCore/QDataStream>
 
 /**
  * @file AdapterLofarStationVisibilities.h
@@ -12,6 +12,9 @@
 namespace pelican {
 
 class ConfigNode;
+
+namespace astro {
+
 class VisibilityData;
 
 /**
@@ -67,6 +70,7 @@ class AdapterLofarStationVisibilities : public AbstractStreamAdapter
         VisibilityData* _vis;   ///< Pointer to visibility data blob being read into.
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // FILEADAPTERLOFARVISIBILITIES_H

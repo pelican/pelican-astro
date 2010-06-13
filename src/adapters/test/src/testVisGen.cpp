@@ -1,4 +1,4 @@
-#include "VisGen.h"
+#include "src/adapters/test/VisGen.h"
 
 /*
  * Small executable to generate a file with visibility data

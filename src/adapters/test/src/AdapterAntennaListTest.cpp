@@ -1,10 +1,12 @@
-#include "AdapterAntennaListTest.h"
-#include "pelican/adapters/AdapterAntennaList.h"
+#include "adapters/test/AdapterAntennaListTest.h"
+#include "adapters/AdapterAntennaList.h"
+
 #include "pelican/data/AntennaPositions.h"
 #include "pelican/utility/ConfigNode.h"
-#include <QCoreApplication>
-#include <QDomElement>
-#include <QFile>
+
+#include <QtCore/QCoreApplication>
+#include <QtXml/QDomElement>
+#include <QtCore/QFile>
 
 #include "pelican/utility/memCheck.h"
 
