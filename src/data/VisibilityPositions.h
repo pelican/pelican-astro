@@ -9,6 +9,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class VisibilityPositionsData
@@ -133,6 +134,7 @@ class VisibilityPositions : public DataBlob
         std::vector<real_t> _w; ///< w coordinate of visibility.
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // VISIBILITYPOSITIONS_H

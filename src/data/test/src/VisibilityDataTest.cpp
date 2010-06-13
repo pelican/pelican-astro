@@ -1,9 +1,11 @@
-#include "pelican/data/test/VisibilityDataTest.h"
-#include "pelican/data/VisibilityData.h"
+#include "data/test/VisibilityDataTest.h"
+#include "data/VisibilityData.h"
+
 #include "pelican/utility/constants.h"
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( VisibilityDataTest );
 // class VisibilityDataTest
@@ -213,4 +215,5 @@ void VisibilityDataTest::test_swap_twice()
     }
 }
 
+} // namespace astro
 } // namespace pelican

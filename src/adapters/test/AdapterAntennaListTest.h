@@ -10,6 +10,7 @@ class QCoreApplication;
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class AdapterAntennaListTest
@@ -41,6 +42,7 @@ class AdapterAntennaListTest : public CppUnit::TestFixture
         QCoreApplication *_app;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // ADAPTERANTENNALISTTEST_H

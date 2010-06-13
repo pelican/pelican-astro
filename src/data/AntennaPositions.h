@@ -9,6 +9,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class AntennaPositions
@@ -87,6 +88,7 @@ class AntennaPositions : public DataBlob
         std::vector<real_t> _z; ///< z coordinate of antenna position in metres.
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // ANTENNAPOSITIONS_H

@@ -1,7 +1,7 @@
-#ifndef CORRECTEDVISIBILITYDATA_H_
-#define CORRECTEDVISIBILITYDATA_H_
+#ifndef CORRECTED_VISIBILITY_DATA_H_
+#define CORRECTED_VISIBILITY_DATA_H_
 
-#include "pelican/data/VisibilityData.h"
+#include "data/VisibilityData.h"
 #include <vector>
 
 /**
@@ -9,6 +9,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class CorrectedVisibilityData
@@ -34,6 +35,7 @@ class CorrectedVisibilityData : public VisibilityData
         ~CorrectedVisibilityData() {}
 };
 
+} // namespace astro
 } // namespace pelican
 
-#endif // CORRECTEDVISIBILITYDATA_H_
+#endif // CORRECTED_VISIBILITY_DATA_H_

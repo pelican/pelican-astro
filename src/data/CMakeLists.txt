@@ -17,8 +17,9 @@ include_directories(
 add_library(data ${data_src})
 
 target_link_libraries(data
+    pelican
     ${QT_QTCORE_LIBRARY}
 )
 
 # Recurse into test directory.
-#add_subdirectory(test)
+add_subdirectory(test)

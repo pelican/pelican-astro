@@ -1,18 +1,19 @@
-#ifndef IMAGEDATA_H
-#define IMAGEDATA_H
+#ifndef IMAGE_DATA_H
+#define IMAGE_DATA_H
 
 #include "pelican/data/DataBlob.h"
 #include "pelican/utility/constants.h"
-#include <QString>
+
+#include <QtCore/QString>
 #include <vector>
 #include <cmath>
-//#include <boost/math/special_functions/fpclassify.hpp>
 
 /**
  * @file ImageData.h
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class ImageData
@@ -246,6 +247,7 @@ class ImageData : public DataBlob
         static bool _absSort(const real_t a, const real_t b);
 };
 
+} // namespace astro
 } // namespace pelican
 
-#endif // IMAGEDATA_H
+#endif // IMAGE_DATA_H

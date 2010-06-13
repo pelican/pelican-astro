@@ -1,6 +1,7 @@
-#include "pelican/data/VisibilityPositions.h"
+#include "data/VisibilityPositions.h"
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_DATABLOB(VisibilityPositions)
 
@@ -51,4 +52,5 @@ void VisibilityPositions::resize(const unsigned nAntennas)
    _w.resize(nBaselines);
 }
 
+} // namespace astro
 } // namespace pelican

@@ -1,8 +1,9 @@
-#include "pelican/data/test/VisibilityPositionsTest.h"
-#include "pelican/data/VisibilityPositions.h"
+#include "data/test/VisibilityPositionsTest.h"
+#include "data/VisibilityPositions.h"
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( VisibilityPositionsTest );
 // class DataRequirementsTest
@@ -69,5 +70,5 @@ void VisibilityPositionsTest::test_accessorMethods()
     }
 }
 
-
+} // namespace astro
 } // namespace pelican

@@ -7,6 +7,10 @@
  * @file AntennaPositionsTest.h
  */
 
+
+namespace pelican {
+namespace astro {
+
 /**
  * @class AntennaPositionsTest
  *  
@@ -17,8 +21,6 @@
  * Performs unit tests on the antenna positions data blob object
  * using the CppUnit framework.
  */
-
-namespace pelican {
 
 class AntennaPositionsTest : public CppUnit::TestFixture
 {
@@ -38,10 +40,9 @@ class AntennaPositionsTest : public CppUnit::TestFixture
     public:
         AntennaPositionsTest();
         ~AntennaPositionsTest();
-
-    private:
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // ANTENNAPOSITIONSTEST_H

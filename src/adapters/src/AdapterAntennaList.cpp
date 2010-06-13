@@ -1,10 +1,11 @@
-#include "pelican/adapters/AdapterAntennaList.h"
-#include "pelican/data/AntennaPositions.h"
-#include <QTextStream>
+#include "adapters/AdapterAntennaList.h"
+#include "data/AntennaPositions.h"
+#include <QtCore/QTextStream>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_ADAPTER(AdapterAntennaList)
 
@@ -54,4 +55,6 @@ void AdapterAntennaList::_setData()
     _antPos->resize(_nAnt);
 }
 
+
+} // namespace astro
 } // namespace pelican

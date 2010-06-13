@@ -7,6 +7,10 @@
  * @file VisibilityPositionsTest.h
  */
 
+
+namespace pelican {
+namespace astro {
+
 /**
  * @class VisibilityPositionsTest
  *  
@@ -17,8 +21,6 @@
  * Performs unit tests on the visibility positions data blob object
  * using the CppUnit framework.
  */
-
-namespace pelican {
 
 class VisibilityPositionsTest : public CppUnit::TestFixture
 {
@@ -38,10 +40,9 @@ class VisibilityPositionsTest : public CppUnit::TestFixture
     public:
         VisibilityPositionsTest();
         ~VisibilityPositionsTest();
-
-    private:
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // VISIBILITYPOSITIONSDATATEST_H

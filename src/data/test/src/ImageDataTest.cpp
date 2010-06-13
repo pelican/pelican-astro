@@ -1,11 +1,13 @@
-#include "pelican/data/test/ImageDataTest.h"
-#include "pelican/data/ImageData.h"
+#include "data/test/ImageDataTest.h"
+#include "data/ImageData.h"
+
 #include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( ImageDataTest );
 // class DataRequirementsTest
@@ -109,5 +111,5 @@ void ImageDataTest::test_accessorMethods()
     }
 }
 
-
+} // namespace astro
 } // namespace pelican

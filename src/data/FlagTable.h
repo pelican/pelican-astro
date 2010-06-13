@@ -1,7 +1,7 @@
 #ifndef FLAGTABLE_H
 #define FLAGTABLE_H
 
-#include "pelican/data/AntennaMatrixData.h"
+#include "data/AntennaMatrixData.h"
 #include <algorithm>
 #include <vector>
 
@@ -12,6 +12,7 @@ using std::vector;
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class FlagTable
@@ -243,6 +244,7 @@ class FlagTable : public AntennaMatrixData<unsigned char>
         }
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // FLAGTABLE_H

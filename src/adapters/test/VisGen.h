@@ -3,11 +3,11 @@
 
 #include "pelican/data/DataBlob.h"
 
-#include <QByteArray>
+#include <QtCore/QByteArray>
+
 #include <vector>
 #include <complex>
 #include <string>
-#include <iostream>
 #include <fstream>
 #include <cstdlib>
 
@@ -16,6 +16,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class VisGen
@@ -88,6 +89,7 @@ class VisGen
         std::vector<complex_t> _data; ///< The generated visibility data.
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // VISGEN_H

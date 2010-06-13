@@ -1,11 +1,14 @@
-#include "pelican/data/ImageData.h"
+#include "data/ImageData.h"
+
+#include <QtCore/QString>
+
 #include <algorithm>
-#include <QString>
 #include <iomanip>
 #include <iostream>
 #include <cfloat>
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_DATABLOB(ImageData)
 
@@ -165,4 +168,5 @@ bool ImageData::_absSort(const real_t a, const real_t b)
     return std::abs(a) < std::abs(b);
 }
 
+} // namespace astro
 } // namespace pelican

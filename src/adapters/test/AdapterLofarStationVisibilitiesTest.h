@@ -10,6 +10,7 @@ class QCoreApplication;
  */
 
 namespace pelican {
+namespace astro {
 
 class VisGen;
 
@@ -51,5 +52,7 @@ class AdapterLofarStationVisibilitiesTest : public CppUnit::TestFixture
         QCoreApplication *_app;
 };
 
+} // namespace astro
 } // namespace pelican
+
 #endif // ADAPTERLOFARSTATIONVISIBILITIESTEST_H

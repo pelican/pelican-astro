@@ -1,7 +1,7 @@
 #include "adapters/test/AdapterAntennaListTest.h"
 #include "adapters/AdapterAntennaList.h"
+#include "data/AntennaPositions.h"
 
-#include "pelican/data/AntennaPositions.h"
 #include "pelican/utility/ConfigNode.h"
 
 #include <QtCore/QCoreApplication>
@@ -11,8 +11,11 @@
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( AdapterAntennaListTest );
+
+
 /**
  *@details AdapterAntennaListTest
  */
@@ -53,4 +56,5 @@ void AdapterAntennaListTest::test_method()
     delete adapter;
 }
 
+} // namespace astro
 } // namespace pelican

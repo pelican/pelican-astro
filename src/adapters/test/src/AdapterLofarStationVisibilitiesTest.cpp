@@ -8,17 +8,19 @@
 #include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
 
-#include <QCoreApplication>
-#include <QString>
-#include <QFile>
-#include <QDataStream>
-#include <QBuffer>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QString>
+#include <QtCore/QFile>
+#include <QtCore/QDataStream>
+#include <QtCore/QBuffer>
+
 #include <iostream>
 #include <iomanip>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( AdapterLofarStationVisibilitiesTest );
 // class FileAdapterLofarVisibilitiesTest
@@ -171,4 +173,5 @@ void AdapterLofarStationVisibilitiesTest::test_deserialise_file()
     file.remove();
 }
 
+} // namespace astro
 } // namespace pelican

@@ -1,10 +1,12 @@
-#include "pelican/data/test/FlagTableTest.h"
-#include "pelican/data/FlagTable.h"
+#include "data/test/FlagTableTest.h"
+#include "data/FlagTable.h"
+
 #include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( FlagTableTest );
 // class FlagTableTest
@@ -303,4 +305,5 @@ void FlagTableTest::test_resize()
     CPPUNIT_ASSERT( ptr  != NULL );
 }
 
+} // namespace astro
 } // namespace pelican

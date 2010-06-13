@@ -7,6 +7,9 @@
  * @file ImageDataTest.h
  */
 
+namespace pelican {
+namespace astro {
+
 /**
  * @class ImageDataTest
  *  
@@ -17,8 +20,6 @@
  * Performs unit tests on the image data blob object
  * using the CppUnit framework.
  */
-
-namespace pelican {
 
 class ImageDataTest : public CppUnit::TestFixture
 {
@@ -42,6 +43,7 @@ class ImageDataTest : public CppUnit::TestFixture
     private:
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // IMAGEDATATEST_H_

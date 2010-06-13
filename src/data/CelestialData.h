@@ -9,6 +9,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class CelestialData
@@ -29,12 +30,13 @@ namespace pelican {
 class CelestialData
 {
     public:
-        double UT1;        ///< UT1 time as Modified Julian Date.
+        double UT1;       ///< UT1 time as Modified Julian Date.
         Vector2d ERA;      ///< Cosine and sine of Earth Rotation Angle.
         Vector2d sol;      ///< Cosine and sine of solar longitude.
         Vector3d pole;     ///< Coordinates of Celestial Intermediate Pole.
 };
 
+} // namespace astro
 } // namespace pelican
 
-#endif /* TERRESTRIALDATA_H_ */
+#endif // TERRESTRIALDATA_H_

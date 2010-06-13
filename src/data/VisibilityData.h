@@ -1,13 +1,14 @@
 #ifndef VISIBILITYDATA_H
 #define VISIBILITYDATA_H
 
-#include "pelican/data/AntennaMatrixData.h"
+#include "data/AntennaMatrixData.h"
 
 /**
  * @file VisibilityData.h
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class VisibilityData
@@ -37,6 +38,7 @@ class VisibilityData : public AntennaMatrixData<complex_t>
         ~VisibilityData() {}
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // VISIBILITYDATA_H

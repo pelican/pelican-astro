@@ -1,10 +1,13 @@
 #include "adapters/test/VisGen.h"
+#include <QtCore/QString>
+
+#include <iostream>
 #include <iomanip>
-#include <QString>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 /**
  * @details
@@ -185,4 +188,5 @@ void VisGen::_generate(int nAnt, int nChan, int nPol)
     } // loop over channels
 }
 
+} // namespace astro
 } // namespace pelican

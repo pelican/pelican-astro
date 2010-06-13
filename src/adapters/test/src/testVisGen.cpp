@@ -4,7 +4,7 @@
  * Small executable to generate a file with visibility data
  */
 
-using namespace pelican;
+using namespace pelican::astro;
 
 int main(int argc, char** argv)
 {

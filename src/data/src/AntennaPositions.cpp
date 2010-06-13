@@ -1,6 +1,7 @@
-#include "pelican/data/AntennaPositions.h"
+#include "data/AntennaPositions.h"
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_DATABLOB(AntennaPositions)
 
@@ -28,4 +29,5 @@ void AntennaPositions::resize(const unsigned int nAntennas)
    _z.resize(nAntennas);
 }
 
+} // namespace astro
 } // namespace pelican

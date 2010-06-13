@@ -11,6 +11,9 @@
 namespace pelican {
 
 class ConfigNode;
+
+namespace astro {
+
 class AntennaPositions;
 
 /**
@@ -39,6 +42,7 @@ class AdapterAntennaList : public AbstractServiceAdapter
         AntennaPositions* _antPos;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // ADAPTERANTENNALIST_H

@@ -1,9 +1,10 @@
-#include "pelican/data/test/AntennaPositionsTest.h"
-#include "pelican/data/AntennaPositions.h"
+#include "data/test/AntennaPositionsTest.h"
+#include "data/AntennaPositions.h"
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( AntennaPositionsTest );
 // class DataRequirementsTest
@@ -68,4 +69,5 @@ void AntennaPositionsTest::test_accessorMethods()
 }
 
 
+} // namespace astro
 } // namespace pelican

@@ -1,8 +1,8 @@
-#ifndef MODELVISIBILITYDATA_H_
-#define MODELVISIBILITYDATA_H_
+#ifndef MODEL_VISIBILITYDATA_H_
+#define MODEL_VISIBILITYDATA_H_
 
-#include "pelican/data/VisibilityData.h"
-#include "pelican/data/Source.h"
+#include "data/VisibilityData.h"
+#include "data/Source.h"
 #include <vector>
 
 /**
@@ -10,6 +10,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class ModelVisibilityData
@@ -44,9 +45,9 @@ class ModelVisibilityData : public VisibilityData
 
     private:
         std::vector<Source> _sources;
-
 };
 
+} // namespace astro
 } // namespace pelican
 
-#endif // MODELVISIBILITYDATA_H_
+#endif // MODEL_VISIBILITYDATA_H_

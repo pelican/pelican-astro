@@ -7,6 +7,9 @@
  * @file FlagTableTest.h
  */
 
+namespace pelican {
+namespace astro {
+
 /**
  * @class FlagTableTest
  *  
@@ -17,7 +20,6 @@
  * Performs unit tests on the flag data blob object
  * using the CppUnit framework.
  */
-namespace pelican {
 
 class FlagTableTest : public CppUnit::TestFixture
 {
@@ -53,10 +55,9 @@ class FlagTableTest : public CppUnit::TestFixture
     public:
         FlagTableTest();
         ~FlagTableTest();
-
-    private:
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // FLAGTABLETEST_H_

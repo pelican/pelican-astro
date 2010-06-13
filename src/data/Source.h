@@ -6,6 +6,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 
 /**
@@ -86,6 +87,7 @@ class Source
         double _amp2;
 };
 
+} // namespace astro
 } // namespace pelican
 
-#endif /* SOURCE_H_ */
+#endif // SOURCE_H_

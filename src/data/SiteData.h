@@ -8,6 +8,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class SiteData
@@ -47,6 +48,7 @@ class SiteData
         Vector2d polarMotion; ///< The x- and y-components of polar motion.
 };
 
+} // namespace astro
 } // namespace pelican
 
-#endif /* SITEDATA_H_ */
+#endif // SITEDATA_H_

@@ -11,6 +11,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class AntennaMatrixData
@@ -274,8 +275,6 @@ template<typename T> class AntennaMatrixData : public DataBlob
             _antIndex[a2] = tmp;
         }
 
-
-
     public: // operators
 
         /// Dereferences the data for the given index \p i.
@@ -291,6 +290,7 @@ template<typename T> class AntennaMatrixData : public DataBlob
         const T& operator[] (const unsigned i) const { return _data[i]; }
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // ANTENNAMATRIXDATA_H
