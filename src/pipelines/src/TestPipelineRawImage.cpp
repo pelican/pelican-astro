@@ -1,16 +1,17 @@
-#include "pelican/pipelines/TestPipelineRawImage.h"
+#include "pipelines/TestPipelineRawImage.h"
 
-#include "pelican/modules/ZenithImagerDft.h"
-#include "pelican/modules/ImageWriterFits.h"
-#include "pelican/data/AntennaPositions.h"
-#include "pelican/data/VisibilityData.h"
-#include "pelican/data/ImageData.h"
+#include "modules/ZenithImagerDft.h"
+#include "modules/ImageWriterFits.h"
+#include "data/AntennaPositions.h"
+#include "data/VisibilityData.h"
+#include "data/ImageData.h"
 
 #include <iostream>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 
 /**
@@ -62,4 +63,5 @@ void TestPipelineRawImage::run(QHash<QString, DataBlob*>& remoteData)
     stop();
 }
 
+} // namespace astro
 } // namespace pelican

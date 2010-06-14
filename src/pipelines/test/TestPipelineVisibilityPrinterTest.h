@@ -10,6 +10,7 @@
 class QCoreApplication;
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class TestPipelineVisibilityPrinterTest
@@ -47,6 +48,7 @@ class TestPipelineVisibilityPrinterTest : public CppUnit::TestFixture
         QCoreApplication *_app;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // TESTPIPELINEVISIBILITYPRINTERTEST_H

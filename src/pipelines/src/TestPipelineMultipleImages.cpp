@@ -1,18 +1,18 @@
-#include "pelican/pipelines/TestPipelineMultipleImages.h"
+#include "pipelines/TestPipelineMultipleImages.h"
 
-#include "pelican/modules/ZenithImagerDft.h"
-#include "pelican/modules/ImageWriterFits.h"
-#include "pelican/modules/ZenithModelVisibilities.h"
-#include "pelican/data/ImageData.h"
-#include "pelican/data/ModelVisibilityData.h"
-#include "pelican/data/AntennaPositions.h"
+#include "modules/ZenithImagerDft.h"
+#include "modules/ImageWriterFits.h"
+#include "modules/ZenithModelVisibilities.h"
+#include "data/ImageData.h"
+#include "data/ModelVisibilityData.h"
+#include "data/AntennaPositions.h"
 
 #include <iostream>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
-
+namespace astro {
 
 /**
  * @details
@@ -71,4 +71,5 @@ void TestPipelineMultipleImages::run(QHash<QString, DataBlob*>& remoteData)
     stop();
 }
 
+} // namespace astro
 } // namespace pelican

@@ -1,14 +1,18 @@
-#include "pelican/pipelines/test/TestPipelineRawImageTest.h"
+#include "pipelines/test/TestPipelineRawImageTest.h"
+#include "pipelines/TestPipelineRawImage.h"
+
 #include "pelican/core/PipelineApplication.h"
 #include "pelican/core/AbstractPipeline.h"
-#include "pelican/pipelines/TestPipelineRawImage.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/TestConfig.h"
-#include <QCoreApplication>
+
+#include <QtCore/QCoreApplication>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
+
 
 CPPUNIT_TEST_SUITE_REGISTRATION( TestPipelineRawImageTest );
 /**
@@ -52,4 +56,5 @@ void TestPipelineRawImageTest::test_method()
     TIMER_STOP("TestPipelineRawImageTest");
 }
 
+} // namespace astro
 } // namespace pelican

@@ -2,8 +2,8 @@
 #define TESTPIPELINERAWIMAGE_H
 
 #include "pelican/core/AbstractPipeline.h"
-#include <QString>
-#include <QHash>
+#include <QtCore/QString>
+#include <QtCore/QHash>
 
 /**
  * @file TestPipelineRawImage.h
@@ -12,6 +12,9 @@
 namespace pelican {
 
 class DataBlob;
+
+namespace astro {
+
 class ZenithImagerDft;
 class ImageWriterFits;
 class ImageData;
@@ -42,6 +45,7 @@ class TestPipelineRawImage : public AbstractPipeline
         ImageData* _image;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // TESTPIPELINERAWIMAGE_H

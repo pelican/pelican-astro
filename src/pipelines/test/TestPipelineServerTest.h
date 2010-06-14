@@ -2,7 +2,7 @@
 #define TESTPIPELINESERVERTEST_H
 
 #include <cppunit/extensions/HelperMacros.h>
-#include <QThread>
+#include <QtCore/QThread>
 
 /**
  * @file TestPipelineServerTest.h
@@ -12,6 +12,8 @@ namespace pelican {
 
 class ConfigNode;
 class TestConfig;
+
+namespace astro {
 
 /**
  * @class TestPipelineServerTest
@@ -60,12 +62,13 @@ class PipelineBinaryEmulator : public QThread
 
     public:
         PipelineBinaryEmulator(TestConfig *config) : QThread(),
-        _config(config) {start();}
+        _config(config) { start(); }
 
     protected:
         void run();
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // TESTPIPELINESERVERTEST_H

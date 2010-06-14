@@ -1,14 +1,17 @@
-#include "pelican/pipelines/TestPipelineCalibrateImage.h"
-#include "pelican/pipelines/test/TestPipelineCalibrateImageTest.h"
+#include "pipelines/TestPipelineCalibrateImage.h"
+#include "pipelines/test/TestPipelineCalibrateImageTest.h"
+
 #include "pelican/core/PipelineApplication.h"
 #include "pelican/core/AbstractPipeline.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/TestConfig.h"
-#include <QCoreApplication>
+
+#include <QtCore/QCoreApplication>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( TestPipelineCalibrateImageTest );
 /**
@@ -53,4 +56,5 @@ void TestPipelineCalibrateImageTest::test_method()
     TIMER_STOP("TestPipelineCalibrateImageTest");
 }
 
+} // namespace astro
 } // namespace pelican

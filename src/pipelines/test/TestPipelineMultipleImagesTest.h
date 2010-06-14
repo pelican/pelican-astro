@@ -10,6 +10,8 @@
 class QCoreApplication;
 
 namespace pelican {
+namespace astro {
+
 
 /**
  * @class TestPipelineMultipleImagesTest
@@ -42,5 +44,8 @@ class TestPipelineMultipleImagesTest : public CppUnit::TestFixture
         QCoreApplication *_app;
 };
 
+
+} // namespace astro
 } // namespace pelican
+
 #endif // TESTPIPELINEMULTIPLEIMAGESTEST_H

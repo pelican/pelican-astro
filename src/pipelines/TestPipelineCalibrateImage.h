@@ -2,8 +2,8 @@
 #define TESTPIPELINECALIBRATEIMAGE_H
 
 #include "pelican/core/AbstractPipeline.h"
-#include <QString>
-#include <QHash>
+#include <QtCore/QString>
+#include <QtCore/QHash>
 
 /**
  * @file TestPipelineCalibrateImage.h
@@ -12,6 +12,9 @@
 namespace pelican {
 
 class DataBlob;
+
+namespace astro {
+
 class ZenithImagerDft;
 class ImageWriterFits;
 class ZenithModelVisibilities;
@@ -60,6 +63,7 @@ class TestPipelineCalibrateImage : public AbstractPipeline
         ImageData* _diffImage;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // TESTPIPELINECALIBRATEIMAGE_H

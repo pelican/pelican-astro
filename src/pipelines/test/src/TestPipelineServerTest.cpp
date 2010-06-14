@@ -1,14 +1,16 @@
-#include "pelican/pipelines/test/TestPipelineServerTest.h"
+#include "pipelines/test/TestPipelineServerTest.h"
+#include "pipelines/TestPipelineServer.h"
+
+#include "pelican/serverTest/TestChunker.h"
+#include "pelican/serverTest/TestUdpChunker.h"
+
 #include "pelican/core/PipelineApplication.h"
-#include "pelican/pipelines/TestPipelineServer.h"
 #include "pelican/server/PelicanServer.h"
-#include "pelican/server/test/TestChunker.h"
 #include "pelican/comms/PelicanProtocol.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/TestConfig.h"
 #include "pelican/testutils/EmulatorDriver.h"
 #include "pelican/testutils/RealUdpEmulator.h"
-#include "pelican/server/test/TestUdpChunker.h"
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTimer>
 #include "pelican/utility/Config.h"
@@ -16,6 +18,7 @@
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( TestPipelineServerTest );
 
@@ -254,4 +257,5 @@ void PipelineBinaryEmulator::run()
     pApp.start();
 }
 
+} // namespace astro
 } // namespace pelican

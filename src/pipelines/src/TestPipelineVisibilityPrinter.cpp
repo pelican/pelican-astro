@@ -1,10 +1,11 @@
-#include "pelican/pipelines/TestPipelineVisibilityPrinter.h"
-#include "pelican/modules/VisibilityPrinter.h"
-#include "pelican/data/VisibilityData.h"
+#include "pipelines/TestPipelineVisibilityPrinter.h"
+#include "modules/VisibilityPrinter.h"
+#include "data/VisibilityData.h"
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 
 /**
@@ -48,4 +49,5 @@ void TestPipelineVisibilityPrinter::run(QHash<QString, DataBlob*>& remoteData)
     stop();
 }
 
+} // namespace astro
 } // namespace pelican

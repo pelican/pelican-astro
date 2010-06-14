@@ -1,16 +1,20 @@
-#include "pelican/pipelines/test/TestPipelineVisibilityPrinterTest.h"
+#include "pipelines/test/TestPipelineVisibilityPrinterTest.h"
+#include "pipelines/TestPipelineVisibilityPrinter.h"
+
 #include "pelican/core/PipelineApplication.h"
 #include "pelican/core/AbstractPipeline.h"
-#include "pelican/pipelines/TestPipelineVisibilityPrinter.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/TestConfig.h"
-#include <QCoreApplication>
+
+#include <QtCore/QCoreApplication>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( TestPipelineVisibilityPrinterTest );
+
 // class TestPipelineVisibilityPrinterTest
 TestPipelineVisibilityPrinterTest::TestPipelineVisibilityPrinterTest()
 : CppUnit::TestFixture()
@@ -71,4 +75,5 @@ void TestPipelineVisibilityPrinterTest::_createConfig()
     config.saveTestConfig("TestPipelineVisibilityPrinter.xml", "pipelines");
 }
 
+} // namespace astro
 } // namespace pelican
