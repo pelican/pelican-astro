@@ -10,6 +10,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 class BasicFlagger;
 
@@ -55,5 +56,6 @@ class BasicFlaggerTest : public CppUnit::TestFixture
         BasicFlagger* _basicFlagger;
 };
 
+} // namespace astro
 } // namespace pelican
 #endif // BASICFLAGGERTEST_H 

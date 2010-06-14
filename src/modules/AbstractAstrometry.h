@@ -6,6 +6,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 class SiteData;
 class CelestialData;
@@ -53,6 +54,7 @@ class AbstractAstrometry
                 double polarMotionY = 0);
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // ABSTRACTASTROMETRY_H 

@@ -24,9 +24,13 @@ set_target_properties(modules PROPERTIES
 )
 
 target_link_libraries(modules
+    pelican
+    data
+    ${QT_QTCORE_LIBRARY}
+    ${QT_QTXML_LIBRARY}
     ${pelican_math_libs}
     ${CFITSIO_LIBRARIES}
 )
 
 # Recurse into test directory.
-#add_subdirectory(test)
+add_subdirectory(test)

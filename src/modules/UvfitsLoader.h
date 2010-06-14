@@ -1,5 +1,5 @@
-#ifndef UVFITSLOADER_H_
-#define UVFITSLOADER_H_
+#ifndef UVFITS_LOADER_H_
+#define UVFITS_LOADER_H_
 
 /**
  * @file uvfitsLoader.h
@@ -8,20 +8,21 @@
 #include "pelican/modules/AbstractModule.h"
 #include <fitsio.h>
 #include <vector>
-#include <QMultiHash>
-#include <QString>
 
+#include <QtCore/QMultiHash>
+#include <QtCore/QString>
 
 namespace pelican {
+namespace astro {
 
 /**
- * @class uvfitsLoader
+ * @class UvfitsLoader
  *
  * @brief
  * Module to load random groups UV FITS format visibility data files.
  *
  * @details
- * Wrapper on CFITSIO to load UVFITS files into a pelican visibility data
+ * Wrapper on CFITSIO to load UVFITS files into a Pelican visibility data
  * blob.
  * http://heasarc.nasa.gov/docs/software/fitsio/fitsio.html
  *
@@ -29,7 +30,7 @@ namespace pelican {
  * Make this an adapter?
  */
 
-class uvfitsLoader: public pelican::AbstractModule
+class UvfitsLoader: public pelican::AbstractModule
 {
     public:
         typedef enum { SORT_TIME_BASELINE, SORT_UNDEF } uvSort;
@@ -38,10 +39,10 @@ class uvfitsLoader: public pelican::AbstractModule
     public:
 
         /// Module constructor
-        uvfitsLoader(const ConfigNode& config);
+        UvfitsLoader(const ConfigNode& config);
 
         /// Module destructor
-        virtual ~uvfitsLoader();
+        virtual ~UvfitsLoader();
 
         /// Loads the UV fits file into the visibility data.
         void run(VisibilityData* rawVis);
@@ -77,18 +78,15 @@ class uvfitsLoader: public pelican::AbstractModule
 
         /// Read number of long type header keywords.
         /// ie. NAXIS<*> keywords
-        void _readKeysLng(const QString key,
-                const int start, const int end,
+        void _readKeysLng(const QString key, int start, int end,
                 std::vector<long>& values) const;
 
         /// Read a number of double header keywords.
-        void _readKeysDbl(const QString key,
-                const int start, const int end,
+        void _readKeysDbl(const QString key, int start, int end,
                 std::vector<double>& values) const;
 
         /// Read a number of string type header keywords.
-        void _readKeysStr(const QString key,
-                const int start, const int end,
+        void _readKeysStr(const QString key, int start, int end,
                 std::vector<QString>& values) const;
 
     private:
@@ -130,12 +128,9 @@ class uvfitsLoader: public pelican::AbstractModule
         QMultiHash<QString, unsigned> _parameters;
 
         uvSort _sortOrder;
-
-    private: // FITS UV data
-
-
 };
 
-}
+} // namespace astro
+} // namespace pelican
 
-#endif /* UVFITSLOADER_H_ */
+#endif // UVFITS_LOADER_H_

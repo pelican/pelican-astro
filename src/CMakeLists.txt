@@ -1,6 +1,6 @@
 # === Set the project name and specify the required CMAKE version.
 project(pelican-astro CXX C)
-cmake_minimum_required(VERSION 2.4 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
 # === Set the project version.
 set(${PROJECT_NAME}_MAJOR_VERSION 0)

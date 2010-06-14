@@ -1,11 +1,12 @@
 #include "adapters/AdapterLofarStationVisibilities.h"
 #include "data/VisibilityData.h"
 
-#include <QByteArray>
-#include <QIODevice>
+#include <QtCore/QByteArray>
+#include <QtCore/QIODevice>
+#include <QtCore/QStringList>
+
 #include <iostream>
 #include <iomanip>
-#include <QStringList>
 
 #include "pelican/utility/memCheck.h"
 

@@ -1,10 +1,11 @@
 #ifndef IMAGECOMBINER_H
 #define IMAGECOMBINER_H
 
+#include "data/ImageData.h"
+
 #include "pelican/modules/AbstractModule.h"
 #include "pelican/utility/ConfigNode.h"
 #include "pelican/utility/constants.h"
-#include "pelican/data/ImageData.h"
 
 /**
  * @file ImageCombiner.h
@@ -13,6 +14,8 @@
 namespace pelican {
 
 class ConfigNode;
+
+namespace astro {
 
 /**
  * @class ImageCombiner
@@ -78,6 +81,7 @@ class ImageCombiner : public AbstractModule
         Polarisation _polOutput;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // IMAGECOMBINER_H

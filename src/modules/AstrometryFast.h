@@ -1,9 +1,10 @@
-#ifndef ASTROMETRYFAST_H
-#define ASTROMETRYFAST_H
+#ifndef ASTROMETRY_FAST_H
+#define ASTROMETRY_FAST_H
 
-#include "pelican/modules/AbstractAstrometry.h"
-#include "pelican/data/CelestialData.h"
-#include "pelican/data/SiteData.h"
+#include "modules/AbstractAstrometry.h"
+#include "data/CelestialData.h"
+#include "data/SiteData.h"
+
 #include "pelican/data/Vector2.h"
 #include "pelican/data/Vector3.h"
 
@@ -12,6 +13,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class AstrometryFast
@@ -52,11 +54,13 @@ class AstrometryFast : public AbstractAstrometry
     public:
         /// Converts ICRS equatorial to observed horizontal coordinates.
         void icrsEquatorialToObserved(const SiteData* t,
-                const CelestialData* c, double ra, double dec, double* a, double* e);
+                const CelestialData* c, double ra, double dec, double* a,
+                double* e);
 
         /// Converts observed horizontal to ICRS equatorial coordinates.
         void icrsEquatorialFromObserved(const SiteData* t,
-                const CelestialData* c, double az, double el, double* r, double* d);
+                const CelestialData* c, double az, double el, double* r,
+                double* d);
 
         /// Populates the celestial parameters data structure.
         void setCelestialParameters(CelestialData* c, const SiteData* t,
@@ -73,7 +77,8 @@ class AstrometryFast : public AbstractAstrometry
         double _daysSinceJ2000(double ut);
 
         /// Computes the Earth Rotation Angle (ERA).
-        double _earthRotationAngle(double t, double longitude, Vector2d* theta);
+        double _earthRotationAngle(double t, double longitude,
+        		Vector2d* theta);
 
         /// Applies Earth rotation correction from CIRS to TIRS.
         void _earthRotationFromCirs(Vector2d theta, Vector3d* v);
@@ -97,6 +102,7 @@ class AstrometryFast : public AbstractAstrometry
         double _solarLongitude(double t, Vector2d* lambda);
 };
 
+} // namespace astro
 } // namespace pelican
 
-#endif // ASTROMETRYFAST_H
+#endif // ASTROMETRY_FAST_H

@@ -1,10 +1,12 @@
-#include "pelican/modules/AstrometryFast.h"
+#include "modules/AstrometryFast.h"
+
 #include "pelican/utility/constants.h"
 #include <cmath>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 /**
  * @details
@@ -453,4 +455,5 @@ double AstrometryFast::_solarLongitude(double t, Vector2d* lambda)
     return longitude;
 }
 
+} // namespace astro
 } // namespace pelican

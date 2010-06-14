@@ -1,14 +1,18 @@
-#include "AstrometryFastTest.h"
-#include "pelican/modules/AstrometryFast.h"
+#include "modules/test/AstrometryFastTest.h"
+#include "modules/AstrometryFast.h"
+
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/constants.h"
+
 #include <iostream>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( AstrometryFastTest );
+
 // class AstrometryFastTest
 AstrometryFastTest::AstrometryFastTest()
     : CppUnit::TestFixture()
@@ -204,4 +208,5 @@ void AstrometryFastTest::test_icrsEquatorialFromObserved()
     }
 }
 
+} // namespace astro
 } // namespace pelican

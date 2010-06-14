@@ -10,9 +10,10 @@ include_directories(
 add_library(adapters ${adapters_SRC})
 
 target_link_libraries(adapters
+    data
     ${QT_QTCORE_LIBRARY}
 )
 
 # Recurse into test directory.
-#add_subdirectory(test)
+add_subdirectory(test)
 

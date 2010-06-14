@@ -1,21 +1,24 @@
-#include "pelican/modules/ZenithModelVisibilities.h"
+#include "modules/ZenithModelVisibilities.h"
 
-#include "pelican/modules/AstrometryFast.h"
+#include "modules/AstrometryFast.h"
+#include "data/ModelVisibilityData.h"
+#include "data/AntennaPositions.h"
+#include "data/Source.h"
+
 #include "pelican/data/DataBlob.h"
-#include "pelican/data/ModelVisibilityData.h"
-#include "pelican/data/AntennaPositions.h"
-#include "pelican/data/Source.h"
 #include "pelican/utility/pelicanTimer.h"
 
-#include <QHash>
-#include <QString>
-#include <QStringList>
+#include <QtCore/QHash>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+
 #include <iostream>
 #include <cmath>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_MODULE(ZenithModelVisibilities)
 
@@ -108,8 +111,8 @@ void ZenithModelVisibilities::run(AntennaPositions* antPos,
  * @param[in,out] l      Preallocated array of l-positions (length nSources).
  * @param[in,out] m      Preallocated array of m-positions (length nSources).
  */
-void ZenithModelVisibilities::_calculateDirectionCosines (
-        const unsigned nSources, const Source* sources, double* l, double* m)
+void ZenithModelVisibilities::_calculateDirectionCosines(
+        unsigned nSources, const Source* sources, double* l, double* m)
 {
     // Calculate l and m values for the sources.
     for (unsigned i = 0; i < nSources; i++) {
@@ -156,10 +159,9 @@ void ZenithModelVisibilities::_calculateDirectionCosines (
  * @param[in]  m            Array of source m-positions (length nSources).
  */
 void ZenithModelVisibilities::_calculateModelVis(complex_t* vis,
-        const unsigned nAnt, const real_t* antPosX, const real_t* antPosY,
-        const Source* sources, const unsigned nSources, const double frequency,
-        const Polarisation polarisation,
-        const double* l, const double* m)
+        unsigned nAnt, const real_t* antPosX, const real_t* antPosY,
+        const Source* sources, unsigned nSources, double frequency,
+        Polarisation polarisation, const double* l, const double* m)
 {
     double k = (math::twoPi * frequency) / phy::c;
 
@@ -187,7 +189,6 @@ void ZenithModelVisibilities::_calculateModelVis(complex_t* vis,
         }
     }
 }
-
 
 
 /**
@@ -282,7 +283,9 @@ void ZenithModelVisibilities::_getConfiguration(const ConfigNode& config)
      siteLatitude *= math::deg2rad;
      double deltaUT = config.getOption("deltaUT", "value", "0").toDouble();
      double pressure = config.getOption("pressure", "value", "1000").toDouble();
-     _astrometry->setSiteParameters(&_siteData, siteLongitude, siteLatitude, deltaUT, pressure);
+     _astrometry->setSiteParameters(&_siteData, siteLongitude, siteLatitude,
+    		 deltaUT, pressure);
 }
 
+} // namespace astro
 } // namespace pelican

@@ -1,10 +1,12 @@
 #ifndef BASICFLAGGER_H
 #define BASICFLAGGER_H
 
+#include "data/VisibilityData.h"
+#include "data/FlagTable.h"
+
 #include "pelican/modules/AbstractModule.h"
-#include "pelican/data/VisibilityData.h"
-#include "pelican/data/FlagTable.h"
 #include "pelican/utility/ConfigNode.h"
+
 #include <vector>
 
 /**
@@ -12,6 +14,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class BasicFlagger
@@ -73,6 +76,7 @@ class BasicFlagger : public AbstractModule
 
 bool complexCompareAbs(complex_t i, complex_t j);
 
+} // namespace astro
 } // namespace pelican
 
 #endif // BASICFLAGGER_H

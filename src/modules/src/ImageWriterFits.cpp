@@ -1,19 +1,21 @@
-#include "pelican/modules/ImageWriterFits.h"
+#include "modules/ImageWriterFits.h"
+#include "data/ImageData.h"
 
 #include "pelican/utility/constants.h"
 #include "pelican/utility/ConfigNode.h"
-#include "pelican/data/ImageData.h"
 
-#include <QDateTime>
-#include <QFile>
-#include <QFileInfo>
-#include <QDir>
+#include <QtCore/QDateTime>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QDir>
+
 #include <typeinfo>
 #include <iostream>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_MODULE(ImageWriterFits)
 
@@ -487,4 +489,5 @@ void ImageWriterFits::_writeComment(const QString& text)
 }
 
 
+} // namespace astro
 } // namespace pelican
