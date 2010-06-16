@@ -18,20 +18,20 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE debug)
 endif(NOT CMAKE_BUILD_TYPE)
 
-if(NOT PELICAN_INSTALL_DIR)
-    set(PELICAN_INSTALL_DIR "pelican")
-endif(NOT PELICAN_INSTALL_DIR )
+if(NOT PELICAN_ASTRO_INSTALL_DIR)
+    set(PELICAN_ASTRO_INSTALL_DIR "pelican-astro")
+endif(NOT PELICAN_ASTRO_INSTALL_DIR )
 
 if(NOT LIBRARY_INSTALL_DIR)
-    set(LIBRARY_INSTALL_DIR ${PELICAN_INSTALL_DIR}/lib)
+    set(LIBRARY_INSTALL_DIR ${PELICAN_ASTRO_INSTALL_DIR}/lib)
 endif(NOT LIBRARY_INSTALL_DIR)
 
 if(NOT BINARY_INSTALL_DIR)
-    set(BINARY_INSTALL_DIR ${PELICAN_INSTALL_DIR}/bin)
+    set(BINARY_INSTALL_DIR ${PELICAN_ASTRO_INSTALL_DIR}/bin)
 endif(NOT BINARY_INSTALL_DIR)
 
 if(NOT DOC_INSTALL_DIR)
-    set(DOC_INSTALL_DIR ${PELICAN_INSTALL_DIR}/doc)
+    set(DOC_INSTALL_DIR ${PELICAN_ASTRO_INSTALL_DIR}/doc)
 endif(NOT DOC_INSTALL_DIR)
 
 # === Set dependencies.
@@ -46,5 +46,14 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include(modules.cmake)
 
 # === Build the pelican-astro library.
+add_library(pelican-astro SHARED data adapters modules)
+set_target_properties(pelican-astro PROPERTIES LINKER_LANGUAGE CXX)
+add_dependencies(pelican-astro data adapters modules)
+target_link_libraries(pelican-astro data adapters modules)
+set_target_properties(pelican-astro PROPERTIES 
+    COMPILE_FLAGS "${OpenMP_CXX_FLAGS}"
+    LINK_FLAGS "${OpenMP_CXX_FLAGS}"
+)
 
+add_subdirectory(pipelines)
 

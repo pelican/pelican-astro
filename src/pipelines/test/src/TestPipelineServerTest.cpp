@@ -1,8 +1,8 @@
 #include "pipelines/test/TestPipelineServerTest.h"
 #include "pipelines/TestPipelineServer.h"
 
-#include "pelican/serverTest/TestChunker.h"
-#include "pelican/serverTest/TestUdpChunker.h"
+#include "pelican/testutils/TestChunker.h"
+#include "pelican/testutils/TestUdpChunker.h"
 
 #include "pelican/core/PipelineApplication.h"
 #include "pelican/server/PelicanServer.h"

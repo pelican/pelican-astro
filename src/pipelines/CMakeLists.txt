@@ -13,9 +13,10 @@ add_library(pipelines ${pipelines_src} )
 target_link_libraries(pipelines
     pelican
     ${QT_QTCORE_LIBRARY}
-    adapters
-    data
-    modules
+    pelican-astro
+#    adapters
+#    data
+#    modules
 )
 
 # Recurse into test directory.

@@ -14,7 +14,7 @@ include_directories(
     ${QT_QTXML_INCLUDE_DIR}
 )
 
-add_library(data ${data_src})
+add_library(data STATIC ${data_src})
 
 target_link_libraries(data
     pelican

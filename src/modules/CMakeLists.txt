@@ -15,7 +15,7 @@ include_directories(
     ${QT_QTCORE_INCLUDE_DIR}
 )
 
-add_library(modules ${modules_src})
+add_library(modules STATIC ${modules_src})
 
 # Link modules with openmp.
 set_target_properties(modules PROPERTIES 
