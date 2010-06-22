@@ -24,10 +24,10 @@ class AntennaPositions : public DataBlob
 {
     public:
         /// Constructs an empty antenna positions data blob.
-        AntennaPositions() : DataBlob() {}
+        AntennaPositions() : DataBlob("AntennaPositions") {}
 
         /// Constructs and assigns memory for an antenna positions data blob.
-        AntennaPositions(const unsigned nAntennas) : DataBlob() {
+        AntennaPositions(const unsigned nAntennas) : DataBlob("AntennaPositions") {
             resize(nAntennas);
         }
 

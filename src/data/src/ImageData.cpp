@@ -16,7 +16,7 @@ PELICAN_DECLARE_DATABLOB(ImageData)
  * @details
  * Constructs an empty image data blob.
  */
-ImageData::ImageData() : DataBlob()
+ImageData::ImageData() : DataBlob("ImageData")
 {
     clear();
 }
@@ -33,7 +33,7 @@ ImageData::ImageData() : DataBlob()
  */
 ImageData::ImageData(const unsigned sizeL, const unsigned sizeM,
         const std::vector<unsigned>& channels, const Polarisation polarisation)
-: DataBlob()
+: DataBlob("ImageData")
 {
     clear();
     _ampUnits = "JY/PIXEL";

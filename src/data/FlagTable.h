@@ -86,7 +86,7 @@ class FlagTable : public AntennaMatrixData<unsigned char>
 
         /// Constructs an empty data cube.
         /// The constructed data cube has zero size.
-        FlagTable() : AntennaMatrixData<unsigned char>() {}
+        FlagTable() : AntennaMatrixData<unsigned char>("FlagTable") {}
 
         /// Constructs a pre-sized, empty cube.
         /// The cube is pre-sized using the given parameters.
@@ -97,7 +97,7 @@ class FlagTable : public AntennaMatrixData<unsigned char>
         FlagTable(const unsigned antennas,
                 const std::vector<unsigned>& channels,
                 const Polarisation polarisation)
-        : AntennaMatrixData<unsigned char>(antennas, channels, polarisation) {
+        : AntennaMatrixData<unsigned char>(antennas, channels, polarisation, "FlagTable") {
             clear();
         }
 

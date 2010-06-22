@@ -23,15 +23,15 @@ class CorrectedVisibilityData : public VisibilityData
 {
     public:
         /// Constructs an empty corrected visibility data blob.
-        CorrectedVisibilityData() : VisibilityData() {}
-
+        CorrectedVisibilityData() : VisibilityData("CorrectedVisibilityData") {}
 
         /// Constructs and resizes corrected visibility data blob.
         CorrectedVisibilityData(const unsigned nAntennas,
                 const std::vector<unsigned>& channels,
                 const Polarisation polarisation)
-        : VisibilityData(nAntennas, channels, polarisation) {}
+        : VisibilityData(nAntennas, channels, polarisation, "CorrectedVisibilityData") {}
 
+        /// Destroys the corrected visibility data blob.
         ~CorrectedVisibilityData() {}
 };
 

@@ -66,7 +66,7 @@ template<typename T> class AntennaMatrixData : public DataBlob
     public:
         /// Constructs an empty data cube.
         /// The constructed data cube has zero size.
-        AntennaMatrixData() : DataBlob() {
+        AntennaMatrixData(const QString& type) : DataBlob(type) {
             clear();
         }
 
@@ -80,7 +80,7 @@ template<typename T> class AntennaMatrixData : public DataBlob
         /// @param[in] polarisation  Polarisation of the data.
         AntennaMatrixData(const unsigned nAntennas,
                 const std::vector<unsigned>& channels,
-                const Polarisation polarisation) : DataBlob()
+                const Polarisation polarisation, const QString& type) : DataBlob(type)
         {
             resize(nAntennas, channels, polarisation);
             initAntennaIndex();

@@ -9,8 +9,8 @@
 #include "pelican/comms/PelicanProtocol.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/TestConfig.h"
-#include "pelican/testutils/EmulatorDriver.h"
-#include "pelican/testutils/RealUdpEmulator.h"
+#include "pelican/emulator/EmulatorDriver.h"
+#include "pelican/emulator/RealUdpEmulator.h"
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTimer>
 #include "pelican/utility/Config.h"
