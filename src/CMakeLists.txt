@@ -9,6 +9,7 @@ set(${PROJECT_NAME}_PATCH_LEVEL 0)
 
 # === Append the src/cmake directory to the module path.
 list(INSERT CMAKE_MODULE_PATH 0 ${pelican-astro_SOURCE_DIR}/cmake)
+include(cmake/packagemacrosNew.cmake)
 
 # === Enable the cmake testing framework.
 enable_testing()

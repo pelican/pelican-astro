@@ -1,4 +1,4 @@
-SUBPACKAGE(modulesTest modules utility)
+SUBPACKAGE(modulesTest modules)
 
 set(modulesTest_src
     src/modulesTest.cpp
@@ -12,11 +12,9 @@ set(modulesTest_src
 
 # Create the modulesTest binary.
 add_executable(modulesTest ${modulesTest_src})
-
 target_link_libraries(modulesTest
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
-    memoryTracer
 )
 
 add_test(modulesTest modulesTest )

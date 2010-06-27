@@ -1,4 +1,3 @@
-include(CopyFiles)
 SUBPACKAGE(pipelinesTest pipelines)
 
 set(pipelinesTest_src
@@ -57,4 +56,6 @@ target_link_libraries(testPipelineMultipleImages ${SUBPACKAGE_LIBRARIES} ${CPPUN
 # removed as its slow and artificial (not really a unit test)
 #add_test(pipelinesTest pipelinesTest)
 
+
+include(CopyFiles)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/data/* . pipeLineTestData)

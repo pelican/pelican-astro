@@ -1,3 +1,4 @@
+SUBPACKAGE(pipelines data)
 set(pipelines_src
     src/TestPipelineVisibilityPrinter.cpp
     src/TestPipelineServer.cpp
@@ -6,11 +7,9 @@ set(pipelines_src
     src/TestPipelineMultipleImages.cpp
 )
 
-include_directories(${QT_INCLUDES})
-
-add_library(pipelines ${pipelines_src} )
-
-target_link_libraries(pipelines
+SUBPACKAGE_LIBRARY(pipelines ${pipelines_src})
+SUBPACKAGE_ADD_EXTERNAL_LIBRARIES(
+    ${PELICAN_LIBRARY}
     ${QT_QTCORE_LIBRARY}
 )
 

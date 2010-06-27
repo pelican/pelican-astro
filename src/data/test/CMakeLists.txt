@@ -1,3 +1,4 @@
+SUBPACKAGE(dataTest data)
 set(dataTest_src
     src/dataTest.cpp
     src/ImageDataTest.cpp
@@ -6,12 +7,9 @@ set(dataTest_src
     src/VisibilityPositionsTest.cpp
     src/AntennaPositionsTest.cpp
 )
-
 add_executable(dataTest ${dataTest_src})
-
 target_link_libraries(dataTest
-    data
+    ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
-
 add_test(dataTest dataTest)

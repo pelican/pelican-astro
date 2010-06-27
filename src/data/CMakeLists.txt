@@ -1,3 +1,5 @@
+include_directories(${PELICAN_INCLUDE_DIR})
+SUBPACKAGE(data)
 set(data_src
     src/AntennaPositions.cpp
     src/CorrectedVisibilityData.cpp
@@ -8,18 +10,11 @@ set(data_src
     src/VisibilityPositions.cpp
 )
 
-include_directories(
-    ${QT_INCLUDE_DIR}
-    ${QT_QTCORE_INCLUDE_DIR}
-    ${QT_QTXML_INCLUDE_DIR}
-)
-
-add_library(data ${data_src})
-
-target_link_libraries(data
-    pelican
+SUBPACKAGE_LIBRARY(data ${data_src})
+SUBPACKAGE_SET_EXTERNAL_LIBRARIES(
     ${QT_QTCORE_LIBRARY}
+    ${PELICAN_LIBRARY}
 )
 
 # Recurse into test directory.
-add_subdirectory(test)
+#add_subdirectory(test)
