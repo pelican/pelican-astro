@@ -8,7 +8,6 @@ set(adaptersTestLibrary_src
 SUBPACKAGE_LIBRARY(adaptersTestUtils ${adaptersTestLibrary_src})
 
 
-
 # Build the adapters test executable.
 # ------------------------------------------------------------------------------
 set(adaptersTest_src
@@ -18,12 +17,12 @@ set(adaptersTest_src
 )
 add_executable(adaptersTest ${adaptersTest_src})
 target_link_libraries(adaptersTest
-    ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
+    pelican
+    adapters
+    adaptersTestUtilities
 )
 add_test(adaptersTest adaptersTest)
-
-
 
 # Create the visibility generator binary.
 # ------------------------------------------------------------------------------

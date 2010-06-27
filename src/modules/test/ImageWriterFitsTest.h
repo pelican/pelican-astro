@@ -9,6 +9,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class ImageWriterFitsTest
@@ -48,6 +49,7 @@ class ImageWriterFitsTest : public CppUnit::TestFixture
         QCoreApplication *_app;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // IMAGEWRITERFITS_TEST_H

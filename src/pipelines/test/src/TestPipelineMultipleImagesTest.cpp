@@ -1,15 +1,17 @@
-#include "pelican/pipelines/test/TestPipelineMultipleImagesTest.h"
+#include "pipelines/test/TestPipelineMultipleImagesTest.h"
+#include "pipelines/TestPipelineMultipleImages.h"
+
 #include "pelican/core/PipelineApplication.h"
 #include "pelican/core/AbstractPipeline.h"
-#include "pelican/pipelines/TestPipelineMultipleImages.h"
-#include <QCoreApplication>
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/TestConfig.h"
+
+#include <QtCore/QCoreApplication>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
-
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( TestPipelineMultipleImagesTest );
 
@@ -58,4 +60,5 @@ void TestPipelineMultipleImagesTest::test_method()
     TIMER_STOP("TestPipelineMultipleImages");
 }
 
+} // namespace astro
 } // namespace pelican

@@ -9,6 +9,7 @@ set(modules_src
     src/ImageWriterFits.cpp
     src/ImageCombiner.cpp
 )
+<
 SUBPACKAGE_LIBRARY(modules ${modules_src})
 set_target_properties(modules PROPERTIES
     COMPILE_FLAGS "${OpenMP_CXX_FLAGS}"
@@ -21,4 +22,4 @@ SUBPACKAGE_ADD_EXTERNAL_LIBRARIES(
 )
 
 # Recurse into test directory.
-#add_subdirectory(test)
+add_subdirectory(test)

@@ -7,6 +7,7 @@ set(pipelines_src
     src/TestPipelineMultipleImages.cpp
 )
 
+
 SUBPACKAGE_LIBRARY(pipelines ${pipelines_src})
 SUBPACKAGE_ADD_EXTERNAL_LIBRARIES(
     ${PELICAN_LIBRARY}
@@ -14,4 +15,4 @@ SUBPACKAGE_ADD_EXTERNAL_LIBRARIES(
 )
 
 # Recurse into test directory.
-#add_subdirectory(test)
+add_subdirectory(test)

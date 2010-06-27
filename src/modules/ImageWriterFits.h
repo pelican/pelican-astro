@@ -2,8 +2,10 @@
 #define IMAGERWRITERFITS_H_
 
 #include "pelican/modules/AbstractModule.h"
-#include <QString>
-#include <QHash>
+
+#include <QtCore/QString>
+#include <QtCore/QHash>
+
 #include <fitsio.h>
 #include <vector>
 
@@ -15,6 +17,9 @@ namespace pelican {
 
 class ConfigNode;
 class DataBlob;
+
+namespace astro {
+
 class ImageData;
 
 /**
@@ -122,6 +127,7 @@ class ImageWriterFits : public AbstractModule
         QString _reference;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // IMAGERFFT_H_

@@ -1,8 +1,8 @@
 #ifndef ADAPTERANTENNALIST_H
 #define ADAPTERANTENNALIST_H
 
-#include "pelican/adapters/AbstractServiceAdapter.h"
-#include <QDataStream>
+#include "pelican/core/AbstractServiceAdapter.h"
+#include <QtCore/QDataStream>
 
 /**
  * @file AdapterAntennaList.h

@@ -1,17 +1,20 @@
-#include "ImageWriterFitsTest.h"
-#include "pelican/modules/ImageWriterFits.h"
+#include "modules/test/ImageWriterFitsTest.h"
+#include "modules/ImageWriterFits.h"
+#include "data/ImageData.h"
+
 #include "pelican/utility/Config.h"
-#include "pelican/data/ImageData.h"
-#include <QCoreApplication>
-#include <QFile>
 #include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/data/DataBlob.h"
+
+#include <QtCore/QCoreApplication>
+#include <QtCore/QFile>
 #include <iostream>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( ImageWriterFitsTest );
 
@@ -134,5 +137,5 @@ void ImageWriterFitsTest::test_createCube()
     fits._close();
 }
 
-
+} // namespace astro
 } // namespace pelican

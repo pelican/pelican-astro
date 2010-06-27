@@ -1,7 +1,7 @@
 #ifndef ADAPTERLOFARSTATIONVISIBILITIES_H
 #define ADAPTERLOFARSTATIONVISIBILITIES_H
 
-#include "pelican/adapters/AbstractStreamAdapter.h"
+#include "pelican/core/AbstractStreamAdapter.h"
 #include "pelican/utility/constants.h"
 #include <QtCore/QDataStream>
 

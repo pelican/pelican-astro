@@ -10,6 +10,7 @@
 class QCoreApplication;
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class TestPipelineCalibrateImageTest
@@ -42,5 +43,6 @@ class TestPipelineCalibrateImageTest : public CppUnit::TestFixture
         QCoreApplication *_app;
 };
 
+} // namespace astro
 } // namespace pelican
 #endif // TESTPIPELINECALIBRATEIMAGETEST_H

@@ -1,11 +1,13 @@
-#include "pelican/modules/BasicFlagger.h"
-#include "pelican/data/VisibilityData.h"
-#include "pelican/data/FlagTable.h"
+#include "modules/BasicFlagger.h"
+#include "data/VisibilityData.h"
+#include "data/FlagTable.h"
+
 #include <algorithm>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_MODULE(BasicFlagger)
 
@@ -249,4 +251,5 @@ void BasicFlagger::_moveBadAntennas (
  */
 bool complexCompareAbs(complex_t i, complex_t j) { return (abs(i) < abs(j)); }
 
+} // namespace astro
 } // namespace pelican

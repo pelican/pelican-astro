@@ -2,8 +2,8 @@
 #define TESTPIPELINEVISIBILITYPRINTER_H
 
 #include "pelican/core/AbstractPipeline.h"
-#include <QString>
-#include <QHash>
+#include <QtCore/QString>
+#include <QtCore/QHash>
 
 /**
  * @file TestPipelineVisibilityPrinter.h
@@ -12,6 +12,9 @@
 namespace pelican {
 
 class DataBlob;
+
+namespace astro {
+
 class VisibilityPrinter;
 
 /**
@@ -39,6 +42,7 @@ class TestPipelineVisibilityPrinter : public AbstractPipeline
 
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // TESTPIPELINEVISIBILITYPRINTER_H

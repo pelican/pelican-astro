@@ -8,6 +8,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class ZenithImagerDftTest
@@ -49,5 +50,6 @@ class ZenithImagerDftTest : public CppUnit::TestFixture
     private:
 };
 
+} // namespace astro
 } // namespace pelican
 #endif // ZENITHIMAGERDFTTEST_H

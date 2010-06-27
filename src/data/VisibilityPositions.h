@@ -30,10 +30,11 @@ class VisibilityPositions : public DataBlob
 {
     public:
         /// Constructs an empty visibility positions data blob.
-        VisibilityPositions() : DataBlob() {}
+        VisibilityPositions() : DataBlob("VisibilityPositions") {}
 
         /// Constructs and assigns memory for a visibility positions data blob.
-        VisibilityPositions(const unsigned nAntennas) : DataBlob() {
+        VisibilityPositions(const unsigned nAntennas)
+        : DataBlob("VisibilityPositions") {
             resize(nAntennas);
         }
 

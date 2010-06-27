@@ -1,9 +1,9 @@
-#ifndef VISIBILITYPRINTER_H
-#define VISIBILITYPRINTER_H
+#ifndef VISIBILITY_PRINTER_H
+#define VISIBILITY_PRINTER_H
 
 #include "pelican/modules/AbstractModule.h"
-#include <QHash>
-#include <QString>
+#include <QtCore/QHash>
+#include <QtCore/QString>
 
 /**
  * @file VisibilityPrinter.h
@@ -12,6 +12,9 @@
 namespace pelican {
 
 class DataBlob;
+
+namespace astro {
+
 class VisibilityData;
 
 /**
@@ -38,5 +41,8 @@ class VisibilityPrinter : public AbstractModule
         unsigned _counter;
 };
 
+
+} // namespace astro
 } // namespace pelican
-#endif // VISIBILITYPRINTER_H
+
+#endif // VISIBILITY_PRINTER_H

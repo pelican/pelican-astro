@@ -26,13 +26,13 @@ class ModelVisibilityData : public VisibilityData
 {
     public:
         /// Constructs an empty model visibility data blob.
-        ModelVisibilityData() : VisibilityData() {}
+        ModelVisibilityData() : VisibilityData("ModelVisibilityData") {}
 
         /// Constructs and resizes model visibility data blob.
         ModelVisibilityData(const unsigned nAntennas,
                 const std::vector<unsigned>& channels,
                 const Polarisation polarisation)
-        : VisibilityData(nAntennas, channels, polarisation) {}
+        : VisibilityData(nAntennas, channels, polarisation, "ModelVisibilityData") {}
 
         ~ModelVisibilityData() {}
 

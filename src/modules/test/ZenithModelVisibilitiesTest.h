@@ -8,6 +8,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class ZenithModelVisibilitiesTest
@@ -38,5 +39,6 @@ class ZenithModelVisibilitiesTest : public CppUnit::TestFixture
     private:
 };
 
+} // namespace astro
 } // namespace pelican
 #endif // ZENITHMODELVISIBILITIESTEST_H 

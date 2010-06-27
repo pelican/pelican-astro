@@ -20,19 +20,22 @@ namespace astro {
  * This class is used to store telescope visibility data
  * (matrices of complex correlation products).
  *
- * It is a typedef for AntennaMatrixData<complex_t>.
+ * It inherits AntennaMatrixData<complex_t>.
  */
 class VisibilityData : public AntennaMatrixData<complex_t>
 {
     public:
         /// Constructs an empty visibility data cube.
-        VisibilityData() : AntennaMatrixData<complex_t>() {}
+        VisibilityData(const QString& type = QString("VisibilityData"))
+        : AntennaMatrixData<complex_t>(type) {}
 
-        /// Constructs an pre-sized visibility data cube.
+        /// Constructs a pre-sized visibility data cube.
         VisibilityData(const unsigned nAntennas,
                 const std::vector<unsigned>& channels,
-                const Polarisation polarisation)
-        : AntennaMatrixData<complex_t>(nAntennas, channels, polarisation) {}
+                const Polarisation polarisation,
+                const QString& type = QString("VisibilityData"))
+        : AntennaMatrixData<complex_t>(nAntennas, channels, polarisation,
+                type) {}
 
         /// Visibility data destructor.
         ~VisibilityData() {}

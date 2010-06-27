@@ -1,10 +1,10 @@
-#include "pelican/modules/ImageCombiner.h"
-//#include <boost/math/special_functions/fpclassify.hpp>
+#include "modules/ImageCombiner.h"
 
 #include "pelican/utility/memCheck.h"
 
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_MODULE(ImageCombiner)
 
@@ -275,4 +275,5 @@ void ImageCombiner::_getConfiguration(const ConfigNode& config)
     _nPolarisations = _polOutput == POL_BOTH ? 2 : 1;
 }
 
+} // namespace astro
 } // namespace pelican

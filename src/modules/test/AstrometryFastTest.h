@@ -1,7 +1,7 @@
-#ifndef ASTROMETRYFASTTEST_H
-#define ASTROMETRYFASTTEST_H
+#ifndef ASTROMETRY_FAST_TEST_H
+#define ASTROMETRY_FAST_TEST_H
 
-#include "pelican/modules/AstrometryFast.h"
+#include "modules/AstrometryFast.h"
 
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -10,6 +10,7 @@
  */
 
 namespace pelican {
+namespace astro {
 
 /**
  * @class AstrometryFastTest
@@ -38,15 +39,16 @@ class AstrometryFastTest : public CppUnit::TestFixture
         void test_icrsEquatorialFromObserved();
 
     public:
-        AstrometryFastTest(  );
+        AstrometryFastTest( );
         ~AstrometryFastTest();
 
     private:
-        AstrometryFast *converter;
+        AstrometryFast* converter;
         SiteData site;
         CelestialData celestial;
 };
 
+} // namespace astro
 } // namespace pelican
 
-#endif // ASTROMETRYFASTTEST_H
+#endif // ASTROMETRY_FAST_TEST_H

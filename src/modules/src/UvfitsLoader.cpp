@@ -1,19 +1,19 @@
-#include "pelican/modules/uvfitsLoader.h"
-#include <QString>
-
+#include "modules/UvfitsLoader.h"
+#include <QtCore/QString>
 
 namespace pelican {
+namespace astro {
 
-PELICAN_DECLARE_MODULE(uvfitsLoader)
+PELICAN_DECLARE_MODULE(UvfitsLoader)
 
-uvfitsLoader::uvfitsLoader(const ConfigNode& config)
+UvfitsLoader::UvfitsLoader(const ConfigNode& config)
 {
     // TODO initialise variables here!
-
     _getConfiguration(config);
 }
 
-uvfitsLoader::~uvfitsLoader() {
+
+UvfitsLoader::~UvfitsLoader() {
     // TODO Auto-generated destructor stub
 }
 
@@ -22,7 +22,7 @@ uvfitsLoader::~uvfitsLoader() {
  * @details
  * Loads the visibility fits file into the data blob.
  */
-void uvfitsLoader::run(VisibilityData* rawVis)
+void UvfitsLoader::run(VisibilityData* rawVis)
 {
     _readHeader();
     _readData();
@@ -30,7 +30,7 @@ void uvfitsLoader::run(VisibilityData* rawVis)
 
 
 /// Read the FITS header.
-void uvfitsLoader::_readHeader()
+void UvfitsLoader::_readHeader()
 {
     // Check if the file is random groups UV FITS
     if (_readKeyStr("GROUPS") != "T")
@@ -89,9 +89,8 @@ void uvfitsLoader::_readHeader()
 }
 
 
-
 /// Read the UV data section.
-void uvfitsLoader::_readData()
+void UvfitsLoader::_readData()
 {
     int status = 0;
 
@@ -140,7 +139,7 @@ void uvfitsLoader::_readData()
 /**
  * @details
  */
-void uvfitsLoader::_open(const QString& fileName)
+void UvfitsLoader::_open(const QString& fileName)
 {
     int status = 0;
     fits_open_file(&_fits, _fileName.toLatin1().data(), READONLY, &status);
@@ -152,9 +151,8 @@ void uvfitsLoader::_open(const QString& fileName)
 /**
  * @details
  */
-void uvfitsLoader::_close()
+void UvfitsLoader::_close()
 {
-
 }
 
 
@@ -162,7 +160,7 @@ void uvfitsLoader::_close()
  * @details
  * Extracts configuration for the fits loader from the configuration node.
  */
-void uvfitsLoader::_getConfiguration(const ConfigNode& config)
+void UvfitsLoader::_getConfiguration(const ConfigNode& config)
 {
     _fileName = config.getOption("file", "name");
     _startTime = config.getOption("timeIndex", "start", "0").toUInt();
@@ -176,12 +174,11 @@ void uvfitsLoader::_getConfiguration(const ConfigNode& config)
 }
 
 
-
 /**
  * @details
  * Read a double type value keyword.
  */
-double uvfitsLoader::_readKeyDbl(const QString& key) const
+double UvfitsLoader::_readKeyDbl(const QString& key) const
 {
     double value = 0.0;
     int status = 0;
@@ -194,7 +191,7 @@ double uvfitsLoader::_readKeyDbl(const QString& key) const
  * @details
  * Read a long type value keyword.
  */
-long uvfitsLoader::_readKeyLng(const QString key) const
+long UvfitsLoader::_readKeyLng(const QString key) const
 {
     long value = 0;
     int status = 0;
@@ -207,7 +204,7 @@ long uvfitsLoader::_readKeyLng(const QString key) const
  * @details
  * Read a string type value keyword.
  */
-QString uvfitsLoader::_readKeyStr(const QString& key) const
+QString UvfitsLoader::_readKeyStr(const QString& key) const
 {
     char value[FLEN_VALUE];
     int status = 0;
@@ -218,30 +215,32 @@ QString uvfitsLoader::_readKeyStr(const QString& key) const
 
 /// Read number of long type header keywords.
 /// ie. NAXIS<*> keywords
-void uvfitsLoader::_readKeysLng(const QString key, const int start,
-        const int end, std::vector<long>& values) const
+void UvfitsLoader::_readKeysLng(const QString key, int start, int end,
+		std::vector<long>& values) const
 {
     int status = 0;
     int n = 0;
     ffgknj(_fits, key.toLatin1().data(), start, end, &values[0], &n, &status);
 }
 
+
 /**
  * @details
  * Read a set numbered set of of double type value keywords taking with the key
  * pattern keyN where N is a integer between /p start and /p end.
  */
-void uvfitsLoader::_readKeysDbl(const QString key, const int start,
-        const int end, std::vector<double>& values) const
+void UvfitsLoader::_readKeysDbl(const QString key, int start, int end,
+		std::vector<double>& values) const
 {
     int status = 0;
     int n = 0;
     ffgknd(_fits, key.toLatin1().data(), start, end, &values[0], &n, &status);
 }
 
+
 /// Read a number of string type header keywords.
-void uvfitsLoader::_readKeysStr(const QString key, const int start,
-        const int end, std::vector<QString>& values) const
+void UvfitsLoader::_readKeysStr(const QString key, int start, int end,
+		std::vector<QString>& values) const
 {
     unsigned nValues = end - start + 1;
 
@@ -274,9 +273,10 @@ void uvfitsLoader::_readKeysStr(const QString key, const int start,
  * @details
  * Constructs a standard throw message for the class.
  */
-QString uvfitsLoader::err(const QString& text)
+QString UvfitsLoader::err(const QString& text)
 {
     return "uvfitsLoader: " + text;
 }
 
+} // namespace astro
 } // namespace pelican

@@ -2,8 +2,8 @@
 #define TESTPIPELINESERVER_H
 
 #include "pelican/core/AbstractPipeline.h"
-#include <QString>
-#include <QHash>
+#include <QtCore/QString>
+#include <QtCore/QHash>
 
 /**
  * @file TestPipelineServer.h
@@ -12,6 +12,9 @@
 namespace pelican {
 
 class DataBlob;
+
+namespace astro {
+
 class VisibilityPrinter;
 
 /**
@@ -40,6 +43,7 @@ class TestPipelineServer : public AbstractPipeline
 
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // TESTPIPELINESERVER_H

@@ -1,11 +1,14 @@
-#include "pelican/modules/VisibilityPrinter.h"
+#include "modules/VisibilityPrinter.h"
+#include "data/VisibilityData.h"
+
 #include "pelican/utility/ConfigNode.h"
-#include "pelican/data/VisibilityData.h"
+
 #include <iostream>
 
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 PELICAN_DECLARE_MODULE(VisibilityPrinter)
 
@@ -61,5 +64,5 @@ void VisibilityPrinter::run(VisibilityData* vis)
     _counter++;
 }
 
-
+} // namespace astro
 } // namespace pelican

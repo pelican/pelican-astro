@@ -11,5 +11,5 @@ SUBPACKAGE_SET_EXTERNAL_LIBRARIES(
 )
 
 # Recurse into test directory.
-#add_subdirectory(test)
+add_subdirectory(test)
 

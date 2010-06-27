@@ -1,11 +1,12 @@
-#include "ZenithImagerDftTest.h"
-#include "pelican/modules/ZenithImagerDft.h"
+#include "modules/test/ZenithImagerDftTest.h"
+#include "modules/ZenithImagerDft.h"
+#include "data/ImageData.h"
+#include "data/VisibilityData.h"
+#include "data/AntennaPositions.h"
+
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/constants.h"
 #include "pelican/utility/ConfigNode.h"
-#include "pelican/data/ImageData.h"
-#include "pelican/data/VisibilityData.h"
-#include "pelican/data/AntennaPositions.h"
 
 #include <limits>
 #include <vector>
@@ -14,6 +15,7 @@
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
+namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( ZenithImagerDftTest );
 // class ZenithImagerDftTest
@@ -238,7 +240,7 @@ void ZenithImagerDftTest::test_makeImageDft()
  */
 void ZenithImagerDftTest::test_run()
 {
-
 }
 
+} // namespace astro
 } // namespace pelican

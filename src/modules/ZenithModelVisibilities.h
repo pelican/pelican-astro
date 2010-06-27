@@ -1,11 +1,13 @@
 #ifndef ZENITHMODELVISIBILITIES_H
 #define ZENITHMODELVISIBILITIES_H
 
+#include "data/SiteData.h"
+#include "data/CelestialData.h"
+#include "data/ModelVisibilityData.h"
+
 #include "pelican/modules/AbstractModule.h"
-#include "pelican/data/SiteData.h"
-#include "pelican/data/CelestialData.h"
-#include "pelican/data/ModelVisibilityData.h"
 #include "pelican/utility/constants.h"
+
 #include <vector>
 
 /**
@@ -14,9 +16,12 @@
 
 namespace pelican {
 
-class AbstractAstrometry;
 class ConfigNode;
 class DataBlob;
+
+namespace astro {
+
+class AbstractAstrometry;
 class AntennaPositions;
 class Source;
 
@@ -44,15 +49,14 @@ class ZenithModelVisibilities : public AbstractModule
 
     private:
         /// Calculate source direction cosines.
-        void _calculateDirectionCosines(const unsigned nSources,
-                const Source* sources, double* l, double* m);
+        void _calculateDirectionCosines(unsigned nSources,
+        		const Source* sources, double* l, double* m);
 
         /// Calculate model visibilities.
-        void _calculateModelVis(complex_t* vis, const unsigned nAnt,
+        void _calculateModelVis(complex_t* vis, unsigned nAnt,
                 const real_t* antPosX, const real_t* antPosY,
-                const Source* sources, const unsigned nSources,
-                const double frequency,
-                const Polarisation polarisation,
+                const Source* sources, unsigned nSources,
+                double frequency, Polarisation polarisation,
                 const double* l, const double* m);
 
         /// Extract data from the data hash.
@@ -74,6 +78,7 @@ class ZenithModelVisibilities : public AbstractModule
         Polarisation _polarisation;
 };
 
+} // namespace astro
 } // namespace pelican
 
 #endif // ZENITHMODELVISIBILITIES_H
