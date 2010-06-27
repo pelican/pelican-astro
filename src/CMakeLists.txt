@@ -7,14 +7,13 @@ set(${PROJECT_NAME}_MAJOR_VERSION 0)
 set(${PROJECT_NAME}_MINOR_VERSION 0)
 set(${PROJECT_NAME}_PATCH_LEVEL 0)
 
-# === Append the src/cmake directory to the module path.
+# === CMake setup.
 list(INSERT CMAKE_MODULE_PATH 0 ${pelican-astro_SOURCE_DIR}/cmake)
 include(cmake/packagemacrosNew.cmake)
-
-# === Enable the cmake testing framework.
 enable_testing()
 
-# === Options and defaults.
+
+# === Installation locations.
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE debug)
 endif(NOT CMAKE_BUILD_TYPE)
@@ -36,10 +35,11 @@ if(NOT DOC_INSTALL_DIR)
 endif(NOT DOC_INSTALL_DIR)
 
 # === Set dependencies.
-include(dependencies)
+include(cmake/dependencies.cmake)
 
 # === Set compiler options.
-include(compilerDefaults)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include(cmake/compilerDefaults.cmake)
 
 DECLARE_PROJECT_LIBRARY(pelican-astro
     adapters
@@ -52,6 +52,6 @@ DECLARE_PROJECT_LIBRARY(pelican-astro
 # === Recurse into sub-diretories.
 include(modules.cmake)
 
-#CREATE_PROJECT_LIBRARY(pelican-astro)
+CREATE_PROJECT_LIBRARY(pelican-astro)
 
 

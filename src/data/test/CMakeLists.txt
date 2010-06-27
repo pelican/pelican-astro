@@ -9,7 +9,7 @@ set(dataTest_src
 )
 add_executable(dataTest ${dataTest_src})
 
-message(STATUS "================= ${SUBPACKAGE_LIBRARIES}")
+#message(STATUS "=== dataTest: sub libs: ${SUBPACKAGE_LIBRARIES}")
 target_link_libraries(dataTest
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}

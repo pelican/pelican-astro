@@ -6,10 +6,14 @@ set(adaptersTestLibrary_src
     src/VisGen.cpp
 )
 SUBPACKAGE_LIBRARY(adaptersTestUtils ${adaptersTestLibrary_src})
+SUBPACKAGE_SET_EXTERNAL_LIBRARIES(
+    ${QT_QTCORE_LIBRARY}
+)
 
 
 # Build the adapters test executable.
 # ------------------------------------------------------------------------------
+message(STATUS "==== adaptersTest: sub libs = ${SUBPACKAGE_LIBRARIES}")
 set(adaptersTest_src
     src/adaptersTest.cpp
     src/AdapterLofarStationVisibilitiesTest.cpp
@@ -17,17 +21,17 @@ set(adaptersTest_src
 )
 add_executable(adaptersTest ${adaptersTest_src})
 target_link_libraries(adaptersTest
+    ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
-    pelican
-    adapters
-    adaptersTestUtilities
 )
 add_test(adaptersTest adaptersTest)
 
 # Create the visibility generator binary.
 # ------------------------------------------------------------------------------
 add_executable(testVisGen src/testVisGen.cpp)
-
+target_link_libraries(testVisGen
+    ${SUBPACKAGE_LIBRARIES}
+)
 
 # Copy the test/data folder to the build tree.
 include(CopyFiles)

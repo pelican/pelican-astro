@@ -1,7 +1,7 @@
 #
-# dependencies.cmake: Sets depencies for PELICAN.
+# dependencies.cmake:
 #
-# Required dependencies:
+# Sets Dependencies:
 #   Qt4
 #   CppUnit
 #   CFitsio
@@ -9,19 +9,14 @@
 #   cblas (either ATLAS or MKL)
 #   lapack (either ATLAS or MKL)
 #
-# Optional dependencies:
-#
-# Sets the following variables:
-#   PROJECT_LIBARRIES: Needed for linking with the libpelican.a
-#
 
 # === Find Dependencies.
 find_package(Boost COMPONENTS program_options REQUIRED)
 find_package(Qt4 COMPONENTS QtCore QtNetwork QtXml REQUIRED)
-find_package(CppUnit REQUIRED)
 find_package(CFitsio REQUIRED)
 find_package(OpenMP REQUIRED)
 find_package(Pelican REQUIRED)
+find_package(CppUnit REQUIRED)
 
 # === Find cblas and lapack from MKL if availiable, otherwise elsewhere.
 if(NOT DEFINED pelican_mkl)
@@ -46,6 +41,7 @@ endif (MKL_FOUND)
 
 include_directories(
     ${QT_INCLUDE_DIR}
+    #${QT_QTCORE_INCLUDE_DIR}
     ${CFITSIO_INCLUDE_DIR}
 )
 

@@ -9,7 +9,6 @@ macro(DECLARE_PROJECT_LIBRARY name)
 endmacro(DECLARE_PROJECT_LIBRARY)
 
 
-
 # Create the project library specfied by the name argument.
 macro(CREATE_PROJECT_LIBRARY name)
 
