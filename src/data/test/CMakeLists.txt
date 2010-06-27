@@ -8,6 +8,8 @@ set(dataTest_src
     src/AntennaPositionsTest.cpp
 )
 add_executable(dataTest ${dataTest_src})
+
+message(STATUS "================= ${SUBPACKAGE_LIBRARIES}")
 target_link_libraries(dataTest
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}

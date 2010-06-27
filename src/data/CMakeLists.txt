@@ -1,4 +1,3 @@
-include_directories(${PELICAN_INCLUDE_DIR})
 SUBPACKAGE(data)
 set(data_src
     src/AntennaPositions.cpp
@@ -9,12 +8,11 @@ set(data_src
     src/VisibilityData.cpp
     src/VisibilityPositions.cpp
 )
-
 SUBPACKAGE_LIBRARY(data ${data_src})
 SUBPACKAGE_SET_EXTERNAL_LIBRARIES(
-    ${QT_QTCORE_LIBRARY}
     ${PELICAN_LIBRARY}
+    ${QT_QTCORE_LIBRARY}
 )
 
 # Recurse into test directory.
-#add_subdirectory(test)
+add_subdirectory(test)

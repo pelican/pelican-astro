@@ -27,7 +27,9 @@ class AntennaPositions : public DataBlob
         AntennaPositions() : DataBlob("AntennaPositions") {}
 
         /// Constructs and assigns memory for an antenna positions data blob.
-        AntennaPositions(const unsigned nAntennas) : DataBlob("AntennaPositions") {
+        AntennaPositions(const unsigned nAntennas)
+        : DataBlob("AntennaPositions")
+        {
             resize(nAntennas);
         }
 

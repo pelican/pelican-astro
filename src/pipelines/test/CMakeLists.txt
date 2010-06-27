@@ -1,5 +1,7 @@
 SUBPACKAGE(pipelinesTest pipelines)
 
+
+# Create the pipeline test binary.
 set(pipelinesTest_src
     src/pipelinesTest.cpp
     src/TestPipelineVisibilityPrinterTest.cpp
@@ -13,19 +15,11 @@ target_link_libraries(pipelinesTest
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
-
-# Add pipeline test to the CppUnit test Suite.
 add_test(pipelinesTest pipelinesTest)
 
 
-# Copy data files to build directory.
-include(CopyFiles)
-copy_files(${CMAKE_CURRENT_SOURCE_DIR}/data/* . pipeLineTestData)
-
-# ==============================================================================
-
-
-# Visibility printer pipeline.
+# Test Visibility printer pipeline binary.
+# ------------------------------------------------------------------------------
 set(TestPipelineVisibilityPrinter_src
     src/pipelinesTest.cpp
     src/TestPipelineVisibilityPrinterTest.cpp
@@ -34,12 +28,13 @@ add_executable(testPipelineVisibilityPrinter
     ${TestPipelineVisibilityPrinter_src}
 )
 target_link_libraries(testPipelineVisibilityPrinter
-    pipelines
+    ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
 
 
 # Server testing pipeline.
+# ------------------------------------------------------------------------------
 set(TestPipelineServer_src
     src/pipelinesTest.cpp
     src/TestPipelineServerTest.cpp
@@ -48,12 +43,13 @@ add_executable(testPipelineServer
     ${TestPipelineServer_src}
 )
 target_link_libraries(testPipelineServer
-    pipelines
+    ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
 
 
 # Raw image generation.
+# ------------------------------------------------------------------------------
 set(TestPipelineRawImage_src
     src/pipelinesTest.cpp
     src/TestPipelineRawImageTest.cpp
@@ -62,12 +58,13 @@ add_executable(testPipelineRawImage
     ${TestPipelineRawImage_src}
 )
 target_link_libraries(testPipelineRawImage
-    pipelines
+    ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
 
 
 # Image calibration.
+# ------------------------------------------------------------------------------
 #set(TestPipelineCalibrateImage_src
 #    src/pipelinesTest.cpp
 #    src/TestPipelineCalibrateImageTest.cpp
@@ -81,9 +78,10 @@ target_link_libraries(testPipelineRawImage
 #add_test(pipelinesTest pipelinesTest)
 
 
-=======
+
 # Multiple image generation.
-set( TestPipelineMultipleImages_src
+# ------------------------------------------------------------------------------
+set(TestPipelineMultipleImages_src
     src/pipelinesTest.cpp
     src/TestPipelineMultipleImagesTest.cpp
 )
@@ -91,7 +89,7 @@ add_executable(testPipelineMultipleImages
     ${TestPipelineMultipleImages_src}
 )
 target_link_libraries(testPipelineMultipleImages
-    pipelines
+    ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
 

@@ -21,6 +21,7 @@ find_package(Qt4 COMPONENTS QtCore QtNetwork QtXml REQUIRED)
 find_package(CppUnit REQUIRED)
 find_package(CFitsio REQUIRED)
 find_package(OpenMP REQUIRED)
+find_package(Pelican REQUIRED)
 
 # === Find cblas and lapack from MKL if availiable, otherwise elsewhere.
 if(NOT DEFINED pelican_mkl)
@@ -43,11 +44,9 @@ else (MKL_FOUND)
     set(pelican_math_libs ${LAPACK_LIBRARIES} ${CBLAS_LIBRARIES})
 endif (MKL_FOUND)
 
-
-message(STATUS "${QT_INCLUDE_DIR}")
 include_directories(
+    ${QT_INCLUDE_DIR}
     ${CFITSIO_INCLUDE_DIR}
-    ${QT_INCLUDES}
 )
 
 

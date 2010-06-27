@@ -41,20 +41,17 @@ include(dependencies)
 # === Set compiler options.
 include(compilerDefaults)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+DECLARE_PROJECT_LIBRARY(pelican-astro
+    adapters
+    chunkers
+    data
+    modules
+    pipelines
+)
 
 # === Recurse into sub-diretories.
 include(modules.cmake)
 
-# === Build the pelican-astro library.
-add_library(pelican-astro SHARED data adapters modules)
-set_target_properties(pelican-astro PROPERTIES LINKER_LANGUAGE CXX)
-add_dependencies(pelican-astro data adapters modules)
-target_link_libraries(pelican-astro data adapters modules)
-set_target_properties(pelican-astro PROPERTIES 
-    COMPILE_FLAGS "${OpenMP_CXX_FLAGS}"
-    LINK_FLAGS "${OpenMP_CXX_FLAGS}"
-)
+#CREATE_PROJECT_LIBRARY(pelican-astro)
 
-add_subdirectory(pipelines)
 
