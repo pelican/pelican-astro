@@ -94,7 +94,7 @@ class ZenithImagerDft : public AbstractModule
 
         /// Vector-vector dot product taking the complex conjugate of the
         /// second vector.
-        complex_t _vectorDotConj(unsigned n, complex_t* a, complex_t* b);
+        // complex_t _vectorDotConj(unsigned n, complex_t* a, complex_t* b);
 
         /// Cut the image outside unit radius in l, m.
         void _cutHemisphere(real_t* image, unsigned nL, unsigned nM,

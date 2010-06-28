@@ -363,12 +363,13 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
 
     complex_t* weights = NULL;
     complex_t* buffer = NULL;
+    complex_t temp;
     unsigned nNonZeroVis = nAnt * nAnt - nAnt;
 
     // Loop over image pixels to calculate the image amplitude using a
     // 2 sided matrix vector approach.
 #pragma omp parallel for private(tid, weights, buffer)
-    for (int m = 0; m < static_cast<int>(nM); m++) {
+    for (unsigned m = 0; m < nM; m++) {
 
         unsigned indexM = m * nL;
         complex_t *weightsYM = &_weightsYM[m * nAnt];
@@ -386,8 +387,11 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
             cblas_zgemv(CblasRowMajor, CblasNoTrans, nAnt, nAnt, alpha, vis,
                     nAnt, weights, xInc, beta, buffer, yInc);
 
-            /// TODO: Use some sort of cblas_zdot to replace this call.
-            image[index] = _vectorDotConj(nAnt, buffer, weights).real();
+            // The BLAS routine cblas_zdotc_sub can replace this:
+            // image[index] = _vectorDotConj(nAnt, buffer, weights).real();
+            // Computes a dot product of a conjugated vector with another vector.
+            cblas_zdotc_sub(nAnt, buffer, 1, weights, 1, &temp);
+            image[index] = temp.real();
 
             // normalise - (as for each non zero vis/weight the sum gets an
             // extra factor of 1 from from the e^(i...))
@@ -400,7 +404,6 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
 /**
  * @details
  * Element wise multiplication of two weights vectors.
- * - need to find a blas function to do this...
  */
 void ZenithImagerDft::_multWeights(unsigned nAnt, complex_t* weightsXL,
         complex_t *weightsYM, complex_t *weights)
@@ -411,19 +414,19 @@ void ZenithImagerDft::_multWeights(unsigned nAnt, complex_t* weightsXL,
 }
 
 
-/**
- * @details
- * Vector dot product
- */
-complex_t ZenithImagerDft::_vectorDotConj(unsigned n, complex_t* a,
-        complex_t* b)
-{
-    complex_t result = complex_t(0.0, 0.0);
-    for (unsigned i = 0; i < n; i++) {
-        result += a[i] * conj(b[i]);
-    }
-    return result;
-}
+///**
+// * @details
+// * Vector dot product
+// */
+//complex_t ZenithImagerDft::_vectorDotConj(unsigned n, complex_t* a,
+//        complex_t* b)
+//{
+//    complex_t result = complex_t(0.0, 0.0);
+//    for (unsigned i = 0; i < n; i++) {
+//        result += a[i] * conj(b[i]);
+//    }
+//    return result;
+//}
 
 
 
