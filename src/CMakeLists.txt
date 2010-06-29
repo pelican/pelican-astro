@@ -2,6 +2,7 @@
 project(pelican-astro CXX C)
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
+
 # === Set the project version.
 set(${PROJECT_NAME}_MAJOR_VERSION 0)
 set(${PROJECT_NAME}_MINOR_VERSION 0)
@@ -9,9 +10,20 @@ set(${PROJECT_NAME}_PATCH_LEVEL 0)
 
 # === CMake setup.
 list(INSERT CMAKE_MODULE_PATH 0 ${pelican-astro_SOURCE_DIR}/cmake)
-include(cmake/packagemacrosNew.cmake)
-enable_testing()
 
+# === Set dependencies.
+include(dependencies)
+
+# === Set compiler options.
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include(compilerDefaults)
+
+# Use BANG for packageing macro system.
+list(INSERT CMAKE_MODULE_PATH 0 "/usr/local/bang")
+include(bang)
+BANG_VERSION(0.1)
+
+enable_testing()
 
 # === Installation locations.
 if(NOT CMAKE_BUILD_TYPE)
@@ -34,16 +46,12 @@ if(NOT DOC_INSTALL_DIR)
     set(DOC_INSTALL_DIR ${PELICAN_ASTRO_INSTALL_DIR}/doc)
 endif(NOT DOC_INSTALL_DIR)
 
-# === Set dependencies.
-include(cmake/dependencies.cmake)
 
-# === Set compiler options.
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-include(cmake/compilerDefaults.cmake)
 
 DECLARE_PROJECT_LIBRARY(pelican-astro
     adapters
-    chunkers
+    adaptersTest
+    #chunkers
     data
     modules
     pipelines
@@ -53,5 +61,9 @@ DECLARE_PROJECT_LIBRARY(pelican-astro
 include(modules.cmake)
 
 CREATE_PROJECT_LIBRARY(pelican-astro)
+set_target_properties(pelican-astro PROPERTIES
+    COMPILE_FLAGS "${OpenMP_CXX_FLAGS}"
+    LINK_FLAGS "${OpenMP_CXX_FLAGS}"
+)
 
 

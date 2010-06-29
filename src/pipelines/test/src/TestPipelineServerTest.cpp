@@ -1,8 +1,8 @@
 #include "pipelines/test/TestPipelineServerTest.h"
 #include "pipelines/TestPipelineServer.h"
 
-#include "pelican/testutils/TestChunker.h"
-#include "pelican/testutils/TestUdpChunker.h"
+#include "pelican/server/test/TestChunker.h"
+#include "pelican/server/test/TestUdpChunker.h"
 
 #include "pelican/core/PipelineApplication.h"
 #include "pelican/server/PelicanServer.h"
@@ -132,17 +132,17 @@ void TestPipelineServerTest::test_testUdpChunker()
         // Add the protocol.
         AbstractProtocol* protocol = new PelicanProtocol;
         server.addProtocol(protocol, 2000);
-        
+
         // Start the server.
         server.start();
         while (!server.isReady()) {}
-        
+
         // Set up the telescope emulator (turn on the telescope)
         EmulatorDriver emulator(new RealUdpEmulator(*_emulatorConfig1));
-        
+
         // Start the pipeline binary.
         PipelineBinaryEmulator pipelineBinary(&config);
-        
+
         // Return after 12 seconds.
         QTimer::singleShot(30000, &app, SLOT(quit()));
         app.exec();

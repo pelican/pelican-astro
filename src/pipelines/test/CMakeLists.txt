@@ -1,6 +1,5 @@
 SUBPACKAGE(pipelinesTest pipelines)
 
-
 # Create the pipeline test binary.
 set(pipelinesTest_src
     src/pipelinesTest.cpp
@@ -11,11 +10,15 @@ set(pipelinesTest_src
     src/TestPipelineMultipleImagesTest.cpp
 )
 add_executable(pipelinesTest ${pipelinesTest_src})
+
+
+#message(STATUS "*** pipelinesTest: sub libs: ${PELICAN_TESTUTILS_LIBRARY}")
 target_link_libraries(pipelinesTest
+    ${PELICAN_TESTUTILS_LIBRARY}
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
-add_test(pipelinesTest pipelinesTest)
+#add_test(pipelinesTest pipelinesTest)
 
 
 # Test Visibility printer pipeline binary.
@@ -28,6 +31,7 @@ add_executable(testPipelineVisibilityPrinter
     ${TestPipelineVisibilityPrinter_src}
 )
 target_link_libraries(testPipelineVisibilityPrinter
+    ${PELICAN_TESTUTILS_LIBRARY}
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
@@ -43,6 +47,7 @@ add_executable(testPipelineServer
     ${TestPipelineServer_src}
 )
 target_link_libraries(testPipelineServer
+    ${PELICAN_TESTUTILS_LIBRARY}
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
@@ -58,6 +63,7 @@ add_executable(testPipelineRawImage
     ${TestPipelineRawImage_src}
 )
 target_link_libraries(testPipelineRawImage
+    #${PELICAN_TESTUTILS_LIBRARY}
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
@@ -89,6 +95,7 @@ add_executable(testPipelineMultipleImages
     ${TestPipelineMultipleImages_src}
 )
 target_link_libraries(testPipelineMultipleImages
+#    ${PELICAN_TESTUTILS_LIBRARY}
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )

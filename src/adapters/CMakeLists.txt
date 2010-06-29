@@ -5,9 +5,10 @@ set(adapters_SRC
 )
 
 SUBPACKAGE_LIBRARY(adapters ${adapters_SRC})
+#message(STATUS ">>>>>>>>>>>> adapters sub libs: ${PELICAN_LIBRARY}")
 SUBPACKAGE_SET_EXTERNAL_LIBRARIES(
-    ${QT_QTCORE_LIBRARY}
     ${PELICAN_LIBRARY}
+    ${QT_QTCORE_LIBRARY}
 )
 
 # Recurse into test directory.

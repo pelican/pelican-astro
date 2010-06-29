@@ -3,7 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-#include <QDomElement>
+//#include <QtXml/QDomElement>
 
 /**
  * @file BasicFlaggerTest.h
@@ -16,10 +16,10 @@ class BasicFlagger;
 
 /**
  * @class BasicFlaggerTest
- *  
+ *
  * @brief
  * Tests various functions of the basic flagging module.
- * 
+ *
  * @details
  * Performs unit tests on the basic flagging module
  * using the CppUnit framework.
@@ -58,4 +58,4 @@ class BasicFlaggerTest : public CppUnit::TestFixture
 
 } // namespace astro
 } // namespace pelican
-#endif // BASICFLAGGERTEST_H 
+#endif // BASICFLAGGERTEST_H

@@ -1,11 +1,14 @@
 SUBPACKAGE(adaptersTest adapters)
 
+
 # Build the adapters test utility library.
 # ------------------------------------------------------------------------------
 set(adaptersTestLibrary_src
     src/VisGen.cpp
 )
+#message(STATUS "A ==== adaptersTest: sub libs = ${SUBPACKAGE_LIBRARIES}")
 SUBPACKAGE_LIBRARY(adaptersTestUtils ${adaptersTestLibrary_src})
+#message(STATUS "B ==== adaptersTest: sub libs = ${SUBPACKAGE_LIBRARIES}")
 SUBPACKAGE_SET_EXTERNAL_LIBRARIES(
     ${QT_QTCORE_LIBRARY}
 )
@@ -13,7 +16,6 @@ SUBPACKAGE_SET_EXTERNAL_LIBRARIES(
 
 # Build the adapters test executable.
 # ------------------------------------------------------------------------------
-message(STATUS "==== adaptersTest: sub libs = ${SUBPACKAGE_LIBRARIES}")
 set(adaptersTest_src
     src/adaptersTest.cpp
     src/AdapterLofarStationVisibilitiesTest.cpp
