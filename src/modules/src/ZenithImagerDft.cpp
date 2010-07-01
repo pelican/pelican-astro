@@ -194,7 +194,7 @@ void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
                 visData = const_cast<complex_t*>(vis->ptr(iChan, iPol));
                 if (visData == NULL)
                     throw QString("ZenithImagerDft: Visibility data missing "
-                    		"for selected channel and polarisation");
+                            "for selected channel and polarisation");
                 _zeroAutoCorrelations(visData, nAnt);
             }
 
@@ -283,11 +283,11 @@ void ZenithImagerDft::_calculateImageCoords(double cellsize,
 {
     if (coords == NULL)
         throw QString("ZenithImagerDft::_calculateImageCoords(): "
-        		"Coordinate array not allocated");
+                "Coordinate array not allocated");
 
     if (nPixels == 0)
         throw QString("ZenithImagerDft::_calculateImageCoords(): "
-        		"No image pixels!");
+                "No image pixels!");
 
     if (nPixels == 1) {
         coords[0] = 0.0;
@@ -333,8 +333,8 @@ void ZenithImagerDft::_calculateWeights(unsigned nAnt, const real_t* antPos,
  * Perform a discrete Fourier transform to form an image from the visibility data.
  */
 void ZenithImagerDft::_makeImageDft(unsigned nAnt,
-		const real_t* antPosX, const real_t* antPosY, const complex_t* vis,
-		double frequency, unsigned nL, unsigned nM, const real_t* coordsL,
+        const real_t* antPosX, const real_t* antPosY, const complex_t* vis,
+        double frequency, unsigned nL, unsigned nM, const real_t* coordsL,
         const real_t* coordsM, real_t *image)
 {
     _weightsXL.resize(nAnt * nL);
@@ -363,16 +363,16 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
 
     complex_t* weights = NULL;
     complex_t* buffer = NULL;
-    complex_t temp;
     unsigned nNonZeroVis = nAnt * nAnt - nAnt;
+    complex_t temp;
 
     // Loop over image pixels to calculate the image amplitude using a
     // 2 sided matrix vector approach.
-#pragma omp parallel for private(tid, weights, buffer)
+#pragma omp parallel for private(tid, weights, buffer, temp)
     for (unsigned m = 0; m < nM; m++) {
 
         unsigned indexM = m * nL;
-        complex_t *weightsYM = &_weightsYM[m * nAnt];
+        complex_t* weightsYM = &_weightsYM[m * nAnt];
 
         tid = omp_get_thread_num();
         weights = &tempWeights[tid][0];
@@ -387,8 +387,6 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
             cblas_zgemv(CblasRowMajor, CblasNoTrans, nAnt, nAnt, alpha, vis,
                     nAnt, weights, xInc, beta, buffer, yInc);
 
-            // The BLAS routine cblas_zdotc_sub can replace this:
-            // image[index] = _vectorDotConj(nAnt, buffer, weights).real();
             // Computes a dot product of a conjugated vector with another vector.
             cblas_zdotc_sub(nAnt, buffer, 1, weights, 1, &temp);
             image[index] = temp.real();
@@ -412,22 +410,6 @@ void ZenithImagerDft::_multWeights(unsigned nAnt, complex_t* weightsXL,
         weights[i] = weightsXL[i] * weightsYM[i];
     }
 }
-
-
-///**
-// * @details
-// * Vector dot product
-// */
-//complex_t ZenithImagerDft::_vectorDotConj(unsigned n, complex_t* a,
-//        complex_t* b)
-//{
-//    complex_t result = complex_t(0.0, 0.0);
-//    for (unsigned i = 0; i < n; i++) {
-//        result += a[i] * conj(b[i]);
-//    }
-//    return result;
-//}
-
 
 
 /**
