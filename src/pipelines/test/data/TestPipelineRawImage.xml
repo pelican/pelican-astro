@@ -5,8 +5,9 @@
 <nodesets>
     <nodeset name="channels">
         <!-- <frequencies reference="3.554687500e7" delta="195312.5"/>  -->
-        <frequencies reference="0.0" referenceChannel="0" delta="195312.5"/>
-        <channels start="182" end="182">182</channels>
+        <frequencies reference="100e6" referenceChannel="0" delta="195312.5"/>
+        <!-- <channels start="182" end="182">182</channels>  -->
+        <channels>350</channels>
         <polarisation value="x"/>
     </nodeset>
 

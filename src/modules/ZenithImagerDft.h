@@ -12,6 +12,7 @@
 #include "pelican/utility/constants.h"
 
 #include <vector>
+using std::vector;
 
 namespace pelican {
 
@@ -46,7 +47,7 @@ class ZenithImagerDft : public AbstractModule
 
         /// Sets the channels (\p c) produce an image from.
         /// Method overrides the selected channels from the configuration.
-        void setChannels(const std::vector<unsigned>& c) { _channels = c; }
+        void setChannels(const vector<unsigned>& c) { _channels = c; }
 
         /// Sets the polarisation selection.
         /// Method overrides the selected channels from the configuration.
@@ -111,28 +112,28 @@ class ZenithImagerDft : public AbstractModule
     private:
         AbstractAstrometry* _astrometry;    ///< Astrometric conversion module.
 
-        int _visUse;                        ///< Option to image raw, model or corrected.
-        std::vector<unsigned> _channels;    ///< Selected channel list.
+        int _visUse;                   ///< Option to image raw, model or corrected.
+        vector<unsigned> _channels;    ///< Selected channel list.
         unsigned _nChannels;
 
-        double _freqRefChannel;             ///< Frequency reference channel
-        double _freqRef;                    ///< Reference frequency
-        double _freqDelta;                  ///< Frequency delta
+        double _freqRefChannel;        ///< Frequency reference channel
+        double _freqRef;               ///< Reference frequency
+        double _freqDelta;             ///< Frequency delta
 
-        Polarisation _polarisation;         ///< Selection polarisation (enumeration).
-        bool _fullSky;                      ///< Image the full sky (overrides cellsize)
-        bool _trimHemisphere;               ///< Cut the image to the full sky hemisphere
-        bool _pixelCentred;                 ///< Put the zero of the image in the middle of a pixel
-        unsigned _sizeL;                    ///< Image size in l (x) pixels.
-        unsigned _sizeM;                    ///< Image size in m (y) pixels.
-        double _cellsizeL;                  ///< Image pixel increment in m (y) direction.
-        double _cellsizeM;                  ///< Image pixel increment in l (x) direction.
+        Polarisation _polarisation;    ///< Selection polarisation (enumeration).
+        bool _fullSky;                 ///< Image the full sky (overrides cellsize)
+        bool _trimHemisphere;          ///< Cut the image to the full sky hemisphere
+        bool _pixelCentred;            ///< Put the zero of the image in the middle of a pixel
+        unsigned _sizeL;               ///< Image size in l (x) pixels.
+        unsigned _sizeM;               ///< Image size in m (y) pixels.
+        double _cellsizeL;             ///< Image pixel increment in m (y) direction.
+        double _cellsizeM;             ///< Image pixel increment in l (x) direction.
 
-        std::vector<real_t> _coordL;        ///< Image l (x) coordinates in radians.
-        std::vector<real_t> _coordM;        ///< Image m (y) coordinates in radians.
+        vector<real_t> _coordL;        ///< Image l (x) coordinates in radians.
+        vector<real_t> _coordM;        ///< Image m (y) coordinates in radians.
 
-        std::vector<complex_t> _weightsXL;  ///< DFT weights for XL coordinates
-        std::vector<complex_t> _weightsYM;  ///< DFT weights for YM coordinates
+        vector<complex_t> _weightsXL;  ///< DFT weights for XL coordinates
+        vector<complex_t> _weightsYM;  ///< DFT weights for YM coordinates
 };
 
 } // namespace astro

@@ -2,7 +2,6 @@
 project(pelican-astro CXX C)
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
-
 # === Set the project version.
 set(${PROJECT_NAME}_MAJOR_VERSION 0)
 set(${PROJECT_NAME}_MINOR_VERSION 0)
@@ -46,12 +45,9 @@ if(NOT DOC_INSTALL_DIR)
     set(DOC_INSTALL_DIR ${PELICAN_ASTRO_INSTALL_DIR}/doc)
 endif(NOT DOC_INSTALL_DIR)
 
-
-
 DECLARE_PROJECT_LIBRARY(pelican-astro
     adapters
     adaptersTest
-    #chunkers
     data
     modules
     pipelines
@@ -61,9 +57,8 @@ DECLARE_PROJECT_LIBRARY(pelican-astro
 include(modules.cmake)
 
 CREATE_PROJECT_LIBRARY(pelican-astro)
+
 set_target_properties(pelican-astro PROPERTIES
     COMPILE_FLAGS "${OpenMP_CXX_FLAGS}"
     LINK_FLAGS "${OpenMP_CXX_FLAGS}"
 )
-
-

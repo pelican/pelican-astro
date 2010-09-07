@@ -4,7 +4,8 @@
 #include <iostream>
 #include <iomanip>
 
-#include "pelican/utility/memCheck.h"
+using std::cout;
+using std::endl;
 
 namespace pelican {
 namespace astro {
@@ -17,13 +18,13 @@ VisGen::VisGen(int argc, char** argv)
 {
     _binary = true;
     _getCommandLineArgs(argc, argv);
-    std::string binary = (_binary) ? "yes" : "no";
-    std::cout << "----------------------------------------\n";
-    std::cout << "antennas      = " << _nAnt << std::endl;
-    std::cout << "polarisations = " << _nPol << std::endl;
-    std::cout << "channels      = " << _nChan << std::endl;
-    std::cout << "binary        = " << binary << std::endl;
-    std::cout << "----------------------------------------\n";
+    string binary = (_binary) ? "yes" : "no";
+    cout << "----------------------------------------\n";
+    cout << "antennas      = " << _nAnt << endl;
+    cout << "polarisations = " << _nPol << endl;
+    cout << "channels      = " << _nChan << endl;
+    cout << "binary        = " << binary << endl;
+    cout << "----------------------------------------\n";
 }
 
 /**
@@ -59,10 +60,10 @@ void VisGen::print()
                     for (int pi = 0; pi < _nPol; pi++) {
 
                         int index = cIndex + jIndex + (i * _nPol + pi);
-                        std::cout << _data[index];
+                        cout << _data[index];
                     }
                 }
-                std::cout << std::endl;
+                cout << endl;
             }
         }
         std::cout << std::endl;
@@ -76,7 +77,7 @@ void VisGen::print()
  *
  * @param[in] fileName File name of the data to write.
  */
-void VisGen::write(const std::string& fileName)
+void VisGen::write(const string& fileName)
 {
     /* Open the output data stream */
     std::ofstream file(fileName.c_str(), std::ios::out | std::ios::binary);
@@ -104,10 +105,10 @@ void VisGen::write(const std::string& fileName)
                             file << _data[index];
                         }
                     }
-                    file << std::endl;
+                    file << endl;
                 }
             }
-            file << std::endl;
+            file << endl;
         }
     }
 

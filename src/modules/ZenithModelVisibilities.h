@@ -6,9 +6,11 @@
 #include "data/ModelVisibilityData.h"
 
 #include "pelican/modules/AbstractModule.h"
-#include "pelican/utility/constants.h"
+#include "data/Constants.h"
 
 #include <vector>
+
+using std::vector;
 
 /**
  * @file ZenithModelVisibilities.h
@@ -50,7 +52,7 @@ class ZenithModelVisibilities : public AbstractModule
     private:
         /// Calculate source direction cosines.
         void _calculateDirectionCosines(unsigned nSources,
-        		const Source* sources, double* l, double* m);
+                const Source* sources, double* l, double* m);
 
         /// Calculate model visibilities.
         void _calculateModelVis(complex_t* vis, unsigned nAnt,
@@ -70,15 +72,15 @@ class ZenithModelVisibilities : public AbstractModule
         AbstractAstrometry* _astrometry;
         SiteData _siteData;
         CelestialData _celestialData;
-        std::vector<Source> _sources;
-        std::vector<unsigned> _channels;
+        vector<Source> _sources;
+        vector<unsigned> _channels;
         int _freqRefChannel;                ///< Frequency reference channel
         double _freqRef;                    ///< Reference frequency
         double _freqDelta;                  ///< Frequency delta
         Polarisation _polarisation;
 };
 
+
 } // namespace astro
 } // namespace pelican
-
 #endif // ZENITHMODELVISIBILITIES_H

@@ -1,11 +1,14 @@
 #ifndef VISIBILITYDATA_H
 #define VISIBILITYDATA_H
 
-#include "data/AntennaMatrixData.h"
-
 /**
  * @file VisibilityData.h
  */
+
+#include "data/AntennaMatrixData.h"
+#include <vector>
+
+using std::vector;
 
 namespace pelican {
 namespace astro {
@@ -30,12 +33,9 @@ class VisibilityData : public AntennaMatrixData<complex_t>
         : AntennaMatrixData<complex_t>(type) {}
 
         /// Constructs a pre-sized visibility data cube.
-        VisibilityData(const unsigned nAntennas,
-                const std::vector<unsigned>& channels,
-                const Polarisation polarisation,
-                const QString& type = QString("VisibilityData"))
-        : AntennaMatrixData<complex_t>(nAntennas, channels, polarisation,
-                type) {}
+        VisibilityData(unsigned nAntennas, vector<unsigned> const& channels,
+                Polarisation polarisation, const QString& type = "VisibilityData")
+        : AntennaMatrixData<complex_t>(nAntennas, channels, polarisation, type) {}
 
         /// Visibility data destructor.
         ~VisibilityData() {}

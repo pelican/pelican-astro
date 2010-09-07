@@ -1,6 +1,10 @@
 #ifndef VISGEN_H
 #define VISGEN_H
 
+/**
+ * @file VisGen.h
+ */
+
 #include "pelican/data/DataBlob.h"
 
 #include <QtCore/QByteArray>
@@ -11,9 +15,9 @@
 #include <fstream>
 #include <cstdlib>
 
-/**
- * @file VisGen.h
- */
+using std::vector;
+using std::string;
+
 
 namespace pelican {
 namespace astro {
@@ -46,12 +50,12 @@ class VisGen
         complex_t* data() { return (_data.size() > 0) ? &_data[0] : NULL; }
 
         /// Generates a visibility data set using the pre-set dimensions.
-        void generate() {
-            _generate(_nAnt, _nChan, _nPol);
-        }
+        void generate()
+        { _generate(_nAnt, _nChan, _nPol); }
 
         /// Generates a visibility data set using the given dimensions.
-        void generate(int nAnt, int nChan, int nPol) {
+        void generate(int nAnt, int nChan, int nPol)
+        {
             _binary = true;
             _generate(nAnt, nChan, nPol);
         }
@@ -72,7 +76,7 @@ class VisGen
         unsigned size() { return _data.size() * sizeof(complex_t); }
 
         /// Writes the generated visibility data to file.
-        void write(const std::string& fileName);
+        void write(const string& fileName);
 
     private:
         /// Called by generate() to generate the visibility data.
@@ -86,7 +90,7 @@ class VisGen
         int _nAnt;    ///< Number of antennas in the generated data.
         int _nChan;   ///< Number of channels in the generated data.
         int _nPol;    ///< Number of polarisations in the generated data.
-        std::vector<complex_t> _data; ///< The generated visibility data.
+        vector<complex_t> _data; ///< The generated visibility data.
 };
 
 } // namespace astro

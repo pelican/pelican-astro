@@ -8,6 +8,10 @@
 
 #include <QtCore/QCoreApplication>
 
+#include <iostream>
+using std::cout;
+using std::endl;
+
 #include "pelican/utility/memCheck.h"
 
 namespace pelican {
@@ -28,7 +32,7 @@ TestPipelineVisibilityPrinterTest::~TestPipelineVisibilityPrinterTest()
 void TestPipelineVisibilityPrinterTest::setUp()
 {
     int ac = 0;
-    _app = new QCoreApplication(ac, NULL);
+    _app = new QCoreApplication(ac, 0);
 }
 
 void TestPipelineVisibilityPrinterTest::tearDown()
@@ -38,6 +42,7 @@ void TestPipelineVisibilityPrinterTest::tearDown()
 
 void TestPipelineVisibilityPrinterTest::test_method()
 {
+    cout << "==== TestPipelineVisibilityPrinterTest ====" << endl;
     _createConfig();
     TestConfig config;
     int argc = 2;

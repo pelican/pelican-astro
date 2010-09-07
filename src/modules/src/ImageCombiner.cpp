@@ -1,4 +1,5 @@
 #include "modules/ImageCombiner.h"
+#include "utility/AstroConfig.h"
 
 #include "pelican/utility/memCheck.h"
 
@@ -265,9 +266,13 @@ void ImageCombiner::_getConfiguration(const ConfigNode& config)
     }
 
     // Get the polarisation.
-    _polInput1 = config.getPolarisation("polarisationInput1");
-    _polInput2 = config.getPolarisation("polarisationInput2");
-    _polOutput = config.getPolarisation("polarisationOutput");
+    QString pol1 = config.getOption("polarisationInput1", "value");
+    QString pol2 = config.getOption("polarisationInput2", "value");
+    QString polOut = config.getOption("polarisationInputOutput", "value");
+
+    _polInput1 = AstroConfig::getPolarisation(pol1);
+    _polInput2 = AstroConfig::getPolarisation(pol2);
+    _polOutput = AstroConfig::getPolarisation(polOut);
     unsigned nPols1 = _polInput1 == POL_BOTH ? 2 : 1;
     unsigned nPols2 = _polInput2 == POL_BOTH ? 2 : 1;
     if (nPols1 != nPols2)

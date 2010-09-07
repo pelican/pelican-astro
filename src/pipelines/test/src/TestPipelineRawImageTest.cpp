@@ -7,8 +7,9 @@
 #include "pelican/utility/TestConfig.h"
 
 #include <QtCore/QCoreApplication>
-
-#include "pelican/utility/memCheck.h"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 namespace pelican {
 namespace astro {
@@ -43,6 +44,7 @@ void TestPipelineRawImageTest::tearDown()
 
 void TestPipelineRawImageTest::test_method()
 {
+    cout << "==== TestPipelineRawImageTest ====" << endl;
     TestConfig config;
     int argc = 2;
     char** argv = config.argv("TestPipelineRawImage.xml", "pipelines");

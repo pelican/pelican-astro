@@ -6,6 +6,7 @@ set(modulesTest_src
     src/ZenithImagerDftTest.cpp
     src/ZenithModelVisibilitiesTest.cpp
     src/ImageWriterFitsTest.cpp
+    src/ZenithCalibraterTest.cpp
 )
 add_executable(modulesTest ${modulesTest_src})
 target_link_libraries(modulesTest

@@ -7,7 +7,6 @@ set(pipelines_src
     src/TestPipelineMultipleImages.cpp
 )
 
-
 SUBPACKAGE_LIBRARY(pipelines ${pipelines_src})
 SUBPACKAGE_SET_EXTERNAL_LIBRARIES(
     ${PELICAN_LIBRARY}

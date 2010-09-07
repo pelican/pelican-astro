@@ -33,6 +33,7 @@ if (MKL_FOUND)
     set(pelican_mkl true)
     include_directories(${MKL_INCLUDE_DIR})
     message(STATUS "FoundMKL: ${pelican_math_libs}")
+    #link_directories(
 else (MKL_FOUND)
     find_package(CBLAS REQUIRED)
     find_package(LAPACK REQUIRED)
@@ -41,8 +42,5 @@ endif (MKL_FOUND)
 
 include_directories(
     ${QT_INCLUDE_DIR}
-    #${QT_QTCORE_INCLUDE_DIR}
     ${CFITSIO_INCLUDE_DIR}
 )
-
-

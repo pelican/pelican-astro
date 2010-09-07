@@ -49,8 +49,7 @@ void TestPipelineServer::run(QHash<QString, DataBlob*>& remoteData)
 
     // Stop the pipeline driver if we have gone through 10 iterations.
     ++_counter;
-    if (_counter == 3000)
-        stop();
+    if (_counter == 100) stop();
 }
 
 } // namespace astro

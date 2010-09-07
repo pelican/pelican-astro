@@ -2,6 +2,7 @@
 #include "modules/AstrometryFast.h"
 #include "data/VisibilityData.h"
 #include "data/AntennaPositions.h"
+#include "utility/AstroConfig.h"
 
 #include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
@@ -17,9 +18,7 @@
 #ifdef USING_MKL
     #include <mkl.h>
 #else
-    extern "C" {
-        #include <cblas.h>
-    }
+    extern "C" { #include <cblas.h> }
 #endif
 
 #include "pelican/utility/memCheck.h"
@@ -154,14 +153,14 @@ void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
 
     if (vis != NULL) {
         // Check input data and selection polarisation for consistency.
-        checkPolarisationConsitency(vis->polarisation(), _polarisation);
+        AstroConfig::checkPolarisationConsitency(vis->polarisation(), _polarisation);
     }
 
     // Declare pointer to visibility data.
     complex_t* visData = NULL;
 
     // Set PSF visibilities if needed.
-    std::vector<complex_t> scratch(nAnt * nAnt);
+    vector<complex_t> scratch(nAnt * nAnt);
     if (vis == NULL) {
         visData = &scratch[0];
         _setPsfVisibilties(visData, nAnt);
@@ -192,9 +191,10 @@ void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
             // Get pointer to visibility data for channel and polarisation.
             if (vis != NULL) {
                 visData = const_cast<complex_t*>(vis->ptr(iChan, iPol));
-                if (visData == NULL)
-                    throw QString("ZenithImagerDft: Visibility data missing "
-                            "for selected channel and polarisation");
+                if (!visData)
+                    throw QString("ZenithImagerDft::run(): "
+                            "Visibility data undefined (chan %1, pol %2)")
+                            .arg(iChan).arg(iPol);
                 _zeroAutoCorrelations(visData, nAnt);
             }
 
@@ -248,7 +248,8 @@ void ZenithImagerDft::_getConfiguration(const ConfigNode& config)
 
     // Get the channel and polarisation selection.
     _channels = config.getUnsignedList("channels");
-    _polarisation = config.getPolarisation();
+    QString pol = config.getOption("polarisation", "value");
+    _polarisation = AstroConfig::getPolarisation(pol);
 
     /* A/D-converter - to be able to cope with expected interference levels - operating at either
     160 or 200 MHz in the first, second or third Nyquist zone (i.e. 0 - 100, 100 - 200, or 200 -
@@ -298,8 +299,8 @@ void ZenithImagerDft::_calculateImageCoords(double cellsize,
     int centre = nPixels / 2;
     double offset = (_pixelCentred) ? 0 : delta / 2.0;
 
-    for (int i = 0; i < static_cast<int>(nPixels); i++) {
-        coords[i] = static_cast<double>(i - centre) * delta + offset;
+    for (int i = 0; i < int(nPixels); i++) {
+        coords[i] = double(i - centre) * delta + offset;
     }
 }
 
@@ -346,8 +347,8 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
     // Set up buffers for sorting a vector of weights for one pixel
     // and the temporary results of the per pixel matrix vector product
     unsigned nProcs = omp_get_num_procs();
-    std::vector< std::vector<complex_t> > tempWeights;
-    std::vector< std::vector<complex_t> > tempBuffer;
+    vector<vector<complex_t> > tempWeights;
+    vector<vector<complex_t> > tempBuffer;
     tempWeights.resize(nProcs);
     tempBuffer.resize(nProcs);
     for (unsigned i = 0; i < nProcs; i++) {
@@ -393,7 +394,7 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
 
             // normalise - (as for each non zero vis/weight the sum gets an
             // extra factor of 1 from from the e^(i...))
-            image[index] /= static_cast<double>(nNonZeroVis);
+            image[index] /= double(nNonZeroVis);
         }
     }
 }
@@ -406,9 +407,8 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
 void ZenithImagerDft::_multWeights(unsigned nAnt, complex_t* weightsXL,
         complex_t *weightsYM, complex_t *weights)
 {
-    for (unsigned i = 0; i < nAnt; i++) {
+    for (unsigned i = 0; i < nAnt; i++)
         weights[i] = weightsXL[i] * weightsYM[i];
-    }
 }
 
 

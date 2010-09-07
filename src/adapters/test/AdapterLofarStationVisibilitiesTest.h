@@ -45,11 +45,11 @@ class AdapterLofarStationVisibilitiesTest : public CppUnit::TestFixture
 
     private:
         // Returns the expected data value at this location.
-        double _dataVal(unsigned ai, unsigned aj, unsigned c, unsigned p) {
-            return p * 1000.0 + c + ai/100.0 + aj/100.0;
-        }
+        double _dataVal(unsigned ai, unsigned aj, unsigned c, unsigned p)
+        { return p * 1000.0 + c + ai/100.0 + aj/100.0; }
 
         QCoreApplication *_app;
+        double _err;
 };
 
 } // namespace astro

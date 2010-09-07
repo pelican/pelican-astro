@@ -15,7 +15,9 @@
 #include <QtCore/QTimer>
 #include "pelican/utility/Config.h"
 
-#include "pelican/utility/memCheck.h"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 namespace pelican {
 namespace astro {
@@ -77,6 +79,8 @@ void TestPipelineServerTest::tearDown()
  */
 void TestPipelineServerTest::test_testChunker()
 {
+    cout << endl;
+    cout << "==== TestPipelineServerTest::test_testChunker() ====" << endl;
     try {
         _createConfig();
         TestConfig config("TestPipelineServer.xml", "pipelines");
@@ -100,10 +104,11 @@ void TestPipelineServerTest::test_testChunker()
         // Start the pipeline binary.
         PipelineBinaryEmulator pipelineBinary(&config);
 
-        // Return after 12 seconds.
-        QTimer::singleShot(30000, &app, SLOT(quit()));
+        // Return after a number of seconds.
+        QTimer::singleShot(2000, &app, SLOT(quit()));
         app.exec();
     }
+
     catch (QString e) {
         CPPUNIT_FAIL("Unexpected exception: " + e.toStdString());
     }
@@ -117,6 +122,8 @@ void TestPipelineServerTest::test_testChunker()
  */
 void TestPipelineServerTest::test_testUdpChunker()
 {
+    cout << endl;
+    cout << "==== TestPipelineServerTest::test_testUdpChunker() ====" << endl;
     try {
         _createConfig();
         TestConfig config("TestPipelineServer.xml", "pipelines");
@@ -143,8 +150,8 @@ void TestPipelineServerTest::test_testUdpChunker()
         // Start the pipeline binary.
         PipelineBinaryEmulator pipelineBinary(&config);
 
-        // Return after 12 seconds.
-        QTimer::singleShot(30000, &app, SLOT(quit()));
+        // Return after a number of seconds
+        QTimer::singleShot(2000, &app, SLOT(quit()));
         app.exec();
     }
     catch (QString e) {
@@ -160,6 +167,8 @@ void TestPipelineServerTest::test_testUdpChunker()
  */
 void TestPipelineServerTest::test_testTwoUdpChunkers()
 {
+    cout << endl;
+    cout << "==== TestPipelineServerTest::test_testTwoUdpChunkers() ====" << endl;
     // Set up the telescope emulators (turn on the telescope)
     EmulatorDriver emulator1(new RealUdpEmulator(*_emulatorConfig1));
     EmulatorDriver emulator2(new RealUdpEmulator(*_emulatorConfig2));
@@ -189,8 +198,8 @@ void TestPipelineServerTest::test_testTwoUdpChunkers()
         // Start the pipeline binary.
         PipelineBinaryEmulator pipelineBinary(&config);
 
-        // Return after 12 seconds.
-        QTimer::singleShot(30000, &app, SLOT(quit()));
+        // Return after a number of seconds.
+        QTimer::singleShot(2000, &app, SLOT(quit()));
         app.exec();
     }
     catch (QString e) {

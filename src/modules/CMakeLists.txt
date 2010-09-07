@@ -8,6 +8,7 @@ set(modules_src
     src/ZenithImagerDft.cpp
     src/ImageWriterFits.cpp
     src/ImageCombiner.cpp
+    #src/ZenithCalibrater.cpp
 )
 
 SUBPACKAGE_LIBRARY(modules ${modules_src})

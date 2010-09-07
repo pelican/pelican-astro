@@ -3,6 +3,7 @@
 #include "data/ImageData.h"
 #include "data/VisibilityData.h"
 #include "data/AntennaPositions.h"
+#include "data/Constants.h"
 
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/constants.h"
@@ -11,6 +12,8 @@
 #include <limits>
 #include <vector>
 #include <iostream>
+
+using std::vector;
 
 #include "pelican/utility/memCheck.h"
 
@@ -56,7 +59,7 @@ void ZenithImagerDftTest::test_configuration()
                 imager._cellsizeL, 1.0e-5);
         CPPUNIT_ASSERT_DOUBLES_EQUAL((2.0 / 128.0) * math::rad2asec,
                 imager._cellsizeM, 1.0e-5);
-        CPPUNIT_ASSERT(imager._polarisation == POL_X);
+        CPPUNIT_ASSERT(imager._polarisation == POL_UNDEF);
         CPPUNIT_ASSERT(imager._channels.size() == 1);
         CPPUNIT_ASSERT(imager._channels[0] == 0);
     }
@@ -69,28 +72,37 @@ void ZenithImagerDftTest::test_configuration()
  */
 void ZenithImagerDftTest::test_inputDataBlobs()
 {
-    ConfigNode config;
-    ZenithImagerDft imager(config);
-    ImageData image;
-    VisibilityData vis;
-    AntennaPositions ant;
+    try {
+        ConfigNode config;
+        ZenithImagerDft imager(config);
+        imager._polarisation = POL_X;
+        ImageData image;
+        VisibilityData vis;
+        AntennaPositions ant;
 
-    // Use case
-    // No data blobs
-    // Expect to throw
-    {
-        CPPUNIT_ASSERT_THROW(imager.run(NULL, NULL, NULL), QString);
+        // Use case
+        // No data blobs
+        // Expect to throw
+        {
+            CPPUNIT_ASSERT_THROW(imager.run(0, 0, 0), QString);
+        }
+
+        // Use case
+        // Assigned data blobs
+        // Expect not to throw
+        {
+            vector<unsigned> channels(2);
+            image.resize(10, 10, channels, POL_X);
+            vis.resize(5, channels, POL_X);
+            ant.resize(5);
+            imager.run(&image, &ant, &vis);
+            //CPPUNIT_ASSERT_NO_THROW(imager.run(&image, &ant, &vis));
+        }
+
     }
-
-    // Use case
-    // Assigned data blobs
-    // Expect not to throw
+    catch (const QString& err)
     {
-        std::vector<unsigned> channels(2);
-        image.resize(10, 10, channels, POL_X);
-        vis.resize(5, channels, POL_X);
-        ant.resize(5);
-        CPPUNIT_ASSERT_NO_THROW(imager.run(&image, &ant, &vis));
+        CPPUNIT_FAIL(err.toStdString());
     }
 }
 

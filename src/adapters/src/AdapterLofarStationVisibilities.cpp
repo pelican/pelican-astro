@@ -1,5 +1,8 @@
 #include "adapters/AdapterLofarStationVisibilities.h"
+
 #include "data/VisibilityData.h"
+#include "utility/AstroConfig.h"
+
 
 #include <QtCore/QByteArray>
 #include <QtCore/QIODevice>
@@ -8,7 +11,9 @@
 #include <iostream>
 #include <iomanip>
 
-#include "pelican/utility/memCheck.h"
+using std::cout;
+using std::cerr;
+using std::endl;
 
 namespace pelican {
 namespace astro {
@@ -36,7 +41,10 @@ AdapterLofarStationVisibilities::AdapterLofarStationVisibilities(const ConfigNod
 
     // Get the channel and polarisation selection.
     _channels = config.getUnsignedList("channels");
-    _polarisation = config.getPolarisation();
+
+    QString pol = config.getOption("polarisation", "value");
+    _polarisation = AstroConfig::getPolarisation(pol);
+
     _nPol = (_polarisation == POL_BOTH) ? 2 : 1;
     _nChan = _channels.size();
 }

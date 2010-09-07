@@ -8,6 +8,8 @@
 #include "pelican/data/DataBlob.h"
 #include "pelican/utility/pelicanTimer.h"
 
+#include "utility/AstroConfig.h"
+
 #include <QtCore/QHash>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -274,7 +276,8 @@ void ZenithModelVisibilities::_getConfiguration(const ConfigNode& config)
 
      // Get the channel and polarisation selection.
      _channels = config.getUnsignedList("channels");
-     _polarisation = config.getPolarisation();
+     QString pol = config.getOption("polarisation", "value");
+     _polarisation = AstroConfig::getPolarisation(pol);
 
      // Read astrometry site parameters and set the data structure.
      double siteLongitude = config.getOption("siteLongitude", "value", "0").toDouble();
@@ -284,7 +287,7 @@ void ZenithModelVisibilities::_getConfiguration(const ConfigNode& config)
      double deltaUT = config.getOption("deltaUT", "value", "0").toDouble();
      double pressure = config.getOption("pressure", "value", "1000").toDouble();
      _astrometry->setSiteParameters(&_siteData, siteLongitude, siteLatitude,
-    		 deltaUT, pressure);
+             deltaUT, pressure);
 }
 
 } // namespace astro
