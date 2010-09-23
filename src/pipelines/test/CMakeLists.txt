@@ -1,3 +1,4 @@
+# Declare the 'pipelinesTest' sub-package which depends on pipelines.
 SUBPACKAGE(pipelinesTest pipelines)
 
 # Copy test data and XML configuration files to the build directory.
@@ -5,9 +6,7 @@ include(CopyFiles)
 copy_files(${CMAKE_CURRENT_SOURCE_DIR}/data/* . pipeLineTestData)
 
 
-
-
-# Test Visibility printer pipeline binary.
+# Create a binary for testing the 'Visibility printer' pipeline.
 # ------------------------------------------------------------------------------
 set(TestPipelineVisibilityPrinter_src
     src/pipelinesTest.cpp
@@ -21,9 +20,7 @@ target_link_libraries(testPipelineVisibilityPrinter
 )
 
 
-
-
-# Server testing pipeline.
+# Create a binary for the Server testing pipeline.
 # ------------------------------------------------------------------------------
 set(TestPipelineServer_src
     src/pipelinesTest.cpp
@@ -37,7 +34,7 @@ target_link_libraries(testPipelineServer
 )
 
 
-# Raw image generation.
+# Create a test binary for the 'Raw image generation' pipeline.
 # ------------------------------------------------------------------------------
 set(TestPipelineRawImage_src
     src/pipelinesTest.cpp
@@ -45,7 +42,7 @@ set(TestPipelineRawImage_src
 )
 add_executable(testPipelineRawImage ${TestPipelineRawImage_src})
 target_link_libraries(testPipelineRawImage
-    #${PELICAN_TESTUTILS_LIBRARY}
+    ${PELICAN_TESTUTILS_LIBRARY}
     ${SUBPACKAGE_LIBRARIES}
     ${CPPUNIT_LIBRARIES}
 )
@@ -76,7 +73,3 @@ target_link_libraries(testPipelineMultipleImages
 #        ${SUBPACKAGE_LIBRARIES}
 #        ${CPPUNIT_LIBRARIES}
 #)
-
-# removed as its slow and artificial (not really a unit test)
-#add_test(pipelinesTest pipelinesTest)
-

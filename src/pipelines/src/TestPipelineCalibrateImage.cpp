@@ -69,31 +69,26 @@ void TestPipelineCalibrateImage::run(QHash<QString, DataBlob*>& remoteData)
 {
     AntennaPositions* antPos = (AntennaPositions*) remoteData["AntennaPositions"];
     VisibilityData* rawVis = (VisibilityData*) remoteData["VisibilityData"];
-    Q_ASSERT(antPos != NULL);
-    Q_ASSERT(rawVis != NULL);
+    Q_ASSERT(antPos);
+    Q_ASSERT(rawVis);
 
     _modelVis->setTimeStamp(rawVis->timeStamp());
     _modelGen->run(antPos, _modelVis);
-    _calibrate->run(rawVis, _modelVis, _correctedVis);
+//    _calibrate->run(rawVis, _modelVis, _correctedVis);
 
     _imager->run(_rawImage, antPos, rawVis);
-
-    _imagerModel->run(_modelImage, antPos, _modelVis);
-    _imager->run(_calImage, antPos, _correctedVis);
     _imager->run(_psfImage, antPos);
 
-    _imageCombiner->run(_calImage, _modelImage, _diffImage);
+    _imagerModel->run(_modelImage, antPos, _modelVis);
+//    _imager->run(_calImage, antPos, _correctedVis);
+//
+//    _imageCombiner->run(_calImage, _modelImage, _diffImage);
 
-    _fitsWriter->fileName() = "calibPipe-raw";
-    _fitsWriter->run(_rawImage);
-    _fitsWriter->fileName() = "calibPipe-model";
-    _fitsWriter->run(_modelImage);
-    _fitsWriter->fileName() = "calibPipe-psf";
-    _fitsWriter->run(_psfImage);
-    _fitsWriter->fileName() = "calibPipe-calibrated";
-    _fitsWriter->run(_calImage);
-    _fitsWriter->fileName() = "calibPipe-diff_cal-model";
-    _fitsWriter->run(_diffImage);
+    _fitsWriter->run(_rawImage, "calibPipe-raw");
+    _fitsWriter->run(_psfImage, "calibPipe-psf");
+    _fitsWriter->run(_modelImage, "calibPipe-model");
+//    _fitsWriter->run(_calImage, "calibPipe-calibrated");
+//    _fitsWriter->run(_diffImage, "calibPipe-diff_cal-model");
 
     stop();
 }

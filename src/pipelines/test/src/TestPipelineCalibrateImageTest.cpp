@@ -47,7 +47,8 @@ void TestPipelineCalibrateImageTest::test_method()
     cout << "==== TestPipelineMultipleImagesTest ====" << endl;
     TestConfig config;
     int argc = 2;
-    char** argv = config.argv("TestPipelineCalibrateImage.xml", "pipelines");
+    //char** argv = config.argv("TestPipelineCalibrateImage.xml", "pipelines");
+    char** argv = config.argv("calibrateTest.xml", "pipelines");
 
     TIMER_START
     QCoreApplication app(argc, argv);

@@ -19,10 +19,6 @@ namespace astro {
 class AstroConfig
 {
     public:
-        AstroConfig() {}
-        ~AstroConfig() {}
-
-    public:
         /// Returns an enum for the polarisation described by an XML attribute value.
         static Polarisation getPolarisation(QString const& value)
         {

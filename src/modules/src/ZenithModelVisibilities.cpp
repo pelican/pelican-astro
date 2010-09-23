@@ -168,14 +168,16 @@ void ZenithModelVisibilities::_calculateModelVis(complex_t* vis,
     double k = (math::twoPi * frequency) / phy::c;
 
     // Calculate a vector of antenna signals for each source.
-    std::vector<complex_t> antSignal(nAnt * nSources);
+    vector<complex_t> antSignal(nAnt * nSources);
     complex_t* signal = &antSignal[0];
+    double arg, amp;
+    complex_t weight;
+
     for (unsigned s = 0; s < nSources; s++) {
         for (unsigned i = 0; i < nAnt; i++) {
-            double arg = (antPosX[i] * l[s] + antPosY[i] * m[s]) * k;
-            complex_t weight = complex_t(cos(arg), sin(arg));
-            double amp = (polarisation == POL_X) ?
-                    sources[s].amp1() : sources[s].amp2();
+            arg = (antPosX[i] * l[s] + antPosY[i] * m[s]) * k;
+            weight = complex_t(cos(arg), sin(arg));
+            amp = (polarisation == POL_X) ? sources[s].amp1() : sources[s].amp2();
             signal[s * nAnt + i] = sqrt(amp) * weight;
         }
     }

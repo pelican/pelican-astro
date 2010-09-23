@@ -15,6 +15,10 @@
 #include <limits>
 #include <omp.h>
 
+using std::endl;
+using std::cout;
+using std::cerr;
+
 #ifdef USING_MKL
     #include <mkl.h>
 #else
@@ -178,6 +182,8 @@ void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
         // The channel ID selection.
         unsigned selectedChannel = _channels[c];
         double frequency = _freqRef + (selectedChannel - _freqRefChannel) * _freqDelta;
+        cout << "freq = " << frequency << endl;
+
 
         // Find out if the selected channel is available in the data and if so
         // get its index.

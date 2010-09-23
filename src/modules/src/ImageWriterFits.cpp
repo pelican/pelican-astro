@@ -50,10 +50,12 @@ ImageWriterFits::~ImageWriterFits()
  *
  * @param[in] data  Hash of data blobs.
  */
-void ImageWriterFits::run(ImageData* image)
+void ImageWriterFits::run(ImageData* image, const QString& fileName)
 {
     if (!image)
         throw QString("ImageWriterFits: Image data missing.");
+
+    if (!fileName.isEmpty()) _fileName = fileName;
 
     // Image dimensions.
     unsigned nL = image->sizeL();

@@ -44,7 +44,7 @@ class ImageWriterFits : public AbstractModule
         ~ImageWriterFits();
 
         /// Runs the module.
-        void run(ImageData* image);
+        void run(ImageData* image, const QString& fileName = "");
 
     public:
         /// Returns a reference to the image output directory.  // TODO use this
