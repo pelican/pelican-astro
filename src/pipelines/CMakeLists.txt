@@ -6,8 +6,8 @@ set(pipelines_src
     src/TestPipelineVisibilityPrinter.cpp
     src/TestPipelineServer.cpp
     src/TestPipelineRawImage.cpp
-    src/TestPipelineCalibrateImage.cpp
     src/TestPipelineMultipleImages.cpp
+    #src/TestPipelineCalibrateImage.cpp
 )
 
 # Create the sub-package library.

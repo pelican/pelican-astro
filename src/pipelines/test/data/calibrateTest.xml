@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pelican>
+<configuration version="1.0">
+
+<nodesets>
+    <nodeset name="channels">
+        <frequencies reference="100e6" referenceChannel="0" delta="195312.5"/>
+        <channels>420</channels>
+        <polarisation value="x  "/>
+    </nodeset>
+
+    <nodeset name="uk">
+        <siteLongitude value="-1.434454726"/>
+        <siteLatitude value="51.143546200"/>
+        <deltaUT value="0"/>
+        <pressure value="1000"/>
+    </nodeset>
+
+    <nodeset name="sourcesCat"> <!-- Catalogue positions -->
+        <!-- Cas A -->
+        <source coordType="J2000" coord1="350.850" coord2="58.815" amp1="11000" amp2="11000"/>
+        <!-- Cyg A -->
+        <source coordType="J2000" coord1="299.8681525" coord2="40.7339156" amp1="8100" amp2="8100"/>
+    </nodeset>
+</nodesets>
+
+<pipeline>
+    <clients>
+        <FileDataClient>
+            <data type="VisibilityData" adapter="AdapterLofarStationVisibilities" file="data/lofarVisUK.dat"/>
+            <data type="AntennaPositions" adapter="AdapterAntennaList" file="data/antennaPositionsUK.dat"/>
+        </FileDataClient>
+    </clients>
+
+    <adapters>
+        <AdapterAntennaList>
+            <antennas number="96"/>
+        </AdapterAntennaList>
+
+        <AdapterLofarStationVisibilities>
+            <!-- 06/09/2010 14:23:07 UTC -->
+            <time start="2455446.0993865742" delta="0"/>
+            <antennas number="96"/>
+            <channels start="0" end="511"/>
+            <polarisation value="both"/>
+            <dataBytes number="8"/>
+            <rowMajor value="true"/>
+        </AdapterLofarStationVisibilities>
+    </adapters>
+
+    <modules>
+        <ZenithCalibrater>
+            <eigenvalues number="10"/>
+            <tolerance value="1.0e-3"/>
+            <iterations value="100"/>
+            <import nodeset="channels"/>
+        </ZenithCalibrater>
+
+        <ZenithModelVisibilities>
+            <import nodeset="sourcesCat"/>
+            <channels>420</channels>
+            <import nodeset="channels"/>
+            <import nodeset="uk"/>
+        </ZenithModelVisibilities>
+
+        <ZenithImagerDft>
+            <size l="512" m="512" pixelCentred="true"/>
+            <!--  <fullSky value="true" cutHemisphere="true"/> -->
+            <fullSky value="false"/>
+            <cellsize l="170" m="170"/>
+            <import nodeset="channels"/>
+            <import nodeset="uk"/>
+        </ZenithImagerDft>
+
+        <ZenithImagerDft name="model">
+            <size l="512" m="512" pixelCentred="true"/>
+            <fullSky value="false"/>
+            <cellsize l="170" m="170"/>
+            <channels>420</channels>
+            <import nodeset="channels"/>
+            <import nodeset="uk"/>
+        </ZenithImagerDft>
+
+        <ImageCombiner>
+            <operation type="sum"/>
+            <coefficients a1="1.0" a2="-1.0"/>
+            <channelsInput1>420</channelsInput1>
+            <channelsInput2>420</channelsInput2>
+            <polarisationInput1 value="y"/>
+            <polarisationInput2 value="y"/>
+            <polarisationOutput value="y"/>
+        </ImageCombiner>
+
+        <ImageWriterFits>
+            <overwrite value="true"/>
+            <directory value=""/>
+            <file name="calibrated.fits"/>
+
+            <origin value="Oxford e-Research Centre"/>
+            <telescope value="LOFAR"/>
+            <instrument value="UK"/>
+            <observer value=""/>
+            <object value="full sky"/>
+            <author value=""/>
+            <reference value=""/>
+        </ImageWriterFits>
+
+    </modules>
+</pipeline>
+
+</configuration>
