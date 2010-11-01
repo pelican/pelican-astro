@@ -7,8 +7,8 @@
 
 #include "data/AntennaMatrixData.h"
 #include <vector>
-
 using std::vector;
+#include <complex>
 
 namespace pelican {
 namespace astro {
@@ -23,19 +23,24 @@ namespace astro {
  * This class is used to store telescope visibility data
  * (matrices of complex correlation products).
  *
- * It inherits AntennaMatrixData<complex_t>.
+ * Inherits AntennaMatrixData<T>.
  */
-class VisibilityData : public AntennaMatrixData<complex_t>
+
+class VisibilityData : public AntennaMatrixData<std::complex<double> >
 {
+    public:
+        typedef std::complex<double> Complex;
+        typedef double Real;
+
     public:
         /// Constructs an empty visibility data cube.
         VisibilityData(const QString& type = QString("VisibilityData"))
-        : AntennaMatrixData<complex_t>(type) {}
+        : AntennaMatrixData<Complex>(type) {}
 
         /// Constructs a pre-sized visibility data cube.
         VisibilityData(unsigned nAntennas, vector<unsigned> const& channels,
                 Polarisation polarisation, const QString& type = "VisibilityData")
-        : AntennaMatrixData<complex_t>(nAntennas, channels, polarisation, type) {}
+        : AntennaMatrixData<Complex>(nAntennas, channels, polarisation, type) {}
 
         /// Visibility data destructor.
         ~VisibilityData() {}

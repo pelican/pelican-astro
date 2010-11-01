@@ -44,7 +44,7 @@ void TestPipelineVisibilityPrinterTest::test_method()
 {
     cout << "==== TestPipelineVisibilityPrinterTest ====" << endl;
     _createConfig();
-    TestConfig config;
+    test::TestConfig config;
     int argc = 2;
     char** argv = config.argv("TestPipelineVisibilityPrinter.xml", "pipelines");
 
@@ -58,7 +58,7 @@ void TestPipelineVisibilityPrinterTest::test_method()
 
 void TestPipelineVisibilityPrinterTest::_createConfig()
 {
-    TestConfig config;
+    test::TestConfig config;
     QString testVis = config.findTestFile("testVis.dat", "pipelines");
 
     QString xml =

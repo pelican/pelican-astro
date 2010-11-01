@@ -11,7 +11,9 @@
 namespace pelican {
 
 class ConfigNode;
+namespace test {
 class TestConfig;
+}
 
 namespace astro {
 
@@ -58,10 +60,10 @@ class TestPipelineServerTest : public CppUnit::TestFixture
 class PipelineBinaryEmulator : public QThread
 {
     private:
-        TestConfig* _config;
+        test::TestConfig* _config;
 
     public:
-        PipelineBinaryEmulator(TestConfig *config) : QThread(),
+        PipelineBinaryEmulator(test::TestConfig *config) : QThread(),
         _config(config) { start(); }
 
     protected:

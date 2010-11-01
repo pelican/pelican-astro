@@ -1,6 +1,10 @@
 #ifndef BASICFLAGGER_H
 #define BASICFLAGGER_H
 
+/**
+ * @file BasicFlagger.h
+ */
+
 #include "data/VisibilityData.h"
 #include "data/FlagTable.h"
 
@@ -8,10 +12,7 @@
 #include "pelican/utility/ConfigNode.h"
 
 #include <vector>
-
-/**
- * @file BasicFlagger.h
- */
+#include <complex>
 
 namespace pelican {
 namespace astro {
@@ -28,14 +29,9 @@ namespace astro {
 
 class BasicFlagger : public AbstractModule
 {
-        friend class BasicFlaggerTest;
-
-    private:
-        /// Minimum visibility level at which to flag, as a fraction of the median.
-        real_t _minLevelMedian;
-
-        /// Maximum visibility level at which to flag, as a fraction of the median.
-        real_t _maxLevelMedian;
+    public:
+        typedef double Real;
+        typedef std::complex<double> Complex;
 
     public:
         /// Module constructor.
@@ -49,34 +45,33 @@ class BasicFlagger : public AbstractModule
 
     private:
         /// Flags the autocorrelations.
-        void _flagAutocorrelations(
-                const VisibilityData* visData,
-                const complex_t* medians,
-                const real_t minFraction,
-                const real_t maxFraction,
-                FlagTable* flagTable
-        );
+        void _flagAutocorrelations(const VisibilityData* visData,
+                const Complex* medians, const Real minFraction,
+                const Real maxFraction, FlagTable* flagTable);
 
         /// Gets the autocorrelations.
-        void _getAutocorrelations(const VisibilityData* visData,
-                complex_t* aptr);
+        void _getAutocorrelations(const VisibilityData* visData, Complex* aptr);
 
         /// Determines the median autocorrelation values.
-        void _getMedians(
-                const unsigned nAntennas,
-                const unsigned nChannels,
-                const unsigned nPols,
-                const complex_t* aptr,
-                complex_t* mptr
-        );
+        void _getMedians(unsigned nAntennas, unsigned nChannels, unsigned nPols,
+                const Complex* aptr, Complex* mptr);
 
         /// Moves bad antennas to the end of the visibility matrix.
         void _moveBadAntennas(VisibilityData* visData, FlagTable* flagTable);
+
+    private:
+        /// Minimum visibility level at which to flag, as a fraction of the median.
+        Real _minLevelMedian;
+
+        /// Maximum visibility level at which to flag, as a fraction of the median.
+        Real _maxLevelMedian;
+
+    private:
+        friend class BasicFlaggerTest;
 };
 
-bool complexCompareAbs(complex_t i, complex_t j);
+bool complexCompareAbs(BasicFlagger::Complex i, BasicFlagger::Complex j);
 
 } // namespace astro
 } // namespace pelican
-
 #endif // BASICFLAGGER_H

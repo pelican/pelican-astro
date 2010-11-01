@@ -1,10 +1,10 @@
 #include "modules/ZenithImagerDft.h"
 #include "modules/AstrometryFast.h"
+#include "data/Constants.h"
 #include "data/VisibilityData.h"
 #include "data/AntennaPositions.h"
 #include "utility/AstroConfig.h"
 
-#include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
 
 #include <QtCore/QString>
@@ -30,13 +30,13 @@ using std::cerr;
 namespace pelican {
 namespace astro {
 
-PELICAN_DECLARE_MODULE(ZenithImagerDft)
+PELICAN_DECLARE_MODULE(ZenithImagerDftDbl)
 
 /**
  * @details
  * Module constructor.
  */
-ZenithImagerDft::ZenithImagerDft(const ConfigNode& config)
+ZenithImagerDftDbl::ZenithImagerDftDbl(const ConfigNode& config)
     : AbstractModule(config)
 {
     // Extract configuration from the XML configuration node.
@@ -56,7 +56,7 @@ ZenithImagerDft::ZenithImagerDft(const ConfigNode& config)
  * @details
  * Module destructor.
  */
-ZenithImagerDft::~ZenithImagerDft()
+ZenithImagerDftDbl::~ZenithImagerDftDbl()
 {
     // Delete the astrometry module.
     delete _astrometry;
@@ -68,7 +68,7 @@ ZenithImagerDft::~ZenithImagerDft()
  * Sets the image size to the specified values and calculates
  * image coordinate vectors.
  */
-void ZenithImagerDft::setSize(unsigned sizeL, unsigned sizeM)
+void ZenithImagerDftDbl::setSize(unsigned sizeL, unsigned sizeM)
 {
     _sizeL = sizeL;
     _sizeM = sizeM;
@@ -85,7 +85,7 @@ void ZenithImagerDft::setSize(unsigned sizeL, unsigned sizeM)
  * Sets the image cellsize to the specified values and calculates
  * image coordinate vectors.
  */
-void ZenithImagerDft::setCellsize(double cellsizeL, double cellsizeM)
+void ZenithImagerDftDbl::setCellsize(double cellsizeL, double cellsizeM)
 {
     _fullSky = false;
     _cellsizeL = -std::abs(cellsizeL);
@@ -100,8 +100,8 @@ void ZenithImagerDft::setCellsize(double cellsizeL, double cellsizeM)
  * Sets the image size and cellsize to the specified values and
  * calculate image coordinate vectors.
  */
-void ZenithImagerDft::setDimensions(unsigned sizeL, unsigned sizeM,
-                double cellsizeL, double cellsizeM)
+void ZenithImagerDftDbl::setDimensions(unsigned sizeL, unsigned sizeM,
+        double cellsizeL, double cellsizeM)
 {
     _fullSky = false;
     _cellsizeL = -std::abs(cellsizeL);
@@ -119,7 +119,7 @@ void ZenithImagerDft::setDimensions(unsigned sizeL, unsigned sizeM,
  * @details
  * Sets the imager to make a full sky image.
  */
-void ZenithImagerDft::setFullSky()
+void ZenithImagerDftDbl::setFullSky()
 {
     _fullSky = true;
     _setCellsizeFullSky();
@@ -132,7 +132,7 @@ void ZenithImagerDft::setFullSky()
  * @details
  * Method called by the pipeline to create images of the visibility data.
  */
-void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
+void ZenithImagerDftDbl::run(ImageData* image, const AntennaPositions* antPos,
         const VisibilityData* vis)
 {
     if (!image)
@@ -161,10 +161,10 @@ void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
     }
 
     // Declare pointer to visibility data.
-    complex_t* visData = NULL;
+    Complex* visData = NULL;
 
     // Set PSF visibilities if needed.
-    vector<complex_t> scratch(nAnt * nAnt);
+    vector<Complex> scratch(nAnt * nAnt);
     if (vis == NULL) {
         visData = &scratch[0];
         _setPsfVisibilties(visData, nAnt);
@@ -196,7 +196,7 @@ void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
 
             // Get pointer to visibility data for channel and polarisation.
             if (vis != NULL) {
-                visData = const_cast<complex_t*>(vis->ptr(iChan, iPol));
+                visData = const_cast<Complex*>(vis->ptr(iChan, iPol));
                 if (!visData)
                     throw QString("ZenithImagerDft::run(): "
                             "Visibility data undefined (chan %1, pol %2)")
@@ -205,7 +205,7 @@ void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
             }
 
             // Generate the image. TODO fix c, p... as above
-            real_t* imData = image->ptr(c, p);
+            Real* imData = image->ptr(c, p);
             Q_ASSERT(imData != NULL);
             _makeImageDft(nAnt, antPos->xPtr(), antPos->yPtr(), visData,
                     frequency, _sizeL, _sizeM, &_coordL[0], &_coordM[0], imData);
@@ -233,7 +233,7 @@ void ZenithImagerDft::run(ImageData* image, const AntennaPositions* antPos,
  *
  * @param[in]   config  Configuration options XML node.
  */
-void ZenithImagerDft::_getConfiguration(const ConfigNode& config)
+void ZenithImagerDftDbl::_getConfiguration(const ConfigNode& config)
 {
     _sizeL = config.getOption("size", "l", "128").toUInt();
     _sizeM = config.getOption("size", "m", "128").toUInt();
@@ -285,8 +285,8 @@ void ZenithImagerDft::_getConfiguration(const ConfigNode& config)
  * @param[in]  nPixels   Number of image pixels along the axis.
  * @param[out] coords    Reference to a vector of image coordinates.
  */
-void ZenithImagerDft::_calculateImageCoords(double cellsize,
-        unsigned nPixels, real_t* coords)
+void ZenithImagerDftDbl::_calculateImageCoords(double cellsize,
+        unsigned nPixels, Real* coords)
 {
     if (coords == NULL)
         throw QString("ZenithImagerDft::_calculateImageCoords(): "
@@ -317,9 +317,9 @@ void ZenithImagerDft::_calculateImageCoords(double cellsize,
  *
  * @param[in]   nCoords Number
  */
-void ZenithImagerDft::_calculateWeights(unsigned nAnt, const real_t* antPos,
-        double frequency, unsigned nCoords, const real_t* imageCoord,
-        complex_t* weights)
+void ZenithImagerDftDbl::_calculateWeights(unsigned nAnt, const Real* antPos,
+        double frequency, unsigned nCoords, const Real* imageCoord,
+        Complex* weights)
 {
     double k = (math::twoPi * frequency) / phy::c;
 
@@ -329,7 +329,7 @@ void ZenithImagerDft::_calculateWeights(unsigned nAnt, const real_t* antPos,
 
         for (unsigned a = 0; a < nAnt; a++) {
             double arg2 = arg1 * antPos[a];
-            weights[index + a] = complex_t(cos(arg2), sin(arg2));
+            weights[index + a] = Complex(cos(arg2), sin(arg2));
         }
     }
 }
@@ -339,10 +339,10 @@ void ZenithImagerDft::_calculateWeights(unsigned nAnt, const real_t* antPos,
  * @details
  * Perform a discrete Fourier transform to form an image from the visibility data.
  */
-void ZenithImagerDft::_makeImageDft(unsigned nAnt,
-        const real_t* antPosX, const real_t* antPosY, const complex_t* vis,
-        double frequency, unsigned nL, unsigned nM, const real_t* coordsL,
-        const real_t* coordsM, real_t *image)
+void ZenithImagerDftDbl::_makeImageDft(unsigned nAnt,
+        const Real* antPosX, const Real* antPosY, const Complex* vis,
+        double frequency, unsigned nL, unsigned nM, const Real* coordsL,
+        const Real* coordsM, Real *image)
 {
     _weightsXL.resize(nAnt * nL);
     _weightsYM.resize(nAnt * nM);
@@ -353,8 +353,8 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
     // Set up buffers for sorting a vector of weights for one pixel
     // and the temporary results of the per pixel matrix vector product
     unsigned nProcs = omp_get_num_procs();
-    vector<vector<complex_t> > tempWeights;
-    vector<vector<complex_t> > tempBuffer;
+    vector<vector<Complex> > tempWeights;
+    vector<vector<Complex> > tempBuffer;
     tempWeights.resize(nProcs);
     tempBuffer.resize(nProcs);
     for (unsigned i = 0; i < nProcs; i++) {
@@ -363,15 +363,15 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
     }
     int tid = 0;
 
-    real_t alpha[2] = {1.0, 0.0};
-    real_t beta[2]  = {0.0, 0.0};
+    Real alpha[2] = {1.0, 0.0};
+    Real beta[2]  = {0.0, 0.0};
     unsigned xInc = 1;
     unsigned yInc = 1;
 
-    complex_t* weights = NULL;
-    complex_t* buffer = NULL;
+    Complex* weights = NULL;
+    Complex* buffer = NULL;
     unsigned nNonZeroVis = nAnt * nAnt - nAnt;
-    complex_t temp;
+    Complex temp;
 
     // Loop over image pixels to calculate the image amplitude using a
     // 2 sided matrix vector approach.
@@ -379,14 +379,14 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
     for (unsigned m = 0; m < nM; m++) {
 
         unsigned indexM = m * nL;
-        complex_t* weightsYM = &_weightsYM[m * nAnt];
+        Complex* weightsYM = &_weightsYM[m * nAnt];
 
         tid = omp_get_thread_num();
         weights = &tempWeights[tid][0];
         buffer = &tempBuffer[tid][0];
 
         for (unsigned l = 0; l < nL; l++) {
-            complex_t* weightsXL = &_weightsXL[l * nAnt];
+            Complex* weightsXL = &_weightsXL[l * nAnt];
             unsigned index = indexM + l;
 
             _multWeights(nAnt, weightsXL, weightsYM, weights);
@@ -410,8 +410,8 @@ void ZenithImagerDft::_makeImageDft(unsigned nAnt,
  * @details
  * Element wise multiplication of two weights vectors.
  */
-void ZenithImagerDft::_multWeights(unsigned nAnt, complex_t* weightsXL,
-        complex_t *weightsYM, complex_t *weights)
+void ZenithImagerDftDbl::_multWeights(unsigned nAnt, Complex* weightsXL,
+        Complex *weightsYM, Complex *weights)
 {
     for (unsigned i = 0; i < nAnt; i++)
         weights[i] = weightsXL[i] * weightsYM[i];
@@ -427,8 +427,8 @@ void ZenithImagerDft::_multWeights(unsigned nAnt, complex_t* weightsXL,
  * @param[in]       l       Array of l coordinates.
  * @param[in]       m       Array of m coordinates.
  */
-void ZenithImagerDft::_cutHemisphere(real_t* image, unsigned nL,
-        unsigned nM, real_t *l, real_t *m)
+void ZenithImagerDftDbl::_cutHemisphere(Real* image, unsigned nL,
+        unsigned nM, Real *l, Real *m)
 {
     for (unsigned j = 0; j < nM; j++) {
         unsigned rowIndex = j * nL;
@@ -439,7 +439,7 @@ void ZenithImagerDft::_cutHemisphere(real_t* image, unsigned nL,
             double radius = sqrt(m2 + l2);
             unsigned index = rowIndex + i;
             if (radius > 1) {
-                image[index] = std::numeric_limits<real_t>::quiet_NaN();
+                image[index] = std::numeric_limits<Real>::quiet_NaN();
             }
         }
     }
@@ -450,7 +450,7 @@ void ZenithImagerDft::_cutHemisphere(real_t* image, unsigned nL,
  * @details
  * Sets the cellsize required for full sky imaging.
  */
-void ZenithImagerDft::_setCellsizeFullSky()
+void ZenithImagerDftDbl::_setCellsizeFullSky()
 {
     _cellsizeL = -2.0 / _sizeL * math::rad2asec;
     _cellsizeM = 2.0 / _sizeM * math::rad2asec;
@@ -461,10 +461,10 @@ void ZenithImagerDft::_setCellsizeFullSky()
  * @details
  * Zeros autocorrelations in the visibility matrix
  */
-void ZenithImagerDft::_zeroAutoCorrelations(complex_t* vis, unsigned nAnt)
+void ZenithImagerDftDbl::_zeroAutoCorrelations(Complex* vis, unsigned nAnt)
 {
     for (unsigned i = 0; i < nAnt; i++) {
-        vis[i * nAnt + i] = complex_t(0.0, 0.0);
+        vis[i * nAnt + i] = Complex(0.0, 0.0);
     }
 }
 
@@ -474,17 +474,17 @@ void ZenithImagerDft::_zeroAutoCorrelations(complex_t* vis, unsigned nAnt)
  * Fill the visibility matrix with visibilities required for calculating the
  * point spread function.
  */
-void ZenithImagerDft::_setPsfVisibilties(complex_t* vis, unsigned nAnt)
+void ZenithImagerDftDbl::_setPsfVisibilties(Complex* vis, unsigned nAnt)
 {
-    if (vis == NULL)
+    if (!vis)
         throw QString("ZenithImagerDft::_setPsfVisibilties(): Memory not allocated.");
 
     for (unsigned j = 0; j < nAnt; j++) {
         unsigned rowIndex = j * nAnt;
         for (unsigned i = 0; i < nAnt; i++) {
             unsigned index = rowIndex + i;
-            if (i == j) vis[index] = complex_t(0.0, 0.0);
-            else vis[index] = complex_t(1.0, 0.0);
+            if (i == j) vis[index] = Complex(0.0, 0.0);
+            else vis[index] = Complex(1.0, 0.0);
         }
     }
 }
@@ -494,7 +494,7 @@ void ZenithImagerDft::_setPsfVisibilties(complex_t* vis, unsigned nAnt)
  * @details
  * Sets the image meta-data, including the cellsize and the coordinate headers.
  */
-void ZenithImagerDft::_setImageMetaData(ImageData *image)
+void ZenithImagerDftDbl::_setImageMetaData(ImageData *image)
 {
     // Get the image meta data into the blob.
     image->cellsizeL() = _cellsizeL;

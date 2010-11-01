@@ -1,13 +1,13 @@
 #ifndef BASICFLAGGERTEST_H
 #define BASICFLAGGERTEST_H
 
-#include <cppunit/extensions/HelperMacros.h>
-
-//#include <QtXml/QDomElement>
-
 /**
  * @file BasicFlaggerTest.h
  */
+
+#include <cppunit/extensions/HelperMacros.h>
+
+#include <complex>
 
 namespace pelican {
 namespace astro {
@@ -26,6 +26,10 @@ class BasicFlagger;
  */
 class BasicFlaggerTest : public CppUnit::TestFixture
 {
+    public:
+        typedef std::complex<double> Complex;
+        typedef double Real;
+
     public:
         CPPUNIT_TEST_SUITE( BasicFlaggerTest );
         CPPUNIT_TEST( test_run_noData );

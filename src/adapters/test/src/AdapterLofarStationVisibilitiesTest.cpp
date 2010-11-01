@@ -5,7 +5,7 @@
 
 
 #include "pelican/utility/ConfigNode.h"
-#include "pelican/utility/constants.h"
+#include "data/Constants.h"
 #include "pelican/utility/pelicanTimer.h"
 
 #include <QtCore/QCoreApplication>
@@ -90,7 +90,7 @@ void AdapterLofarStationVisibilitiesTest::test_deserialise_buffer()
                 (float)buffer.size()/(1024*1024))
 
         // Test some values in the visibility data blob.
-        complex_t* vis = NULL;
+        VisibilityData::Complex* vis = 0;
         unsigned ai = 0, aj = 0, c = 0, p = 0;
         CPPUNIT_ASSERT(vis = data->ptr(c, p));
         CPPUNIT_ASSERT_DOUBLES_EQUAL(_dataVal(ai, aj, c, p),
@@ -158,7 +158,7 @@ void AdapterLofarStationVisibilitiesTest::test_deserialise_file()
             (float)file.size()/(1024*1024))
 
     // Test some values in the visibility data blob.
-    complex_t* vis = NULL;
+    VisibilityData::Complex* vis = 0;
     unsigned ai = 0, aj = 0, c = 0, p = 0;
     CPPUNIT_ASSERT(vis = data->ptr(c, p));
     CPPUNIT_ASSERT_DOUBLES_EQUAL(_dataVal(ai, aj, c, p),

@@ -1,7 +1,7 @@
 #ifndef ANTENNAMATRIXDATA_H
 #define ANTENNAMATRIXDATA_H
 
-#include "pelican/data/DataBlob.h"
+#include "data/AstroDataBlob.h"
 #include "data/Constants.h"
 
 #include <vector>
@@ -43,34 +43,12 @@ namespace astro {
  * stored for each channel and polarisation.
  */
 template<typename T>
-class AntennaMatrixData : public DataBlob
+class AntennaMatrixData : public AstroDataBlob
 {
-    protected:
-        /// The data.
-        vector<T> _data;
-
-        /// The antenna index data.
-        vector<unsigned> _antIndex;
-
-        /// The number of antennas.
-        unsigned _nAntennas;
-
-        /// The number of frequency channels.
-        unsigned _nChannels;
-
-        /// The number of polarisations.
-        unsigned _nPolarisations;
-
-        /// Polarisation of the data.
-        Polarisation _polarisation;
-
-        /// List of channels for which the data is held.
-        vector<unsigned> _channels;
-
     public:
         /// Constructs an empty data cube.
         /// The constructed data cube has zero size.
-        AntennaMatrixData(const QString& type) : DataBlob(type)
+        AntennaMatrixData(const QString& type) : AstroDataBlob(type)
         { clear(); }
 
         /// Constructs a pre-sized, empty cube.
@@ -83,7 +61,7 @@ class AntennaMatrixData : public DataBlob
         /// @param[in] polarisation  Polarisation of the data.
         AntennaMatrixData(unsigned nAntennas, vector<unsigned> const& channels,
                 Polarisation polarisation, QString const& type)
-        : DataBlob(type)
+        : AstroDataBlob(type)
         {
             resize(nAntennas, channels, polarisation);
             initAntennaIndex();
@@ -296,6 +274,28 @@ class AntennaMatrixData : public DataBlob
 
         /// Dereferences the data for the given index \p i (const overload).
         T const & operator[] (unsigned i) const { return _data[i]; }
+
+    protected:
+        /// The data.
+        vector<T> _data;
+
+        /// The antenna index data.
+        vector<unsigned> _antIndex;
+
+        /// The number of antennas.
+        unsigned _nAntennas;
+
+        /// The number of frequency channels.
+        unsigned _nChannels;
+
+        /// The number of polarisations.
+        unsigned _nPolarisations;
+
+        /// Polarisation of the data.
+        Polarisation _polarisation;
+
+        /// List of channels for which the data is held.
+        vector<unsigned> _channels;
 };
 
 

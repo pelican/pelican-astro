@@ -3,14 +3,12 @@
 #include "data/VisibilityData.h"
 #include "utility/AstroConfig.h"
 
-
 #include <QtCore/QByteArray>
 #include <QtCore/QIODevice>
 #include <QtCore/QStringList>
 
 #include <iostream>
 #include <iomanip>
-
 using std::cout;
 using std::cerr;
 using std::endl;
@@ -70,11 +68,11 @@ void AdapterLofarStationVisibilities::deserialise(QIODevice* in)
     // Set local data pointers, resize data if needed, and perform sanity checks!
     _setData();
 
-    // Read data from the stream
-    complex_t* vis = _vis->ptr();
-
     // TODO Set the time stamp properly.
     _vis->setTimeStamp(_timeStart);
+
+    // Read data from the stream
+    Complex* vis = _vis->ptr();
 
     unsigned nPointsPerPol = _nAnt * _nAnt * _nChan;
     unsigned nPointsPerChan = _nAnt * _nAnt;

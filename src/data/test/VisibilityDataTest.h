@@ -1,11 +1,12 @@
 #ifndef VISIBILITYDATATEST_H_
 #define VISIBILITYDATATEST_H_
 
-#include <cppunit/extensions/HelperMacros.h>
-
 /**
  * @file VisibilityDataTest.h
  */
+
+#include <cppunit/extensions/HelperMacros.h>
+#include "data/VisibilityData.h"
 
 namespace pelican {
 namespace astro {
@@ -23,6 +24,10 @@ namespace astro {
 
 class VisibilityDataTest : public CppUnit::TestFixture
 {
+    public:
+        typedef VisibilityData::Real Real;
+        typedef VisibilityData::Complex Complex;
+
     public:
         CPPUNIT_TEST_SUITE( VisibilityDataTest );
         CPPUNIT_TEST( test_accessorMethods );

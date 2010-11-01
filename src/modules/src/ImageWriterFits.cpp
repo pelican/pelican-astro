@@ -1,7 +1,7 @@
 #include "modules/ImageWriterFits.h"
 #include "data/ImageData.h"
 
-#include "pelican/utility/constants.h"
+#include "data/Constants.h"
 #include "pelican/utility/ConfigNode.h"
 
 #include <QtCore/QDateTime>
@@ -30,7 +30,7 @@ ImageWriterFits::ImageWriterFits(const ConfigNode& config)
     _getConfiguration(config);
 
     // Initialise FITS file handle.
-    _fits = NULL;
+    _fits = 0;
 }
 
 
@@ -73,7 +73,7 @@ void ImageWriterFits::run(ImageData* image, const QString& fileName)
     // planes of the FITS image.
     for (unsigned c = 0; c < nChan; c++) {
         for (unsigned p = 0; p < nPol; p++) {
-            real_t* data = image->ptr(c, p);
+            Real* data = image->ptr(c, p);
             _writeImage(data, nL, nM, c, nPol, p);
         }
     }
@@ -142,9 +142,8 @@ void ImageWriterFits::_getConfiguration(const ConfigNode &config)
  * @param[in] overwrite Option flag to overwrite images files if they already
  *                      exist.
  */
-void ImageWriterFits::_open(const QString& fileName, const unsigned nL,
-        const unsigned nM, const unsigned nChan, const unsigned nPol,
-        const bool overwrite)
+void ImageWriterFits::_open(const QString& fileName, unsigned nL,
+        unsigned nM, unsigned nChan, unsigned nPol, bool overwrite)
 {
     // Throw if the filename is empty
     if (fileName.isEmpty())
@@ -335,16 +334,15 @@ void ImageWriterFits::_writeFrequencyTable(const std::vector<unsigned>& channels
  * @param[in] nPol      Total number of polarisations in the image data.
  * @param[in] pol       Image polarisation index.
  */
-void ImageWriterFits::_writeImage(real_t* image, const unsigned nL,
-        const unsigned nM, const unsigned chan, const unsigned nPol,
-        const unsigned pol)
+void ImageWriterFits::_writeImage(Real* image, unsigned nL, unsigned nM,
+        unsigned chan, unsigned nPol, unsigned pol)
 {
     // Throw if the CFITSIO file handle isn't open.
-    if (_fits == NULL)
+    if (!_fits)
         throw QString("ImageWriterFits: Fits file handle not open.");
 
     // Throw if there is no image data.
-    if (image == NULL)
+    if (!image)
         throw QString("ImageWriterFits: Image data array missing.");
 
     // Write out the image.
@@ -354,10 +352,10 @@ void ImageWriterFits::_writeImage(real_t* image, const unsigned nL,
     long firstElement = chan * nPixPerChan + pol * nPixels + 1;
 
     int err = 0;
-    if (typeid(real_t) == typeid(double)) {
+    if (typeid(Real) == typeid(double)) {
         ffppr(_fits, TDOUBLE, firstElement, nPixels, image, &err);
     }
-    else if (typeid(real_t) == typeid(float)) {
+    else if (typeid(Real) == typeid(float)) {
         ffppr(_fits, TFLOAT, firstElement, nPixels, image, &err);
     }
     else {

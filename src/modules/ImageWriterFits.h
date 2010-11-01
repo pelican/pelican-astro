@@ -1,6 +1,10 @@
 #ifndef IMAGERWRITERFITS_H_
 #define IMAGERWRITERFITS_H_
 
+/**
+ * @file ImageWriterFits.h
+ */
+
 #include "pelican/modules/AbstractModule.h"
 
 #include <QtCore/QString>
@@ -8,10 +12,7 @@
 
 #include <fitsio.h>
 #include <vector>
-
-/**
- * @file ImageWriterFits.h
- */
+#include <complex>
 
 namespace pelican {
 
@@ -37,6 +38,10 @@ class ImageWriterFits : public AbstractModule
         friend class ImageWriterFitsTest;
 
     public:
+        typedef std::complex<double> Complex;
+        typedef double Real;
+
+    public:
         /// Module constructor.
         ImageWriterFits(const ConfigNode& config);
 
@@ -47,26 +52,26 @@ class ImageWriterFits : public AbstractModule
         void run(ImageData* image, const QString& fileName = "");
 
     public:
-        /// Returns a reference to the image output directory.  // TODO use this
+        /// Returns a reference to the image output directory.
         QString& directory() { return _directory; }
 
         /// Returns a reference to the filename.
         QString& fileName() { return _fileName; }
 
-        /// Returns a reference to the filename prefix.   // TODO use this
+        /// Returns a reference to the filename prefix.
         QString& prefix() { return _prefix; }
 
-        /// Returns a reference to the filename suffix.   // TODO use this
+        /// Returns a reference to the filename suffix.
         QString& suffix() { return _suffix; }
 
     private:
-        /// Extract the configuration from the XML node, setting defaults where required.
+        /// Extract the configuration from the XML node, setting defaults
+        /// where required.
         void _getConfiguration(const ConfigNode& config);
 
         /// Opens the FITS image file for writing.
-        void _open(const QString& fileName, const unsigned nL,
-                const unsigned nM, const unsigned nChan, const unsigned nPol,
-                const bool overwrite);
+        void _open(const QString& fileName, unsigned nL, unsigned nM,
+                unsigned nChan, unsigned nPol, bool overwrite);
 
         /// Closes the FITS image file.
         void _close();
@@ -78,8 +83,8 @@ class ImageWriterFits : public AbstractModule
         void _writeFrequencyTable(const std::vector<unsigned>& channels);
 
         /// Write a FITS image.
-        void _writeImage(real_t* image, const unsigned nL, const unsigned nM,
-                const unsigned chan, const unsigned nPol, const unsigned pol);
+        void _writeImage(Real* image, unsigned nL, unsigned nM, unsigned chan,
+                unsigned nPol, unsigned pol);
 
         /// Returns the system date and time as UTC.
         QString _getDate() const;
@@ -89,15 +94,15 @@ class ImageWriterFits : public AbstractModule
                 const QString& comment = QString());
 
         /// Write a header key - double value.
-        void _writeKey(const QString& keyword, const double value,
+        void _writeKey(const QString& keyword, double value,
                 const QString& comment = QString());
 
         /// Write a header key - int value.
-        void _writeKey(const QString& keyword, const int value,
+        void _writeKey(const QString& keyword, int value,
                 const QString& comment = QString());
 
         /// Write a header key - unsigned value.
-        void _writeKey(const QString& keyword, const unsigned value,
+        void _writeKey(const QString& keyword, unsigned value,
                 const QString& comment = QString());
 
         /// Write a header history line.
@@ -129,5 +134,4 @@ class ImageWriterFits : public AbstractModule
 
 } // namespace astro
 } // namespace pelican
-
 #endif // IMAGERFFT_H_

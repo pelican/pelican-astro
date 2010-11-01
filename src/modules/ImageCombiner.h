@@ -1,15 +1,15 @@
 #ifndef IMAGECOMBINER_H
 #define IMAGECOMBINER_H
 
+/**
+ * @file ImageCombiner.h
+ */
+
 #include "data/ImageData.h"
 
 #include "pelican/modules/AbstractModule.h"
 #include "pelican/utility/ConfigNode.h"
-#include "pelican/utility/constants.h"
-
-/**
- * @file ImageCombiner.h
- */
+#include "data/Constants.h"
 
 namespace pelican {
 
@@ -30,6 +30,9 @@ namespace astro {
 class ImageCombiner : public AbstractModule
 {
     public:
+        typedef ImageData::Real Real;
+
+    public:
         /// Module constructor.
         ImageCombiner(const ConfigNode& config);
 
@@ -45,32 +48,32 @@ class ImageCombiner : public AbstractModule
 
         /// Compute the sum of the two images.
         void _operationSum(unsigned width, unsigned height,
-                const real_t* in1, const real_t* in2, real_t* out);
+                const Real* in1, const Real* in2, Real* out);
 
         /// Compute the sum of the two images.
         void _operationSumm(unsigned width, unsigned height,
-                const real_t* in1, const real_t* in2, real_t* out);
+                const Real* in1, const Real* in2, Real* out);
 
         /// Compute the mean of the two images.
         void _operationMean(unsigned width, unsigned height,
-                const real_t* in1, const real_t* in2, real_t* out);
+                const Real* in1, const Real* in2, Real* out);
 
         /// Multiply the two images.
         void _operationMult(unsigned width, unsigned height,
-                const real_t* in1, const real_t* in2, real_t* out);
+                const Real* in1, const Real* in2, Real* out);
 
         /// Divide the two images.
         void _operationDiv(unsigned width, unsigned height,
-                const real_t* in1, const real_t* in2, real_t* out);
+                const Real* in1, const Real* in2, Real* out);
 
     private:
         enum {SUM, SUMM, MEAN, MULT, DIV};
         static const unsigned CHANNEL_UNDEF = 100000;
         int _opcode; ///< Type of image operation.
 
-        real_t _a1; ///< First image coefficient.
-        real_t _a2; ///< Second image coefficient.
-        real_t _a3; ///< Third image coefficient.
+        Real _a1; ///< First image coefficient.
+        Real _a2; ///< Second image coefficient.
+        Real _a3; ///< Third image coefficient.
         unsigned _nChannels;      ///< Number of channels to output.
         unsigned _nPolarisations; ///< Number of polarisations to output.
         std::vector<unsigned> _channelsInput1;
@@ -83,5 +86,4 @@ class ImageCombiner : public AbstractModule
 
 } // namespace astro
 } // namespace pelican
-
 #endif // IMAGECOMBINER_H

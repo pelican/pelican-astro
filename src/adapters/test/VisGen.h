@@ -37,17 +37,22 @@ namespace astro {
 class VisGen
 {
     public:
+        typedef std::complex<double> Complex;
+
+    public:
         /// Default constructor.
         VisGen() {_binary = true;}
 
         /// Constructor to parse command-line arguments.
         VisGen(int argc, char** argv);
 
+    public:
+
         /// Returns a QByteArray containing the visibility data.
         QByteArray byteArray();
 
         /// Returns a pointer to the start of the data block.
-        complex_t* data() { return (_data.size() > 0) ? &_data[0] : NULL; }
+        Complex* data() { return (_data.size() > 0) ? &_data[0] : NULL; }
 
         /// Generates a visibility data set using the pre-set dimensions.
         void generate()
@@ -73,7 +78,7 @@ class VisGen
         void print();
 
         /// Returns the size of the generated data block in bytes.
-        unsigned size() { return _data.size() * sizeof(complex_t); }
+        unsigned size() { return _data.size() * sizeof(Complex); }
 
         /// Writes the generated visibility data to file.
         void write(const string& fileName);
@@ -90,7 +95,7 @@ class VisGen
         int _nAnt;    ///< Number of antennas in the generated data.
         int _nChan;   ///< Number of channels in the generated data.
         int _nPol;    ///< Number of polarisations in the generated data.
-        vector<complex_t> _data; ///< The generated visibility data.
+        vector<Complex> _data; ///< The generated visibility data.
 };
 
 } // namespace astro

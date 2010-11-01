@@ -1,10 +1,8 @@
 #include "data/test/ImageDataTest.h"
 #include "data/ImageData.h"
+#include "data/Constants.h"
 
-#include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
-
-#include "pelican/utility/memCheck.h"
 
 namespace pelican {
 namespace astro {
@@ -69,14 +67,14 @@ void ImageDataTest::test_accessorMethods()
     CPPUNIT_ASSERT_EQUAL(nL, image.sizeL());
     CPPUNIT_ASSERT_EQUAL(nM, image.sizeM());
 
-    std::vector<real_t> im = image.amp();
-    real_t *imPtr = image.ptr();
+    std::vector<Real> im = image.amp();
+    Real *imPtr = image.ptr();
     for (unsigned p = 0; p < nPol; p++ ) {
         for (unsigned c = 0; c < nChan; c++) {
             for (unsigned m = 0; m < nM; m++) {
                 for (unsigned l = 0; l < nL; l++) {
                     unsigned index = p * nChan * nL * nM + c * nL * nM + m * nL + l;
-                    real_t value = static_cast<real_t>(c + l + m + p);
+                    Real value = static_cast<Real>(c + l + m + p);
                     CPPUNIT_ASSERT_EQUAL(value, image(l, m, c, p));
                     CPPUNIT_ASSERT_EQUAL(value, image[index]);
                     CPPUNIT_ASSERT_EQUAL(value, im[index]);
@@ -86,25 +84,25 @@ void ImageDataTest::test_accessorMethods()
         }
     }
 
-    real_t *imPtrPol0 = image.ptr(0);
-    real_t *imPtrPol1 = image.ptr(1);
+    Real *imPtrPol0 = image.ptr(0);
+    Real *imPtrPol1 = image.ptr(1);
     for (unsigned c = 0; c < nChan; c++) {
         for (unsigned m = 0; m < nM; m++) {
             for (unsigned l = 0; l < nL; l++) {
                 unsigned index = c * nL * nM + m * nL + l;
-                real_t value = static_cast<real_t>(c + m + l);
+                Real value = static_cast<Real>(c + m + l);
                 CPPUNIT_ASSERT_EQUAL(value, imPtrPol0[index]);
                 CPPUNIT_ASSERT_EQUAL(value + 1.0, imPtrPol1[index]);
             }
         }
     }
 
-    real_t *imPtrPol0Chan0 = image.ptr(0, 0);
-    real_t *imPtrPol1Chan1 = image.ptr(1, 1);
+    Real *imPtrPol0Chan0 = image.ptr(0, 0);
+    Real *imPtrPol1Chan1 = image.ptr(1, 1);
     for (unsigned m = 0; m < nM; m++) {
         for (unsigned l = 0; l < nL; l++) {
             unsigned index = m * nL + l;
-            real_t value = static_cast<real_t>(m + l);
+            Real value = static_cast<Real>(m + l);
             CPPUNIT_ASSERT_EQUAL(value, imPtrPol0Chan0[index]);
             CPPUNIT_ASSERT_EQUAL(value + 2.0, imPtrPol1Chan1[index]);
         }

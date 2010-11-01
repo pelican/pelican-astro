@@ -1,19 +1,17 @@
 #ifndef ADAPTERANTENNALIST_H
 #define ADAPTERANTENNALIST_H
 
-#include "pelican/core/AbstractServiceAdapter.h"
-#include <QtCore/QDataStream>
-
 /**
  * @file AdapterAntennaList.h
  */
 
-namespace pelican {
+#include "pelican/core/AbstractServiceAdapter.h"
+#include <QtCore/QDataStream>
 
+namespace pelican {
 class ConfigNode;
 
 namespace astro {
-
 class AntennaPositions;
 
 /**
@@ -22,13 +20,16 @@ class AntennaPositions;
  * @brief
  *
  * @details
- *
  */
-class AdapterAntennaList : public AbstractServiceAdapter
+
+class AdapterAntennaListDbl : public AbstractServiceAdapter
 {
     public:
+        typedef double Real;
+
+    public:
         /// Constructs a new AdapterAntennaList object.
-        AdapterAntennaList(const ConfigNode& config);
+        AdapterAntennaListDbl(const ConfigNode& config);
 
         /// Method to deserialise an antenna list file.
         void deserialise(QIODevice* in);

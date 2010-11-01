@@ -39,6 +39,8 @@ ImageCombiner::~ImageCombiner()
 void ImageCombiner::run(const ImageData* in1, const ImageData* in2,
         ImageData* out)
 {
+    typedef ImageData::Real Real;
+
     // Get the image dimensions.
     unsigned width = in1->sizeL();
     unsigned height = in1->sizeM();
@@ -64,9 +66,9 @@ void ImageCombiner::run(const ImageData* in1, const ImageData* in2,
                 p2 = (_polInput2 == POL_X) ? 0 : 1;
             }
 
-            const real_t* ptr1 = in1->ptr(c1, p1);
-            const real_t* ptr2 = in2->ptr(c2, p2);
-            real_t* ptr0 = out->ptr(c, p);
+            const Real* ptr1 = in1->ptr(c1, p1);
+            const Real* ptr2 = in2->ptr(c2, p2);
+            Real* ptr0 = out->ptr(c, p);
 
             switch (_opcode) {
             case SUM:
@@ -105,7 +107,7 @@ void ImageCombiner::run(const ImageData* in1, const ImageData* in2,
  * @param[out] out   The output image.
  */
 void ImageCombiner::_operationSum(unsigned width, unsigned height,
-        const real_t* in1, const real_t* in2, real_t* out)
+        const Real* in1, const Real* in2, Real* out)
 {
     for (unsigned h = 0; h < height; h++) {
         for (unsigned w = 0; w < width; w++) {
@@ -133,13 +135,13 @@ void ImageCombiner::_operationSum(unsigned width, unsigned height,
  * @param[out] out   The output image.
  */
 void ImageCombiner::_operationSumm(unsigned width, unsigned height,
-        const real_t* in1, const real_t* in2, real_t* out)
+        const Real* in1, const Real* in2, Real* out)
 {
     for (unsigned h = 0; h < height; h++) {
         for (unsigned w = 0; w < width; w++) {
             unsigned index = w + h * width;
-            real_t i1 = isnan(in1[index]) ? 0 : in1[index];
-            real_t i2 = isnan(in2[index]) ? 0 : in2[index];
+            Real i1 = isnan(in1[index]) ? 0 : in1[index];
+            Real i2 = isnan(in2[index]) ? 0 : in2[index];
             out[index] = _a1 * i1 + _a2 * i2 + _a3;
         }
     }
@@ -161,7 +163,7 @@ void ImageCombiner::_operationSumm(unsigned width, unsigned height,
  * @param[out] out   The output image.
  */
 void ImageCombiner::_operationMean(unsigned width, unsigned height,
-        const real_t* in1, const real_t* in2, real_t* out)
+        const Real* in1, const Real* in2, Real* out)
 {
     for (unsigned h = 0; h < height; h++) {
         for (unsigned w = 0; w < width; w++) {
@@ -187,7 +189,7 @@ void ImageCombiner::_operationMean(unsigned width, unsigned height,
  * @param[out] out   The output image.
  */
 void ImageCombiner::_operationMult(unsigned width, unsigned height,
-        const real_t* in1, const real_t* in2, real_t* out)
+        const Real* in1, const Real* in2, Real* out)
 {
     for (unsigned h = 0; h < height; h++) {
         for (unsigned w = 0; w < width; w++) {
@@ -213,7 +215,7 @@ void ImageCombiner::_operationMult(unsigned width, unsigned height,
  * @param[out] out   The output image.
  */
 void ImageCombiner::_operationDiv(unsigned width, unsigned height,
-        const real_t* in1, const real_t* in2, real_t* out)
+        const Real* in1, const Real* in2, Real* out)
 {
     for (unsigned h = 0; h < height; h++) {
         for (unsigned w = 0; w < width; w++) {

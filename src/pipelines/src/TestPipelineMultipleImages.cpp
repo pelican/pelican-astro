@@ -38,8 +38,8 @@ TestPipelineMultipleImages::~TestPipelineMultipleImages()
 void TestPipelineMultipleImages::init()
 {
     _visModel = (ZenithModelVisibilities*) createModule("ZenithModelVisibilities");
-    _imagerA = (ZenithImagerDft*) createModule("ZenithImagerDft", "a");
-    _imagerB = (ZenithImagerDft*) createModule("ZenithImagerDft", "b");
+    _imagerA = (ZenithImagerDftDbl*) createModule("ZenithImagerDft", "a");
+    _imagerB = (ZenithImagerDftDbl*) createModule("ZenithImagerDft", "b");
     _fitsWriterA = (ImageWriterFits*) createModule("ImageWriterFits", "a");
     _fitsWriterB = (ImageWriterFits*) createModule("ImageWriterFits", "b");
 

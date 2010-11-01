@@ -31,8 +31,8 @@ ImageData::ImageData() : DataBlob("ImageData")
  * @param[in]   nChannels       Number of frequency channels in the image cube.
  * @param[in]   nPolarisations  Number of polarisations in the image cube.
  */
-ImageData::ImageData(const unsigned sizeL, const unsigned sizeM,
-        const std::vector<unsigned>& channels, const Polarisation polarisation)
+ImageData::ImageData(unsigned sizeL, unsigned sizeM,
+        const vector<unsigned>& channels, const Polarisation& polarisation)
 : DataBlob("ImageData")
 {
     clear();
@@ -59,8 +59,8 @@ ImageData::~ImageData()
  * @param[in] nChannels         Number of frequency channels in the image cube.
  * @param[in] nPolaristaions    Number of polarisations in the image cube.
  */
-void ImageData::resize(const unsigned sizeL, const unsigned sizeM,
-        const std::vector<unsigned>& channels, const Polarisation polarisation)
+void ImageData::resize(unsigned sizeL, unsigned sizeM,
+        const vector<unsigned>& channels, const Polarisation& polarisation)
 {
     _ampUnits = "JY/PIXEL";
     _sizeL = sizeL;
@@ -114,12 +114,12 @@ void ImageData::clear()
  * @param[in] c Channel.
  * @paran[in] p Polarisation.
  */
-void ImageData::calculateAmplitudeRange(const unsigned c, const unsigned p)
+void ImageData::calculateAmplitudeRange(unsigned c, unsigned p)
 {
     if (_image.empty())
         throw QString("ImageData::findAmpRange(): Image empty");
 
-    const real_t *image = this->ptr(c, p);
+    const Real *image = this->ptr(c, p);
     Q_ASSERT(image != NULL);
     unsigned index = c * _nPolarisations + p;
     _min[index] = DBL_MAX;
@@ -144,12 +144,12 @@ void ImageData::calculateAmplitudeRange(const unsigned c, const unsigned p)
  * @param[in] c Channel.
  * @paran[in] p Polarisation.
  */
-void ImageData::calculateMean(const unsigned c, const unsigned p)
+void ImageData::calculateMean(unsigned c, unsigned p)
 {
     if (_image.empty())
         throw QString("ImageData::findAmpRange(): Image empty");
 
-    const real_t *image = this->ptr(c, p);
+    const Real *image = this->ptr(c, p);
     unsigned index = c * _nPolarisations + p;
     _mean[index] = 0.0;
     for (unsigned i = 0; i < _image.size(); i++) {
@@ -163,7 +163,7 @@ void ImageData::calculateMean(const unsigned c, const unsigned p)
  * @details
  * Sort comparison function for sorting by absolute value value.
  */
-bool ImageData::_absSort(const real_t a, const real_t b)
+bool ImageData::_absSort(const Real a, const Real b)
 {
     return std::abs(a) < std::abs(b);
 }

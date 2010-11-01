@@ -3,6 +3,7 @@ SUBPACKAGE(data)
 
 # Set the list of source files that should be build for the data sub-package.
 set(data_src
+    src/AstroDataBlob.cpp
     src/AntennaPositions.cpp
     src/CorrectedVisibilityData.cpp
     src/FlagTable.cpp

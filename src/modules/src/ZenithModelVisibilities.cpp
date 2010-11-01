@@ -4,6 +4,7 @@
 #include "data/ModelVisibilityData.h"
 #include "data/AntennaPositions.h"
 #include "data/Source.h"
+#include "data/Constants.h"
 
 #include "pelican/data/DataBlob.h"
 #include "pelican/utility/pelicanTimer.h"
@@ -160,23 +161,23 @@ void ZenithModelVisibilities::_calculateDirectionCosines(
  * @param[in]  l            Array of source l-positions (length nSources).
  * @param[in]  m            Array of source m-positions (length nSources).
  */
-void ZenithModelVisibilities::_calculateModelVis(complex_t* vis,
-        unsigned nAnt, const real_t* antPosX, const real_t* antPosY,
+void ZenithModelVisibilities::_calculateModelVis(Complex* vis,
+        unsigned nAnt, const Real* antPosX, const Real* antPosY,
         const Source* sources, unsigned nSources, double frequency,
         Polarisation polarisation, const double* l, const double* m)
 {
     double k = (math::twoPi * frequency) / phy::c;
 
     // Calculate a vector of antenna signals for each source.
-    vector<complex_t> antSignal(nAnt * nSources);
-    complex_t* signal = &antSignal[0];
+    vector<Complex> antSignal(nAnt * nSources);
+    Complex* signal = &antSignal[0];
     double arg, amp;
-    complex_t weight;
+    Complex weight;
 
     for (unsigned s = 0; s < nSources; s++) {
         for (unsigned i = 0; i < nAnt; i++) {
             arg = (antPosX[i] * l[s] + antPosY[i] * m[s]) * k;
-            weight = complex_t(cos(arg), sin(arg));
+            weight = Complex(cos(arg), sin(arg));
             amp = (polarisation == POL_X) ? sources[s].amp1() : sources[s].amp2();
             signal[s * nAnt + i] = sqrt(amp) * weight;
         }
@@ -186,8 +187,8 @@ void ZenithModelVisibilities::_calculateModelVis(complex_t* vis,
     for (unsigned s = 0; s < nSources; s++) {
         for (unsigned j = 0; j < nAnt; j++) {
             for (unsigned i = 0; i < nAnt; i++) {
-                complex_t signalJ = signal[s * nAnt + j];
-                complex_t signalI = signal[s * nAnt + i];
+                Complex signalJ = signal[s * nAnt + j];
+                Complex signalI = signal[s * nAnt + i];
                 vis[j * nAnt + i] += signalJ * std::conj(signalI);
             }
         }

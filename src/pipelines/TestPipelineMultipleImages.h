@@ -15,7 +15,7 @@ class DataBlob;
 
 namespace astro {
 
-class ZenithImagerDft;
+class ZenithImagerDftDbl;
 class ImageWriterFits;
 class ZenithModelVisibilities;
 class ImageData;
@@ -44,8 +44,8 @@ class TestPipelineMultipleImages : public AbstractPipeline
 
     private:
         ZenithModelVisibilities* _visModel;
-        ZenithImagerDft* _imagerA;
-        ZenithImagerDft* _imagerB;
+        ZenithImagerDftDbl* _imagerA;
+        ZenithImagerDftDbl* _imagerB;
         ImageWriterFits* _fitsWriterA;
         ImageWriterFits* _fitsWriterB;
 

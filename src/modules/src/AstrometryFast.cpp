@@ -1,6 +1,6 @@
 #include "modules/AstrometryFast.h"
+#include "data/Constants.h"
 
-#include "pelican/utility/constants.h"
 #include <cmath>
 
 #include "pelican/utility/memCheck.h"

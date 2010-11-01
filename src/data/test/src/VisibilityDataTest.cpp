@@ -1,8 +1,6 @@
 #include "data/test/VisibilityDataTest.h"
 #include "data/VisibilityData.h"
-
-#include "pelican/utility/constants.h"
-#include "pelican/utility/memCheck.h"
+#include "data/Constants.h"
 
 namespace pelican {
 namespace astro {
@@ -43,24 +41,24 @@ void VisibilityDataTest::test_accessorMethods()
 
 //    // Use Case
 //    // Test getting the memory address of the first element.
-//    std::complex<real_t>* ptr = NULL;
+//    std::complex<Real>* ptr = NULL;
 //    ptr = data.ptr();
-//    CPPUNIT_ASSERT_EQUAL( std::complex<real_t>(0), *ptr );
+//    CPPUNIT_ASSERT_EQUAL( std::complex<Real>(0), *ptr );
 //
 //    // Use Case
 //    // Test getting the memory address of the second polarisation.
 //    ptr = data.ptr(1);
-//    CPPUNIT_ASSERT_EQUAL( std::complex<real_t>(nAntennas * nAntennas * nChannels), *ptr );
+//    CPPUNIT_ASSERT_EQUAL( std::complex<Real>(nAntennas * nAntennas * nChannels), *ptr );
 //
 //    // Use Case
 //    // Test getting the memory address of the middle channel in the first polarisation.
 //    ptr = data.ptr(nChannels / 2, 0);
-//    CPPUNIT_ASSERT_EQUAL( std::complex<real_t>(nAntennas * nAntennas * nChannels / 2), *ptr );
+//    CPPUNIT_ASSERT_EQUAL( std::complex<Real>(nAntennas * nAntennas * nChannels / 2), *ptr );
 //
 //    // Use Case
 //    // Test getting the memory address of the middle channel in the second polarisation.
 //    ptr = data.ptr(nChannels / 2, 1);
-//    CPPUNIT_ASSERT_EQUAL( std::complex<real_t>(nAntennas * nAntennas * 3 * nChannels / 2), *ptr );
+//    CPPUNIT_ASSERT_EQUAL( std::complex<Real>(nAntennas * nAntennas * 3 * nChannels / 2), *ptr );
 //
 //    // Use Case
 //    // Test getting the memory address of an element out of range.
@@ -87,7 +85,7 @@ void VisibilityDataTest::test_accessorMethodsLinear()
 
     // Fill the visibility matrix and read it out again.
     for (unsigned index = 0; index < nTotal; index++) {
-        std::complex<real_t> val(index);
+        std::complex<Real> val(index);
         data[index] = val;
         CPPUNIT_ASSERT_EQUAL( val, data(index) );
         CPPUNIT_ASSERT_EQUAL( val, data[index] );
@@ -95,9 +93,9 @@ void VisibilityDataTest::test_accessorMethodsLinear()
 
     // Use Case
     // Test getting the memory address of the first element.
-    std::complex<real_t>* ptr = NULL;
+    std::complex<Real>* ptr = NULL;
     ptr = data.ptr();
-    CPPUNIT_ASSERT_EQUAL( std::complex<real_t>(0), *ptr );
+    CPPUNIT_ASSERT_EQUAL( std::complex<Real>(0), *ptr );
 }
 
 /**
@@ -110,7 +108,7 @@ void VisibilityDataTest::test_emptyBlob()
     // Test getting the memory address of the first element.
     // Expect NULL to be returned.
     VisibilityData data;
-    std::complex<real_t>* ptr = data.ptr();
+    std::complex<Real>* ptr = data.ptr();
     CPPUNIT_ASSERT( ptr  == NULL );
 }
 
@@ -125,7 +123,7 @@ void VisibilityDataTest::test_resize()
     VisibilityData data;
     std::vector<unsigned> channels(128);
     data.resize(96, channels, POL_BOTH);
-    std::complex<real_t>* ptr = data.ptr(1);
+    std::complex<Real>* ptr = data.ptr(1);
     CPPUNIT_ASSERT( ptr  != NULL );
 
     // Use Case
@@ -153,7 +151,7 @@ void VisibilityDataTest::test_swap_same()
 
     // Fill the visibility matrix.
     for (unsigned index = 0; index < nTotal; index++) {
-        std::complex<real_t> val(index);
+        std::complex<Real> val(index);
         data[index] = val;
     }
 
@@ -162,7 +160,7 @@ void VisibilityDataTest::test_swap_same()
 
     // Data should be the same as it was before.
     for (unsigned index = 0; index < nTotal; index++) {
-        std::complex<real_t> val(index);
+        std::complex<Real> val(index);
         CPPUNIT_ASSERT_EQUAL( val, data(index) );
     }
 }
@@ -184,7 +182,7 @@ void VisibilityDataTest::test_swap_twice()
 
     // Fill the visibility matrix.
     for (unsigned index = 0; index < nTotal; index++) {
-        std::complex<real_t> val(index);
+        std::complex<Real> val(index);
         data[index] = val;
     }
 
@@ -196,7 +194,7 @@ void VisibilityDataTest::test_swap_twice()
 
     // Data should now be the same as it was before.
     for (unsigned index = 0; index < nTotal; index++) {
-        std::complex<real_t> val(index);
+        std::complex<Real> val(index);
         CPPUNIT_ASSERT_EQUAL( val, data(index) );
     }
 
@@ -210,7 +208,7 @@ void VisibilityDataTest::test_swap_twice()
 
     // Data should now be the same as it was before.
     for (unsigned index = 0; index < nTotal; index++) {
-        std::complex<real_t> val(index);
+        std::complex<Real> val(index);
         CPPUNIT_ASSERT_EQUAL( val, data(index) );
     }
 }

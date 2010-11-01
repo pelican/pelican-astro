@@ -7,13 +7,13 @@
 namespace pelican {
 namespace astro {
 
-PELICAN_DECLARE_ADAPTER(AdapterAntennaList)
+PELICAN_DECLARE_ADAPTER(AdapterAntennaListDbl)
 
 /**
  * @details
  * Constructs a new antenna list service data adapter.
  */
-AdapterAntennaList::AdapterAntennaList(const ConfigNode& config)
+AdapterAntennaListDbl::AdapterAntennaListDbl(const ConfigNode& config)
     : AbstractServiceAdapter(config)
 {
     _nAnt = config.getOption("antennas", "number", "96").toUInt();
@@ -24,16 +24,16 @@ AdapterAntennaList::AdapterAntennaList(const ConfigNode& config)
  * Desearalise a LOFAR station antenna list file.
  * Assumes that the QIODevice points to a ascii text file handle.
  */
-void AdapterAntennaList::deserialise(QIODevice* in)
+void AdapterAntennaListDbl::deserialise(QIODevice* in)
 {
     _setData();
 
     QTextStream s(in);
 
-    real_t* x = _antPos->xPtr();
-    real_t* y = _antPos->yPtr();
-    real_t* z = _antPos->zPtr();
-    real_t temp;
+    Real* x = _antPos->xPtr();
+    Real* y = _antPos->yPtr();
+    Real* z = _antPos->zPtr();
+    Real temp;
 
     for (unsigned a = 0; a < _nAnt; a++) {
         s >> x[a] >> y[a] >> z[a] >> temp >> temp >> temp;
@@ -43,7 +43,7 @@ void AdapterAntennaList::deserialise(QIODevice* in)
 /**
  * @details
  */
-void AdapterAntennaList::_setData()
+void AdapterAntennaListDbl::_setData()
 {
     if (_chunkSize == 0)
         throw QString("No data to read. Stream chunk size set to zero.");

@@ -10,7 +10,7 @@
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/TestConfig.h"
 #include "pelican/emulator/EmulatorDriver.h"
-#include "pelican/emulator/RealUdpEmulator.h"
+#include "pelican/emulator/test/RealUdpEmulator.h"
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTimer>
 #include "pelican/utility/Config.h"
@@ -20,6 +20,10 @@ using std::cout;
 using std::endl;
 
 namespace pelican {
+
+using test::RealUdpEmulator;
+using test::TestConfig;
+
 namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( TestPipelineServerTest );
@@ -217,7 +221,7 @@ void TestPipelineServerTest::_createConfig()
     "<clients>"
     "   <PelicanServerClient>"
     "       <server host=\"127.0.0.1\" port=\"2000\"/>"
-    "   <data type=\"VisibilityData\" adapter=\"AdapterLofarStationVisibilities\"/>"
+    "       <data type=\"VisibilityData\" adapter=\"AdapterLofarStationVisibilities\"/>"
     "   </PelicanServerClient>"
     "</clients>"
     ""

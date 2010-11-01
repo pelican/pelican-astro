@@ -1,26 +1,21 @@
 #ifndef ADAPTERLOFARSTATIONVISIBILITIES_H
 #define ADAPTERLOFARSTATIONVISIBILITIES_H
 
-#include "pelican/core/AbstractStreamAdapter.h"
-
-#include "data/Constants.h"
-
-#include <QtCore/QDataStream>
-
-#include <vector>
-
-using std::vector;
-
 /**
  * @file AdapterLofarStationVisibilities.h
  */
 
-namespace pelican {
+#include "pelican/core/AbstractStreamAdapter.h"
+#include "data/Constants.h"
+#include <QtCore/QDataStream>
+#include <complex>
+#include <vector>
+using std::vector;
 
+namespace pelican {
 class ConfigNode;
 
 namespace astro {
-
 class VisibilityData;
 
 /**
@@ -43,6 +38,9 @@ class AdapterLofarStationVisibilities : public AbstractStreamAdapter
 {
     private:
         friend class AdapterLofarStationVisibilitiesTest;
+
+    public:
+        typedef std::complex<double> Complex;
 
     public:
         /// Constructs the adapter
@@ -71,7 +69,7 @@ class AdapterLofarStationVisibilities : public AbstractStreamAdapter
         unsigned _nPol;         ///< Number of polarisations in the chunk.
         unsigned _dataBytes;    ///< Number of bytes per data point.
         Polarisation _polarisation; ///< The polarisation.
-        vector<unsigned> _channels;     ///< List of channels in the data.
+        vector<unsigned> _channels; ///< List of channels in the data.
         bool _rowMajor;         ///< Set if the data is C-ordered (row major).
         VisibilityData* _vis;   ///< Pointer to visibility data blob being read into.
 };

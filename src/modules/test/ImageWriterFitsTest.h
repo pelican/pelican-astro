@@ -1,12 +1,14 @@
 #ifndef IMAGEWRITERFITS_TEST_H
 #define IMAGEWRITERFITS_TEST_H
 
-#include <cppunit/extensions/HelperMacros.h>
-#include <QCoreApplication>
-
 /**
  * @file ImageWriterFitsTest.h
  */
+
+#include <cppunit/extensions/HelperMacros.h>
+#include <QCoreApplication>
+
+#include "data/ImageData.h"
 
 namespace pelican {
 namespace astro {
@@ -23,13 +25,15 @@ namespace astro {
 class ImageWriterFitsTest : public CppUnit::TestFixture
 {
     public:
+        typedef ImageData::Real Real;
+
+    public:
         CPPUNIT_TEST_SUITE( ImageWriterFitsTest );
         CPPUNIT_TEST( test_createModule );
         CPPUNIT_TEST( test_openFile );
         CPPUNIT_TEST( test_createImage );
         CPPUNIT_TEST( test_createCube );
         CPPUNIT_TEST_SUITE_END();
-
 
     public:
         void setUp();

@@ -36,7 +36,7 @@ TestPipelineRawImage::~TestPipelineRawImage()
  */
 void TestPipelineRawImage::init()
 {
-    _imager = (ZenithImagerDft*) createModule("ZenithImagerDft");
+    _imager = (ZenithImagerDftDbl*) createModule("ZenithImagerDft");
     _fitsWriter = (ImageWriterFits*) createModule("ImageWriterFits");
 
     // Requests for remote data to be inserted in the data hash.

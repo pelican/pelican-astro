@@ -15,7 +15,7 @@ class DataBlob;
 
 namespace astro {
 
-class ZenithImagerDft;
+class ZenithImagerDftDbl;
 class ImageWriterFits;
 class ImageData;
 
@@ -40,7 +40,7 @@ class TestPipelineRawImage : public AbstractPipeline
         void run(QHash<QString, DataBlob*>& data);
 
     private:
-        ZenithImagerDft* _imager;
+        ZenithImagerDftDbl* _imager;
         ImageWriterFits* _fitsWriter;
         ImageData* _image;
 };

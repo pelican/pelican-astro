@@ -1,6 +1,10 @@
 #ifndef ZENITHMODELVISIBILITIES_H
 #define ZENITHMODELVISIBILITIES_H
 
+/**
+ * @file ZenithModelVisibilities.h
+ */
+
 #include "data/SiteData.h"
 #include "data/CelestialData.h"
 #include "data/ModelVisibilityData.h"
@@ -9,12 +13,7 @@
 #include "data/Constants.h"
 
 #include <vector>
-
 using std::vector;
-
-/**
- * @file ZenithModelVisibilities.h
- */
 
 namespace pelican {
 
@@ -40,6 +39,10 @@ class Source;
 class ZenithModelVisibilities : public AbstractModule
 {
     public:
+        typedef std::complex<double> Complex;
+        typedef double Real;
+
+    public:
         /// Module constructor.
         ZenithModelVisibilities(const ConfigNode& config);
 
@@ -55,8 +58,8 @@ class ZenithModelVisibilities : public AbstractModule
                 const Source* sources, double* l, double* m);
 
         /// Calculate model visibilities.
-        void _calculateModelVis(complex_t* vis, unsigned nAnt,
-                const real_t* antPosX, const real_t* antPosY,
+        void _calculateModelVis(Complex* vis, unsigned nAnt,
+                const Real* antPosX, const Real* antPosY,
                 const Source* sources, unsigned nSources,
                 double frequency, Polarisation polarisation,
                 const double* l, const double* m);

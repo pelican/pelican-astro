@@ -1,7 +1,7 @@
 #include "data/test/FlagTableTest.h"
 #include "data/FlagTable.h"
+#include "data/Constants.h"
 
-#include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/utility/memCheck.h"
 

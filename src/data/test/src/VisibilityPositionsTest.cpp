@@ -42,24 +42,24 @@ void VisibilityPositionsTest::test_accessorMethods()
 
     for (unsigned j = 0; j < nAnt; j++) {
         for (unsigned i = 0; i < nAnt; i++) {
-            visPos.u(i, j) = static_cast<real_t>((j - i) * (refFreq / c));
-            visPos.v(i, j) = static_cast<real_t>((2 * j - i) * (refFreq / c));
-            visPos.w(i, j) = static_cast<real_t>(j * (refFreq / c));
+            visPos.u(i, j) = static_cast<Real>((j - i) * (refFreq / c));
+            visPos.v(i, j) = static_cast<Real>((2 * j - i) * (refFreq / c));
+            visPos.w(i, j) = static_cast<Real>(j * (refFreq / c));
         }
     }
 
-    real_t* u = visPos.uPtr();
-    real_t* v = visPos.vPtr();
-    real_t* w = visPos.wPtr();
+    Real* u = visPos.uPtr();
+    Real* v = visPos.vPtr();
+    Real* w = visPos.wPtr();
     double delta = 1.0e-5;
     CPPUNIT_ASSERT_DOUBLES_EQUAL(1.01, visPos.freqScaleFactor(1), delta);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(1.2, visPos.freqScaleFactor(20), delta);
 
     for (unsigned j = 0; j < nAnt; j++) {
         for (unsigned i = 0; i < nAnt; i++) {
-            real_t uval = static_cast<real_t>((j - i) * (refFreq / c));
-            real_t vval = static_cast<real_t>((2 * j - i) * (refFreq / c));
-            real_t wval = static_cast<real_t>(j * (refFreq / c));
+            Real uval = static_cast<Real>((j - i) * (refFreq / c));
+            Real vval = static_cast<Real>((2 * j - i) * (refFreq / c));
+            Real wval = static_cast<Real>(j * (refFreq / c));
             CPPUNIT_ASSERT_DOUBLES_EQUAL(uval, visPos.u(i, j), delta);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(uval, u[j * nAnt + i], delta);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(vval, visPos.v(i, j), delta);

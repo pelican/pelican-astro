@@ -3,12 +3,10 @@
 #include "modules/BasicFlagger.h"
 #include "data/VisibilityData.h"
 #include "data/FlagTable.h"
+#include "data/Constants.h"
 
-#include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
 #include <algorithm>
-
-#include "pelican/utility/memCheck.h"
 
 namespace pelican {
 namespace astro {
@@ -100,20 +98,20 @@ void BasicFlaggerTest::test__flagAutocorrelations()
     const unsigned nAntennas = 97;
     const unsigned nChannels = 512;
     const unsigned nPols = 2;
-    const real_t minFraction = 0.25;
-    const real_t maxFraction = 1.25;
+    const double minFraction = 0.25;
+    const double maxFraction = 1.25;
     std::vector<unsigned> channels(nChannels);
     VisibilityData visData(nAntennas, channels, POL_BOTH);
     FlagTable flagTable(nAntennas, channels, POL_BOTH);
-    std::vector<complex_t> medians(nChannels * nPols);
+    std::vector<std::complex<double> > medians(nChannels * nPols);
 
     // Fill the visibility matrix
     for (unsigned p = 0; p < nPols; p++) {
         for (unsigned c = 0; c < nChannels; c++) {
-            complex_t* vis = visData.ptr(c, p);
+            std::complex<double>* vis = visData.ptr(c, p);
             for (unsigned aj = 0; aj < nAntennas; aj++) {
                 for (unsigned ai = 0; ai < nAntennas; ai++) {
-                    std::complex<real_t> val( sqrt((ai+1)*(aj+1)) );
+                    std::complex<double> val( sqrt((ai+1)*(aj+1)) );
                     vis[ai + aj * nAntennas] = val;
                 }
             }
@@ -143,15 +141,15 @@ void BasicFlaggerTest::test__getAutocorrelations()
     const unsigned nPols = 2;
     std::vector<unsigned> channels(nChannels);
     VisibilityData visData(nAntennas, channels, POL_BOTH);
-    std::vector<complex_t> autocorr(nAntennas * nChannels * nPols);
+    std::vector<Complex> autocorr(nAntennas * nChannels * nPols);
 
     // Fill the visibility matrix
     for (unsigned p = 0; p < nPols; p++) {
         for (unsigned c = 0; c < nChannels; c++) {
-            complex_t* vis = visData.ptr(c, p);
+            Complex* vis = visData.ptr(c, p);
             for (unsigned aj = 0; aj < nAntennas; aj++) {
                 for (unsigned ai = 0; ai < nAntennas; ai++) {
-                    std::complex<real_t> val( (ai+1)*(aj+1) );
+                    std::complex<Real> val( (ai+1)*(aj+1) );
                     vis[ai + aj * nAntennas] = val;
                 }
             }
@@ -168,7 +166,7 @@ void BasicFlaggerTest::test__getAutocorrelations()
     for (unsigned p = 0, i = 0; p < nPols; p++) {
         for (unsigned c = 0; c < nChannels; c++) {
             for (unsigned a = 0; a < nAntennas; a++) {
-                std::complex<real_t> val( (a+1)*(a+1) );
+                std::complex<Real> val( (a+1)*(a+1) );
                 CPPUNIT_ASSERT_EQUAL( val, autocorr[i] );
                 i++;
             }
@@ -188,19 +186,19 @@ void BasicFlaggerTest::test__getMedians()
     const unsigned nAntennas = 96;
     const unsigned nChannels = 512;
     const unsigned nPols = 2;
-    std::vector<complex_t> autocorr(nAntennas * nChannels * nPols);
-    std::vector<complex_t> medians(nChannels * nPols);
+    std::vector<Complex> autocorr(nAntennas * nChannels * nPols);
+    std::vector<Complex> medians(nChannels * nPols);
 
     // Fill the autocorrelation data.
     for (unsigned p = 0; p < nPols; p++) {
         for (unsigned c = 0; c < nChannels; c++) {
             /* Get the address of the start of the antenna list */
             const unsigned i = c * nAntennas + p * nAntennas * nChannels;
-            complex_t* beg = &autocorr[i];
-            complex_t* end = &autocorr[i + nAntennas];
+            Complex* beg = &autocorr[i];
+            Complex* end = &autocorr[i + nAntennas];
 
             for (unsigned a = 0; a < nAntennas; a++) {
-                std::complex<real_t> val( p + c + a*a );
+                std::complex<Real> val( p + c + a*a );
                 autocorr[i + a] = val;
             }
             std::random_shuffle(beg, end);
@@ -216,7 +214,7 @@ void BasicFlaggerTest::test__getMedians()
     // Check the medians.
     for (unsigned p = 0, i = 0; p < nPols; p++) {
         for (unsigned c = 0; c < nChannels; c++) {
-            std::complex<real_t> val( p + c + (nAntennas/2)*(nAntennas/2) );
+            std::complex<Real> val( p + c + (nAntennas/2)*(nAntennas/2) );
             CPPUNIT_ASSERT_EQUAL( val, medians[i] );
             i++;
         }
@@ -235,20 +233,20 @@ void BasicFlaggerTest::test__moveBadAntennas()
     const unsigned nAntennas = 97;
     const unsigned nChannels = 512;
     const unsigned nPols = 2;
-    const real_t minFraction = 0.5;
-    const real_t maxFraction = 1.5;
+    const Real minFraction = 0.5;
+    const Real maxFraction = 1.5;
     std::vector<unsigned> channels(nChannels);
     VisibilityData visData(nAntennas, channels, POL_BOTH);
     FlagTable flagTable(nAntennas, channels, POL_BOTH);
-    std::vector<complex_t> medians(nChannels * nPols);
+    std::vector<Complex> medians(nChannels * nPols);
 
     // Fill the visibility matrix
     for (unsigned p = 0; p < nPols; p++) {
         for (unsigned c = 0; c < nChannels; c++) {
-            complex_t* vis = visData.ptr(c, p);
+            Complex* vis = visData.ptr(c, p);
             for (unsigned aj = 0; aj < nAntennas; aj++) {
                 for (unsigned ai = 0; ai < nAntennas; ai++) {
-                    std::complex<real_t> val( sqrt((ai+1)*(aj+1)) );
+                    std::complex<Real> val( sqrt((ai+1)*(aj+1)) );
                     vis[ai + aj * nAntennas] = val;
                 }
             }

@@ -1,8 +1,8 @@
 #include "modules/test/AstrometryFastTest.h"
 #include "modules/AstrometryFast.h"
+#include "data/Constants.h"
 
 #include "pelican/utility/pelicanTimer.h"
-#include "pelican/utility/constants.h"
 
 #include <iostream>
 

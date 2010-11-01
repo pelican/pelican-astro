@@ -12,6 +12,9 @@ using std::cout;
 using std::endl;
 
 namespace pelican {
+
+using test::TestConfig;
+
 namespace astro {
 
 

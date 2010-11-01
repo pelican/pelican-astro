@@ -6,7 +6,6 @@
 #include "data/Constants.h"
 
 #include "pelican/utility/pelicanTimer.h"
-#include "pelican/utility/constants.h"
 #include "pelican/utility/ConfigNode.h"
 
 #include <limits>
@@ -51,7 +50,7 @@ void ZenithImagerDftTest::test_configuration()
     /// Expect configuration defaults
     {
         ConfigNode config;
-        ZenithImagerDft imager(config);
+        ZenithImagerDftDbl imager(config);
         CPPUNIT_ASSERT(imager._sizeL == 128);
         CPPUNIT_ASSERT(imager._sizeM == 128);
         CPPUNIT_ASSERT(imager._fullSky == true);
@@ -74,7 +73,7 @@ void ZenithImagerDftTest::test_inputDataBlobs()
 {
     try {
         ConfigNode config;
-        ZenithImagerDft imager(config);
+        ZenithImagerDftDbl imager(config);
         imager._polarisation = POL_X;
         ImageData image;
         VisibilityData vis;
@@ -118,7 +117,7 @@ void ZenithImagerDftTest::test_calculateImageCoords()
     // Expect predictable image coordinates and negligible time taken
     {
         ConfigNode config;
-        ZenithImagerDft imager(config);
+        ZenithImagerDftDbl imager(config);
         int sizeL = 256;
         int sizeM = 256;
         double cellsizeL = math::rad2asec;
@@ -159,8 +158,11 @@ void ZenithImagerDftTest::test_calculateImageCoords()
  */
 void ZenithImagerDftTest::test_calculateWeights()
 {
+    typedef ZenithImagerDftDbl::Real Real;
+    typedef ZenithImagerDftDbl::Complex Complex;
+
     ConfigNode config;
-    ZenithImagerDft imager(config);
+    ZenithImagerDftDbl imager(config);
 
     // Use case
     // Setup a imager module. Time and check calculation of image DFT weights
@@ -168,20 +170,20 @@ void ZenithImagerDftTest::test_calculateWeights()
     {
         // Make a antenna positions array
         unsigned nAnt = 96;
-        std::vector<real_t> antPos(nAnt);
+        std::vector<Real> antPos(nAnt);
         for (unsigned a = 0; a < nAnt; a++) {
             antPos[a] = static_cast<double>(a) / 15.0;
         }
 
         // Make an image coordinate array
         unsigned nCoords = 256;
-        std::vector<real_t> coords(nCoords);
+        std::vector<Real> coords(nCoords);
         for (unsigned i = 0; i < nCoords; i++) {
             coords[i] = static_cast<double>(i) / 10.0;
         }
 
         double freq = 1.0e8;
-        std::vector<complex_t> weights(nAnt * nCoords);
+        std::vector<Complex> weights(nAnt * nCoords);
 
         TIMER_START
         imager._calculateWeights(nAnt, &antPos[0], freq, nCoords, &coords[0],
@@ -189,7 +191,7 @@ void ZenithImagerDftTest::test_calculateWeights()
         TIMER_STOP("ZenithImagerDft::_calculateWeights()");
 
         // Need to check something here....?
-        CPPUNIT_ASSERT(weights[0] == complex_t(1.0, 0.0));
+        CPPUNIT_ASSERT(weights[0] == Complex(1.0, 0.0));
         // check all the weights are in range 1 to -1
         for (unsigned w = 0; w < nAnt * nCoords; w++) {
             CPPUNIT_ASSERT(weights[w].real() <= 1.0 && weights[w].real() >= -1.0);
@@ -203,12 +205,12 @@ void ZenithImagerDftTest::test_calculateWeights()
     // and negligible time taken
     {
         unsigned nAnt = 96;
-        std::vector<complex_t> weightsXL(nAnt);
-        std::vector<complex_t> weightsYM(nAnt);
-        std::vector<complex_t> weights(nAnt);
+        std::vector<Complex> weightsXL(nAnt);
+        std::vector<Complex> weightsYM(nAnt);
+        std::vector<Complex> weights(nAnt);
         for (unsigned a = 0; a < nAnt; a++) {
-            weightsXL[a] = complex_t(a * 0.1, a * 0.2);
-            weightsXL[a] = complex_t(a * 0.3, a * 0.4);
+            weightsXL[a] = Complex(a * 0.1, a * 0.2);
+            weightsXL[a] = Complex(a * 0.3, a * 0.4);
         }
 
         TIMER_START
@@ -227,18 +229,21 @@ void ZenithImagerDftTest::test_calculateWeights()
  */
 void ZenithImagerDftTest::test_makeImageDft()
 {
+    typedef ZenithImagerDftDbl::Real Real;
+    typedef ZenithImagerDftDbl::Complex Complex;
+
     ConfigNode config;
-    ZenithImagerDft imager(config);
+    ZenithImagerDftDbl imager(config);
     unsigned nAnt = 96;
     double freq = 1.0e8;
     unsigned nL = 128;
     unsigned nM = 128;
-    std::vector<real_t> antX(nAnt);
-    std::vector<real_t> antY(nAnt);
-    std::vector<complex_t> vis(nAnt * nAnt);
-    std::vector<real_t> coordL(nL);
-    std::vector<real_t> coordM(nM);
-    std::vector<real_t> image(nL * nM);
+    std::vector<Real> antX(nAnt);
+    std::vector<Real> antY(nAnt);
+    std::vector<Complex> vis(nAnt * nAnt);
+    std::vector<Real> coordL(nL);
+    std::vector<Real> coordM(nM);
+    std::vector<Real> image(nL * nM);
 
     TIMER_START
     imager._makeImageDft(nAnt, &antX[0], &antY[0], &vis[0], freq, nL, nM,

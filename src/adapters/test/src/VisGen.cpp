@@ -37,7 +37,7 @@ QByteArray VisGen::byteArray()
         throw QString("VisGen: Data not yet generated.");
 
     char* data = reinterpret_cast<char*>(&_data[0]);
-    return QByteArray(data, sizeof(complex_t) * _data.size());
+    return QByteArray(data, sizeof(Complex) * _data.size());
 }
 
 /**
@@ -85,7 +85,7 @@ void VisGen::write(const string& fileName)
     /* Write data to file either as binary or ASCII */
     if (_binary) {
         file.write(reinterpret_cast<char*>(&_data[0]),
-                sizeof(complex_t) * _data.size());
+                sizeof(Complex) * _data.size());
     }
     else {
         int nPointsPerChan = _nAnt * _nPol * _nAnt * _nPol;
@@ -179,7 +179,7 @@ void VisGen::_generate(int nAnt, int nChan, int nPol)
                         im += (pi == pj) ? float(1000.0) * pi : float(-99999.9);
                         // =====================================================
 
-                        _data[index] = complex_t(re, im);
+                        _data[index] = Complex(re, im);
                     }
                 } // loop over columns
 

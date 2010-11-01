@@ -50,7 +50,7 @@ void TestPipelineMultipleImagesTest::tearDown()
 void TestPipelineMultipleImagesTest::test_method()
 {
     cout << "==== TestPipelineMultipleImagesTest ====" << endl;
-    TestConfig config;
+    test::TestConfig config;
     int argc = 2;
     char** argv = config.argv("TestPipelineMultipleImages.xml", "pipelines");
 

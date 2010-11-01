@@ -9,8 +9,9 @@
 #include "data/VisibilityData.h"
 
 #include "pelican/modules/AbstractModule.h"
-#include "pelican/utility/constants.h"
+#include "data/Constants.h"
 
+#include <complex>
 #include <vector>
 using std::vector;
 
@@ -33,17 +34,21 @@ class AntennaPositions;
  *
  * @details
  */
-class ZenithImagerDft : public AbstractModule
+class ZenithImagerDftDbl : public AbstractModule
 {
     private:
         friend class ZenithImagerDftTest;
 
     public:
+        typedef double Real;
+        typedef std::complex<double> Complex;
+
+    public:
         /// Module constructor.
-        ZenithImagerDft(const ConfigNode& config);
+        ZenithImagerDftDbl(const ConfigNode& config);
 
         /// Module destructor.
-        ~ZenithImagerDft();
+        ~ZenithImagerDftDbl();
 
         /// Sets the channels (\p c) produce an image from.
         /// Method overrides the selected channels from the configuration.
@@ -76,35 +81,35 @@ class ZenithImagerDft : public AbstractModule
 
         /// Generates an array of image coordinates in radians.
         void _calculateImageCoords(double cellsize, unsigned nPixels,
-                real_t* coords);
+                Real* coords);
 
         /// Calculate DFT weights for imaging.
-        void _calculateWeights(unsigned nAnt, const real_t* antPos,
-                double frequency, unsigned nCoords, const real_t* imageCoord,
-                complex_t* weights);
+        void _calculateWeights(unsigned nAnt, const Real* antPos,
+                double frequency, unsigned nCoords, const Real* imageCoord,
+                Complex* weights);
 
         /// Construct the image by DFT.
-        void _makeImageDft(unsigned nAnt, const real_t* antPosX,
-                const real_t* antPosY, const complex_t* vis, double frequency,
-                unsigned nL, unsigned nM, const real_t* coordL,
-                const real_t* coordM, real_t *image);
+        void _makeImageDft(unsigned nAnt, const Real* antPosX,
+                const Real* antPosY, const Complex* vis, double frequency,
+                unsigned nL, unsigned nM, const Real* coordL,
+                const Real* coordM, Real *image);
 
         /// Element wise multiplication of two complex weights vectors.
-        void _multWeights(unsigned nAnt, complex_t* weightsXL,
-                complex_t *weightsYM, complex_t *weights);
+        void _multWeights(unsigned nAnt, Complex* weightsXL,
+                Complex *weightsYM, Complex *weights);
 
         /// Cut the image outside unit radius in l, m.
-        void _cutHemisphere(real_t* image, unsigned nL, unsigned nM,
-                real_t *l, real_t *m);
+        void _cutHemisphere(Real* image, unsigned nL, unsigned nM,
+                Real *l, Real *m);
 
         /// Sets the cellsize corresponding to a full sky image.
         void _setCellsizeFullSky();
 
         /// Remove auto-correlations.
-        void _zeroAutoCorrelations(complex_t* vis, unsigned nAnt);
+        void _zeroAutoCorrelations(Complex* vis, unsigned nAnt);
 
         /// Generate a set of visibilities for creating a point spread function.
-        void _setPsfVisibilties(complex_t* vis, unsigned nAnt);
+        void _setPsfVisibilties(Complex* vis, unsigned nAnt);
 
         /// Sets the image meta-data.
         void _setImageMetaData(ImageData* image);
@@ -129,11 +134,11 @@ class ZenithImagerDft : public AbstractModule
         double _cellsizeL;             ///< Image pixel increment in m (y) direction.
         double _cellsizeM;             ///< Image pixel increment in l (x) direction.
 
-        vector<real_t> _coordL;        ///< Image l (x) coordinates in radians.
-        vector<real_t> _coordM;        ///< Image m (y) coordinates in radians.
+        vector<Real> _coordL;        ///< Image l (x) coordinates in radians.
+        vector<Real> _coordM;        ///< Image m (y) coordinates in radians.
 
-        vector<complex_t> _weightsXL;  ///< DFT weights for XL coordinates
-        vector<complex_t> _weightsYM;  ///< DFT weights for YM coordinates
+        vector<Complex> _weightsXL;  ///< DFT weights for XL coordinates
+        vector<Complex> _weightsYM;  ///< DFT weights for YM coordinates
 };
 
 } // namespace astro

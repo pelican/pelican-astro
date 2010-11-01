@@ -49,7 +49,7 @@ void AdapterAntennaListTest::test_method()
     QFile file(fileName);
     if (!file.exists()) return;
     file.open(QIODevice::ReadOnly);
-    AdapterAntennaList *adapter = new AdapterAntennaList(ConfigNode(QDomElement()));
+    AdapterAntennaListDbl *adapter = new AdapterAntennaListDbl(ConfigNode(QDomElement()));
     AntennaPositions data;
     adapter->config(&data, file.size());
     adapter->deserialise(&file);

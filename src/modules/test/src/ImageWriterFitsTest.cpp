@@ -1,9 +1,9 @@
 #include "modules/test/ImageWriterFitsTest.h"
 #include "modules/ImageWriterFits.h"
 #include "data/ImageData.h"
+#include "data/Constants.h"
 
 #include "pelican/utility/Config.h"
-#include "pelican/utility/constants.h"
 #include "pelican/utility/pelicanTimer.h"
 #include "pelican/data/DataBlob.h"
 
@@ -55,7 +55,7 @@ void ImageWriterFitsTest::test_openFile()
     ImageData image(128, 128, channels, POL_BOTH);
     fits._open("testEmpty", 128, 128, 1, 1, true);
     fits._writeHeader(&image);
-    real_t* im = image.ptr();
+    Real* im = image.ptr();
     fits._writeImage(im, 128, 128, 0, 1, 0);
     fits._close();
 }
@@ -71,17 +71,17 @@ void ImageWriterFitsTest::test_createImage()
     unsigned nPol = 1;
     std::vector<unsigned> channels(2);
     ImageData image(nL, nM, channels, POL_X);
-    real_t* amp = image.ptr();
+    Real* amp = image.ptr();
     for (unsigned m = 0; m < image.sizeM(); m++) {
         for (unsigned l = 0; l < image.sizeL(); l++) {
             unsigned index = m * image.sizeL() + l;
-            amp[index] = static_cast<real_t>(m);
+            amp[index] = static_cast<Real>(m);
         }
     }
     TIMER_START
     fits._open("test", nL, nM, nChan, nPol, true);
     fits._writeHeader(&image);
-    real_t* im = image.ptr();
+    Real* im = image.ptr();
     fits._writeImage(im, nL, nL, 0, nPol,  0);
     TIMER_STOP("ImageWriterFitsTest::test_createImage()");
     fits._close();
@@ -103,7 +103,7 @@ void ImageWriterFitsTest::test_createCube()
     channels[0] = 0;
     channels[1] = 1;
     ImageData image(nL, nM, channels, POL_BOTH);
-    real_t* amp = image.ptr();
+    Real* amp = image.ptr();
     unsigned nPixelsPerPol = nM * nL;
     unsigned nPixelsPerChan = nM * nL * nPol;
     unsigned nPixelsPerRow = nL;
@@ -114,12 +114,12 @@ void ImageWriterFitsTest::test_createCube()
                 for (unsigned l = 0; l < image.sizeL(); l++) {
                     unsigned index = c * nPixelsPerChan + p * nPixelsPerPol + m * nPixelsPerRow + l;
                     if (c == 0) {
-                        if (p == 0) amp[index] = static_cast<real_t>(m);
-                        if (p == 1) amp[index] = static_cast<real_t>(l);
+                        if (p == 0) amp[index] = Real(m);
+                        if (p == 1) amp[index] = Real(l);
                     }
                     if (c == 1) {
-                        if (p == 0) amp[index] = static_cast<real_t>(l) + static_cast<real_t>(m);
-                        if (p == 1) amp[index] = static_cast<real_t>(l) - static_cast<real_t>(m);
+                        if (p == 0) amp[index] = Real(l) + Real(m);
+                        if (p == 1) amp[index] = Real(l) - Real(m);
                     }
                 }
             }
