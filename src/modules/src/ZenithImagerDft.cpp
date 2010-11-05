@@ -22,7 +22,9 @@ using std::cerr;
 #ifdef USING_MKL
     #include <mkl.h>
 #else
-    extern "C" { #include <cblas.h> }
+    extern "C" {
+        #include <cblas.h>
+    }
 #endif
 
 #include "pelican/utility/memCheck.h"
