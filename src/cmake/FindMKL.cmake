@@ -85,7 +85,7 @@ foreach(mkl_lib ${mkl_lib_names})
     endif (intel_64)
 
     set(tmp_library ${${mkl_lib}_LIBRARY})
-#    message(STATUS "==================== ${${mkl_lib}_LIBRARY}")
+    #message(STATUS "==================== ${${mkl_lib}_LIBRARY}")
     if (tmp_library)
         list(APPEND MKL_LIBRARIES ${tmp_library})
     endif(tmp_library)

@@ -37,7 +37,7 @@ class AntennaPositionsTest : public CppUnit::TestFixture
         void tearDown();
 
         // Test Methods
-        ///Test accessor methods for visibility positions class
+        /// Test accessor methods for visibility positions class
         void test_accessorMethods();
 
     public:

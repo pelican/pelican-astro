@@ -13,6 +13,7 @@ using std::cout;
 using std::endl;
 
 namespace pelican {
+using test::TestConfig;
 namespace astro {
 
 CPPUNIT_TEST_SUITE_REGISTRATION( TestPipelineCalibrateImageTest );
